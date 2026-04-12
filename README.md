@@ -7,11 +7,13 @@ Static marketing site for **Blackbox Advancements**, built for **GitHub Pages** 
 - `index.html`
 - `services.html`
 - `solutions.html`
+- `systems.html`
 - `industries.html`
 - `about.html`
+- `faq.html`
 - `contact.html`
 
-## Assets
+## Assets and support files
 
 - `assets/logo.svg`
 - `assets/favicon.svg`
@@ -19,6 +21,28 @@ Static marketing site for **Blackbox Advancements**, built for **GitHub Pages** 
 - `script.js`
 - `CNAME`
 - `.nojekyll`
+- `robots.txt`
+- `sitemap.xml`
+
+## Website positioning
+
+This site is designed to position Blackbox Advancements as a **serious AI infrastructure and automation partner**, not just a marketing agency.
+
+It covers:
+- AI sales automation
+- cold calls, texts, and emails
+- Google Ads and Facebook Ads management
+- social media automation across Instagram, Facebook, TikTok, X, and other relevant channels
+- AI landing pages and full websites
+- CRM setup and automation
+- automated follow-up and scheduling
+- client-side portals
+- agent-side portals
+- AI assistants and AI calling via Wispr, Claude, and OpenClaw
+- SEO management and secure logins
+- AI research and plain-language website updates
+- OpenClaw installation with a local always-on business machine
+- 24/7 support for edits, issues, and improvements
 
 ## Deploy to GitHub Pages
 
