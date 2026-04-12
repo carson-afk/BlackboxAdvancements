@@ -1,67 +1,55 @@
-# Blackbox Advancements — Website
+# Blackbox Advancements
 
-Static multi-page website for [blackboxadvancements.com](https://blackboxadvancements.com).
+Static marketing site for **Blackbox Advancements**, built for **GitHub Pages** with **Namecheap** as the domain registrar for `blackboxadvancements.com`.
 
-## Stack
+## Included pages
 
-- Plain HTML, CSS, JavaScript
-- No build step, no dependencies
-- Hosted on GitHub Pages
+- `index.html`
+- `services.html`
+- `solutions.html`
+- `industries.html`
+- `about.html`
+- `contact.html`
 
-## Pages
+## Assets
 
-- `index.html` — Home / landing page
-- `services.html` — Full service breakdown
-- `solutions.html` — Turnkey solution packages
-- `industries.html` — Industry-specific automation
-- `about.html` — Company mission and principles
-- `contact.html` — Contact form and FAQ
+- `assets/logo.svg`
+- `assets/favicon.svg`
+- `style.css`
+- `script.js`
+- `CNAME`
+- `.nojekyll`
 
-## Local Development
+## Deploy to GitHub Pages
 
-Open any `.html` file directly in a browser, or serve locally:
+1. Create a GitHub repo.
+2. Push this folder to the `main` branch.
+3. In GitHub, go to **Settings → Pages**.
+4. Set the source to **Deploy from a branch**.
+5. Choose **main** and **/(root)**.
+6. Save.
 
-```bash
-python3 -m http.server 8000
-# then visit http://localhost:8000
-```
+GitHub Pages will serve the static files automatically.
 
-## GitHub Pages Deployment
+## Connect the custom domain in Namecheap
 
-1. Push this repo to GitHub (e.g., `blackboxadvancements/blackboxadvancements.github.io` or any repo with Pages enabled).
-2. In **Settings > Pages**, set source to the branch and root (`/`) directory.
-3. The `CNAME` file is already configured for `blackboxadvancements.com`.
-4. The `.nojekyll` file disables Jekyll processing (not needed for plain HTML).
+Add these records in **Namecheap → Domain List → Manage → Advanced DNS**:
 
-## Namecheap DNS Configuration
+- `@` → A → `185.199.108.153`
+- `@` → A → `185.199.109.153`
+- `@` → A → `185.199.110.153`
+- `@` → A → `185.199.111.153`
+- `www` → CNAME → `<your-github-username>.github.io`
 
-In your Namecheap domain dashboard, set the following DNS records:
+Then in GitHub Pages:
 
-| Type  | Host | Value                          |
-|-------|------|--------------------------------|
-| A     | @    | 185.199.108.153                |
-| A     | @    | 185.199.109.153                |
-| A     | @    | 185.199.110.153                |
-| A     | @    | 185.199.111.153                |
-| CNAME | www  | `<your-username>.github.io`    |
+- set custom domain to `blackboxadvancements.com`
+- wait for certificate issuance
+- enable HTTPS when it becomes available
 
-After DNS propagates (up to 48 hours), enable **Enforce HTTPS** in GitHub Pages settings.
+## Notes
 
-## File Structure
-
-```
-├── index.html
-├── services.html
-├── solutions.html
-├── industries.html
-├── about.html
-├── contact.html
-├── CNAME
-├── .nojekyll
-├── README.md
-└── assets/
-    ├── styles.css
-    ├── main.js
-    ├── logo.svg
-    └── favicon.svg
-```
+- This site is fully static and GitHub Pages safe.
+- The contact form currently uses a `mailto:` action for static compatibility.
+- Replace `hello@blackboxadvancements.com` with the final business inbox if needed.
+- If you want a real submission endpoint later, connect the form to Formspree, Basin, a Cloudflare Worker, or another static-friendly form handler.
