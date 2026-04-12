@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 48" fill="none">
+  <defs>
+    <linearGradient id="bbGrad" x1="0" y1="0" x2="48" y2="48" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#a855f7"/>
+      <stop offset="100%" stop-color="#7c3aed"/>
+    </linearGradient>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="2" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  <rect x="2" y="4" width="40" height="40" rx="8" fill="url(#bbGrad)" filter="url(#glow)"/>
+  <text x="10" y="34" font-family="'Inter','Segoe UI',system-ui,sans-serif" font-size="26" font-weight="800" fill="#0a0a0f" letter-spacing="-1">BB</text>
+  <text x="52" y="23" font-family="'Inter','Segoe UI',system-ui,sans-serif" font-size="18" font-weight="700" fill="#ffffff" letter-spacing="0.5">BLACKBOX</text>
+  <text x="52" y="40" font-family="'Inter','Segoe UI',system-ui,sans-serif" font-size="12" font-weight="400" fill="#a855f7" letter-spacing="3">ADVANCEMENTS</text>
+</svg>
