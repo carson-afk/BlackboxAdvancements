@@ -75,7 +75,8 @@
   /* Ticker — duplicate for seamless scroll ----------------------------- */
   document.querySelectorAll('.ticker-track').forEach((track) => {
     const wrap = document.createElement('div');
-    wrap.style.cssText = 'display:flex; gap:3rem; white-space:nowrap; animation:marqueeScroll 40s linear infinite; will-change:transform;';
+    const tickerDur = window.innerWidth <= 640 ? 90 : 65;
+    wrap.style.cssText = `display:flex; gap:3rem; white-space:nowrap; animation:marqueeScroll ${tickerDur}s linear infinite; will-change:transform;`;
     track.parentNode.insertBefore(wrap, track);
     wrap.appendChild(track);
     const clone = track.cloneNode(true);
@@ -90,9 +91,9 @@
   /* Carousel seamless duplication ------------------------------------- */
   const carouselDur = () => {
     const w = window.innerWidth;
-    if (w <= 640) return 90;
-    if (w <= 980) return 65;
-    return 45;
+    if (w <= 640) return 140;
+    if (w <= 980) return 100;
+    return 75;
   };
   document.querySelectorAll('.carousel').forEach((track) => {
     const clone = track.cloneNode(true);
@@ -114,8 +115,8 @@
       const m = document.createElement('span');
       m.className = 'meteor';
       m.style.setProperty('--x', `${Math.random() * 100}%`);
-      m.style.setProperty('--delay', `${Math.random() * 6}s`);
-      m.style.setProperty('--dur', `${4 + Math.random() * 6}s`);
+      m.style.setProperty('--delay', `${Math.random() * 14}s`);
+      m.style.setProperty('--dur', `${10 + Math.random() * 10}s`);
       host.appendChild(m);
     }
   });

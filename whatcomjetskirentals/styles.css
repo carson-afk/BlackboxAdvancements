@@ -117,7 +117,7 @@ body::after {
     radial-gradient(ellipse at 40% 80%, rgba(0, 167, 192, 0.08), transparent 50%);
   filter: blur(70px);
   opacity: 0.8;
-  animation: auroraSlide 22s ease-in-out infinite;
+  animation: auroraSlide 45s ease-in-out infinite;
 }
 @keyframes auroraSlide {
   0%, 100% { transform: translate(0, 0) rotate(0deg); }
@@ -215,7 +215,7 @@ body::after {
   color: var(--foam);
   text-shadow: 0 0 4px rgba(238, 247, 251, 0.4), 0 0 14px rgba(238, 247, 251, 0.18);
 }
-.flicker { animation: softPulse 5s ease-in-out infinite; }
+.flicker { animation: softPulse 9s ease-in-out infinite; }
 @keyframes softPulse {
   0%, 100% { text-shadow: 0 0 8px rgba(0, 234, 255, 0.5), 0 0 22px rgba(0, 234, 255, 0.25); }
   50%      { text-shadow: 0 0 10px rgba(0, 234, 255, 0.7), 0 0 30px rgba(0, 234, 255, 0.4); }
@@ -356,7 +356,7 @@ section { position: relative; z-index: 3; }
   opacity: 0.4;
   mask-image: linear-gradient(to top, black, transparent 70%);
   -webkit-mask-image: linear-gradient(to top, black, transparent 70%);
-  animation: gridScroll 14s linear infinite;
+  animation: gridScroll 30s linear infinite;
 }
 @keyframes gridScroll { 0% { background-position: 0 0; } 100% { background-position: 0 80px; } }
 
@@ -382,9 +382,9 @@ section { position: relative; z-index: 3; }
   width: 8px; height: 8px;
   background: var(--aqua); border-radius: 50%;
   box-shadow: 0 0 10px var(--aqua);
-  animation: ping 1.5s ease-in-out infinite;
+  animation: ping 3.5s ease-in-out infinite;
 }
-@keyframes ping { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
+@keyframes ping { 0%, 100% { opacity: 1; } 50% { opacity: 0.55; } }
 
 .hero-title .line { display: block; overflow: hidden; }
 .hero-title .word { display: inline-block; will-change: transform; }
