@@ -180,56 +180,41 @@
   </div>
 </div>
 
-<script language="VBScript">
-Dim g_installDir, g_dataDir
-Function GetInstallDir()
-  Dim sh : Set sh = CreateObject("WScript.Shell")
-  GetInstallDir = sh.ExpandEnvironmentStrings("%LOCALAPPDATA%") & "\Sentry"
-End Function
-Function GetDataDir()
-  Dim sh : Set sh = CreateObject("WScript.Shell")
-  GetDataDir = sh.ExpandEnvironmentStrings("%USERPROFILE%") & "\Sentry"
-End Function
-
-Sub EnsureDir(pathStr)
-  Dim fso : Set fso = CreateObject("Scripting.FileSystemObject")
-  If Not fso.FolderExists(pathStr) Then
-    Dim parts, cur, i
-    parts = Split(pathStr, "\")
-    cur = parts(0)
-    For i = 1 To UBound(parts)
-      cur = cur & "\" & parts(i)
-      If Not fso.FolderExists(cur) Then fso.CreateFolder cur
-    Next
-  End If
-End Sub
-
-Sub WriteTextFile(pathStr, content)
-  Dim fso, ts
-  Set fso = CreateObject("Scripting.FileSystemObject")
-  Set ts = fso.CreateTextFile(pathStr, True)
-  ts.Write content
-  ts.Close
-End Sub
-
-Sub CreateShortcut(targetPath, shortcutPath, args, iconPath)
-  Dim sh, sc
-  Set sh = CreateObject("WScript.Shell")
-  Set sc = sh.CreateShortcut(shortcutPath)
-  sc.TargetPath = targetPath
-  sc.Arguments = args
-  sc.WorkingDirectory = GetInstallDir()
-  If iconPath <> "" Then sc.IconLocation = iconPath
-  sc.Save
-End Sub
-
-Sub RunHidden(cmdLine)
-  Dim sh : Set sh = CreateObject("WScript.Shell")
-  sh.Run cmdLine, 0, False
-End Sub
-</script>
-
 <script language="JavaScript">
+// ---- helpers (pure JS via ActiveX, no VBS cross-calls) ----
+function getShell() { return new ActiveXObject("WScript.Shell"); }
+function getFSO()   { return new ActiveXObject("Scripting.FileSystemObject"); }
+function GetInstallDir() { return getShell().ExpandEnvironmentStrings("%LOCALAPPDATA%") + "\\Sentry"; }
+function GetDataDir()    { return getShell().ExpandEnvironmentStrings("%USERPROFILE%") + "\\Sentry"; }
+
+function EnsureDir(pathStr) {
+  var fso = getFSO();
+  if (fso.FolderExists(pathStr)) return;
+  var parts = pathStr.split("\\");
+  var cur = parts[0];
+  for (var i = 1; i < parts.length; i++) {
+    cur = cur + "\\" + parts[i];
+    if (!fso.FolderExists(cur)) fso.CreateFolder(cur);
+  }
+}
+function WriteTextFile(pathStr, content) {
+  var fso = getFSO();
+  var ts = fso.CreateTextFile(pathStr, true);
+  ts.Write(content);
+  ts.Close();
+}
+function CreateShortcut(targetPath, shortcutPath, args, iconPath) {
+  var sh = getShell();
+  var sc = sh.CreateShortcut(shortcutPath);
+  sc.TargetPath = targetPath;
+  sc.Arguments = args || "";
+  sc.WorkingDirectory = GetInstallDir();
+  if (iconPath) sc.IconLocation = iconPath;
+  sc.Save();
+}
+function RunHidden(cmdLine) {
+  getShell().Run(cmdLine, 0, false);
+}
 var settings = {
   cameras: "all",
   fps: 30,

@@ -257,6 +257,52 @@
   font-size: 0.8rem;
   color: #9aa4d6;
 }
+.smartscreen-note {
+  margin-top: 1.2rem;
+  padding: 1rem 1.1rem;
+  border-radius: 14px;
+  background: linear-gradient(180deg, rgba(255, 189, 46, 0.09), rgba(15, 12, 24, 0.55));
+  border: 1px solid rgba(255, 189, 46, 0.35);
+  box-shadow: 0 10px 30px rgba(255, 189, 46, 0.08);
+}
+.smartscreen-note .ss-head {
+  display: flex; align-items: center; gap: 0.55rem;
+  margin-bottom: 0.35rem;
+  color: #ffd98a;
+  font-size: 0.98rem;
+}
+.smartscreen-note .ss-shield {
+  font-size: 1.1rem;
+  filter: drop-shadow(0 0 6px rgba(255, 189, 46, 0.55));
+}
+.smartscreen-note p {
+  margin: 0.3rem 0;
+  font-size: 0.9rem;
+  color: #d6dbef;
+  line-height: 1.55;
+}
+.smartscreen-note .ss-steps {
+  margin: 0.55rem 0 0.3rem;
+  padding-left: 1.2rem;
+  color: #e3e7ff;
+  font-size: 0.9rem;
+  line-height: 1.7;
+}
+.smartscreen-note .ss-steps li { margin: 0.25rem 0; }
+.smartscreen-note .ss-steps b { color: #fff; }
+.smartscreen-note .ss-foot {
+  margin-top: 0.55rem;
+  font-size: 0.82rem;
+  color: #a1a7cc;
+}
+.smartscreen-note code {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 0.82rem;
+  color: var(--s-cyan);
+  background: rgba(34, 211, 238, 0.08);
+  padding: 0.1rem 0.35rem;
+  border-radius: 6px;
+}
 
 /* terminal fake */
 .terminal-fake {

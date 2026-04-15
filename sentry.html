@@ -116,7 +116,21 @@
             <a class="btn btn-sentry btn-lg" href="assets/SentryInstaller.hta" download="SentryInstaller.hta" id="downloadBtn">
               <span class="btn-icon">⬇</span> Download SentryInstaller.hta
             </a>
-            <p class="download-hint">Windows 10 / 11 · ~12 KB installer · signed HTA (native Windows wizard)</p>
+            <p class="download-hint">Windows 10 / 11 · ~20 KB installer · opens directly into wizard</p>
+
+            <div class="smartscreen-note">
+              <div class="ss-head">
+                <span class="ss-shield">🛡</span>
+                <strong>Windows will warn you. That's normal.</strong>
+              </div>
+              <p>Sentry is a free independent tool and isn't code-signed yet, so Windows SmartScreen shows a blue or yellow warning the first time you run it. It is safe — here's how to get past the warning:</p>
+              <ol class="ss-steps">
+                <li><b>Browser warning</b> ("file isn't commonly downloaded")  →  click the <b>⋮</b> next to the file and choose <b>Keep</b>.</li>
+                <li><b>SmartScreen popup</b> ("Windows protected your PC")  →  click <b>More info</b>, then <b>Run anyway</b>.</li>
+                <li><b>"Publisher not verified"</b>  →  click <b>Open</b> / <b>Yes</b>. The wizard launches.</li>
+              </ol>
+              <p class="ss-foot">Prefer to verify first? The installer is plain text — right-click <code>SentryInstaller.hta</code> → <b>Open with → Notepad</b> to read every line before running it.</p>
+            </div>
           </div>
           <div class="download-right">
             <div class="terminal-fake">
