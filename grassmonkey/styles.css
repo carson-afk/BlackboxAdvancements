@@ -113,16 +113,15 @@ button{font:inherit;cursor:pointer;border:0;background:none;color:inherit}
   position:relative;overflow:hidden;isolation:isolate;
   padding:90px 0 110px;
   background:
-    radial-gradient(ellipse at 20% 20%, rgba(63,160,77,.22), transparent 60%),
-    radial-gradient(ellipse at 80% 80%, rgba(122,85,47,.3), transparent 60%),
-    linear-gradient(180deg,var(--grass-900) 0%, var(--dirt-800) 100%);
+    linear-gradient(180deg, rgba(14,42,22,.62) 0%, rgba(42,29,16,.82) 100%),
+    url("photos/lawn-hero.jpg") center/cover no-repeat;
   color:var(--cream);
 }
 .hero::before{
-  content:"";position:absolute;inset:0;z-index:-1;
-  background-image:url("photos/hero.jpeg");
-  background-size:cover;background-position:center;
-  opacity:.25;filter:saturate(.8) contrast(1.05);
+  content:"";position:absolute;inset:0;z-index:0;pointer-events:none;
+  background:
+    radial-gradient(ellipse at 20% 20%, rgba(107,194,104,.22), transparent 60%),
+    radial-gradient(ellipse at 80% 80%, rgba(200,162,112,.18), transparent 60%);
 }
 .hero-inner{
   position:relative;z-index:2;
@@ -317,8 +316,8 @@ section{position:relative}
   color:var(--cream);padding:80px 0;position:relative;overflow:hidden;
 }
 .cta-strip::before{
-  content:"";position:absolute;inset:0;opacity:.2;
-  background-image:url("photos/hero.jpeg");background-size:cover;
+  content:"";position:absolute;inset:0;opacity:.22;
+  background-image:url("photos/lawn-hero.jpg");background-size:cover;background-position:center;
 }
 .cta-inner{position:relative;display:flex;align-items:center;justify-content:space-between;gap:40px;flex-wrap:wrap}
 .cta-inner h2{font-family:var(--font-display);font-size:clamp(32px,5vw,56px);margin:0;max-width:640px;font-weight:500}

@@ -115,12 +115,15 @@
     });
 
     function computeEstimate(){
-      const base = { mowing:55, landscaping:180, cleanup:220, fullservice:320, hedges:120, mulch:260 }[state.service] || 80;
+      const base = { mowing:70, fertilizing:140, aerating:180, poop:60, cleanup:260, junk:180, snow:85, fullservice:340 }[state.service] || 99;
       const sizeMult = { small:1, medium:1.6, large:2.4, xlarge:3.6, acreage:5.4 }[state.size] || 1;
       const freqMult = { oneTime:1, biweekly:.9, weekly:.85, monthly:.95 }[state.frequency] || 1;
       const extras = (state.extras||[]).length * 45;
-      const low = Math.round(base*sizeMult*freqMult + extras*.5);
-      const high = Math.round(base*sizeMult*freqMult*1.35 + extras);
+      const MIN = 99;
+      const rawLow = Math.round(base*sizeMult*freqMult + extras*.5);
+      const rawHigh = Math.round(base*sizeMult*freqMult*1.35 + extras);
+      const low = Math.max(MIN, rawLow);
+      const high = Math.max(MIN + 30, rawHigh);
       document.getElementById('estPrice').textContent = `$${low} – $${high}`;
       document.getElementById('estService').textContent = labelFor('service', state.service);
       document.getElementById('estSize').textContent = labelFor('size', state.size);
