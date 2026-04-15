@@ -918,6 +918,7 @@ section { position: relative; z-index: 3; }
 .estimator-header h2 { margin-bottom: 1rem; }
 .estimator-header h2 em { font-family: var(--font-serif); font-style: italic; color: var(--cyan-hot); text-shadow: 0 0 14px var(--cyan-glow); }
 .estimator-header p { color: var(--foam-dim); font-size: 1rem; line-height: 1.6; max-width: 52ch; }
+.est-start { margin-top: 1.75rem; }
 
 .estimator-form {
   max-width: 720px;

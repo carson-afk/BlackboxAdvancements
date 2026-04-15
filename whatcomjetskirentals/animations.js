@@ -88,12 +88,18 @@
   document.head.appendChild(style);
 
   /* Carousel seamless duplication ------------------------------------- */
+  const carouselDur = () => {
+    const w = window.innerWidth;
+    if (w <= 640) return 90;
+    if (w <= 980) return 65;
+    return 45;
+  };
   document.querySelectorAll('.carousel').forEach((track) => {
     const clone = track.cloneNode(true);
     clone.setAttribute('aria-hidden', 'true');
     track.parentNode.appendChild(clone);
     const wrap = document.createElement('div');
-    wrap.style.cssText = 'display:flex; gap:1rem; will-change:transform; animation:slideLeft 40s linear infinite;';
+    wrap.style.cssText = `display:flex; gap:1rem; will-change:transform; animation:slideLeft ${carouselDur()}s linear infinite;`;
     track.parentNode.insertBefore(wrap, track);
     wrap.appendChild(track);
     wrap.appendChild(clone);
@@ -150,6 +156,17 @@
 
   /* Estimator --------------------------------------------------------- */
   const est = document.getElementById('estimatorForm');
+  const estStart = document.getElementById('estStart');
+  if (estStart && est) {
+    estStart.addEventListener('click', () => {
+      est.hidden = false;
+      estStart.hidden = true;
+      const first = est.querySelector('input, select');
+      if (first) first.focus({ preventScroll: true });
+      const y = est.getBoundingClientRect().top + window.scrollY - 80;
+      window.scrollTo({ top: y, behavior: 'smooth' });
+    });
+  }
   if (est) {
     const step1 = est.querySelector('[data-step="1"]');
     const step2 = est.querySelector('[data-step="2"]');
