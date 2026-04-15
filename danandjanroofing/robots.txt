@@ -1,0 +1,4 @@
+User-Agent: *
+Allow: /
+
+Sitemap: https://blackboxadvancements.com/danandjanroofing/sitemap.xml
