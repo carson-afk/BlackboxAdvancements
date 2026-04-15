@@ -2,10 +2,12 @@
 <html>
 <head>
 <title>Sentry Installer</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="x-ua-compatible" content="ie=edge">
 <HTA:APPLICATION
   ID="SentryInstaller"
   APPLICATIONNAME="Sentry Installer"
-  BORDER="thin"
+  BORDER="dialog"
   CAPTION="yes"
   ICON=""
   SCROLL="no"
@@ -18,7 +20,6 @@
   NAVIGABLE="no"
   SHOWINTASKBAR="yes"
 />
-<meta http-equiv="x-ua-compatible" content="ie=edge">
 <style>
   html, body {
     margin: 0; padding: 0; height: 100%;
@@ -91,14 +92,33 @@
     color: #c0b0ec;
     text-transform: uppercase;
   }
-  select, input[type=number] {
-    background: rgba(255,255,255,0.05);
-    border: 1px solid rgba(255,255,255,0.1);
-    color: #fff;
+  select, input[type=number], input[type=password], input[type=text] {
+    background: #12132a;
+    border: 1px solid rgba(255,255,255,0.18);
+    color: #ffffff;
     padding: 8px 10px;
     border-radius: 8px;
     font-size: 13px;
+    outline: none;
   }
+  select:focus, input:focus { border-color: #ff2e88; }
+  select option {
+    background: #12132a;
+    color: #ffffff;
+  }
+  input::-ms-reveal, input::-ms-clear { filter: invert(1); }
+  .pw-row { display: flex; flex-direction: column; gap: 6px; }
+  .pw-hint { font-size: 11px; color: #9aa4d6; font-family: Consolas, monospace; }
+  .pw-bar {
+    height: 5px; border-radius: 3px; background: rgba(255,255,255,0.08);
+    overflow: hidden; margin-top: 4px;
+  }
+  .pw-bar > div {
+    height: 100%; width: 0%;
+    background: linear-gradient(90deg, #ff3355, #ffbd2e, #39ff14);
+    transition: width 0.25s ease;
+  }
+  .pw-err { color: #ff6b8a; font-size: 12px; min-height: 1em; margin-top: 4px; }
   .toggle { display: flex; gap: 6px; flex-wrap: wrap; }
   .tbtn {
     padding: 7px 12px;
@@ -166,13 +186,14 @@
 <body>
 <div class="wrap">
   <h1 class="brand">SENTRY</h1>
-  <p class="tag">● INSTALL WIZARD · v1.0 · BLACKBOX ADVANCEMENTS</p>
+  <p class="tag">&#9679; INSTALL WIZARD &middot; v1.0 &middot; BLACKBOX ADVANCEMENTS</p>
 
   <div class="step-dots">
     <div class="dot active" id="d1"></div>
     <div class="dot" id="d2"></div>
     <div class="dot" id="d3"></div>
     <div class="dot" id="d4"></div>
+    <div class="dot" id="d5"></div>
   </div>
 
   <div class="panel" id="panel">
@@ -222,7 +243,8 @@ var settings = {
   retention: 7,
   speed: 1,
   autostart: true,
-  desktopShortcut: true
+  desktopShortcut: true,
+  passwordB64: ""
 };
 
 var step = 1;
@@ -230,7 +252,7 @@ var panel = document.getElementById("panel");
 
 function setStep(n) {
   step = n;
-  for (var i = 1; i <= 4; i++) {
+  for (var i = 1; i <= 5; i++) {
     var d = document.getElementById("d" + i);
     d.className = "dot" + (i < n ? " done" : (i === n ? " active" : ""));
   }
@@ -240,8 +262,9 @@ function setStep(n) {
 function render() {
   if (step === 1) renderWelcome();
   else if (step === 2) renderSettings();
-  else if (step === 3) renderInstall();
-  else if (step === 4) renderDone();
+  else if (step === 3) renderPassword();
+  else if (step === 4) renderInstall();
+  else if (step === 5) renderDone();
 }
 
 function renderWelcome() {
@@ -257,7 +280,7 @@ function renderWelcome() {
     '</ul>' +
     '<div class="actions">' +
       '<span></span>' +
-      '<button class="btn prim" onclick="setStep(2)">Continue →</button>' +
+      '<button class="btn prim" onclick="setStep(2)">Continue &rarr;</button>' +
     '</div>';
 }
 
@@ -294,10 +317,10 @@ function renderSettings() {
         '</select></div>' +
       '<div class="field"><span class="lbl">Playback speed</span>' +
         '<select id="spd">' +
-          '<option value="1" selected>1× (realtime)</option>' +
-          '<option value="2">2×</option>' +
-          '<option value="4">4×</option>' +
-          '<option value="8">8×</option>' +
+          '<option value="1" selected>1&times; (realtime)</option>' +
+          '<option value="2">2&times;</option>' +
+          '<option value="4">4&times;</option>' +
+          '<option value="8">8&times;</option>' +
         '</select></div>' +
       '<div class="field"><span class="lbl">Startup</span>' +
         '<div class="toggle" id="autoToggle">' +
@@ -306,11 +329,72 @@ function renderSettings() {
         '</div></div>' +
     '</div>' +
     '<div class="actions">' +
-      '<button class="btn ghost" onclick="setStep(1)">← Back</button>' +
-      '<button class="btn prim" onclick="collectAndInstall()">Install →</button>' +
+      '<button class="btn ghost" onclick="setStep(1)">&larr; Back</button>' +
+      '<button class="btn prim" onclick="collectSettings()">Continue &rarr;</button>' +
     '</div>';
   bindToggle("audToggle", "audio");
   bindToggle("autoToggle", "autostart");
+}
+
+function renderPassword() {
+  panel.innerHTML =
+    '<h2>Set a password.</h2>' +
+    '<p>Sentry asks for this password before letting anyone view, export, or delete your recorded footage. Pick something you\'ll remember &mdash; there\'s no recovery option.</p>' +
+    '<div class="grid" style="margin-top:10px; grid-template-columns: 1fr;">' +
+      '<div class="pw-row"><span class="lbl" style="font-family:Consolas,monospace;font-size:11px;letter-spacing:1.5px;color:#c0b0ec;text-transform:uppercase;">Password</span>' +
+        '<input id="pw1" type="password" placeholder="At least 6 characters" autocomplete="off" />' +
+        '<div class="pw-bar"><div id="pwBar"></div></div>' +
+        '<span class="pw-hint" id="pwStrength">strength: &mdash;</span>' +
+      '</div>' +
+      '<div class="pw-row"><span class="lbl" style="font-family:Consolas,monospace;font-size:11px;letter-spacing:1.5px;color:#c0b0ec;text-transform:uppercase;">Confirm password</span>' +
+        '<input id="pw2" type="password" placeholder="Type it again" autocomplete="off" />' +
+      '</div>' +
+      '<label class="row" style="display:flex;align-items:center;gap:8px;"><input type="checkbox" id="pwShow" style="width:16px;height:16px;" /> Show passwords</label>' +
+      '<div class="pw-err" id="pwErr"></div>' +
+    '</div>' +
+    '<div class="actions">' +
+      '<button class="btn ghost" onclick="setStep(2)">&larr; Back</button>' +
+      '<button class="btn prim" onclick="confirmPassword()">Install &rarr;</button>' +
+    '</div>';
+  var pw1 = document.getElementById("pw1");
+  var pw2 = document.getElementById("pw2");
+  var show = document.getElementById("pwShow");
+  var bar = document.getElementById("pwBar");
+  var strength = document.getElementById("pwStrength");
+  pw1.onkeyup = function () {
+    var v = pw1.value, score = 0, label = "weak";
+    if (v.length >= 6) score += 20;
+    if (v.length >= 10) score += 20;
+    if (/[A-Z]/.test(v)) score += 15;
+    if (/[0-9]/.test(v)) score += 15;
+    if (/[^A-Za-z0-9]/.test(v)) score += 30;
+    if (score >= 70) label = "strong";
+    else if (score >= 40) label = "decent";
+    bar.style.width = Math.min(score, 100) + "%";
+    strength.innerHTML = "strength: " + label;
+  };
+  show.onclick = function () {
+    var t = show.checked ? "text" : "password";
+    pw1.type = t; pw2.type = t;
+  };
+  pw1.focus();
+}
+
+function confirmPassword() {
+  var pw1 = document.getElementById("pw1").value;
+  var pw2 = document.getElementById("pw2").value;
+  var err = document.getElementById("pwErr");
+  err.innerHTML = "";
+  if (pw1.length < 6) { err.innerHTML = "Password must be at least 6 characters."; return; }
+  if (pw1 !== pw2) { err.innerHTML = "Passwords don\'t match."; return; }
+  // store base64 (reversible placeholder; recorder can rehash on first run)
+  try {
+    settings.passwordB64 = window.btoa(unescape(encodeURIComponent(pw1)));
+  } catch (e) {
+    settings.passwordB64 = pw1;
+  }
+  setStep(4);
+  setTimeout(runInstall, 250);
 }
 
 function bindToggle(groupId, key) {
@@ -328,18 +412,17 @@ function bindToggle(groupId, key) {
   }
 }
 
-function collectAndInstall() {
+function collectSettings() {
   settings.cameras = document.getElementById("cams").value;
   settings.fps = parseInt(document.getElementById("fps").value, 10);
   settings.retention = parseInt(document.getElementById("ret").value, 10);
   settings.speed = parseFloat(document.getElementById("spd").value);
   setStep(3);
-  setTimeout(runInstall, 250);
 }
 
 function renderInstall() {
   panel.innerHTML =
-    '<h2>Installing Sentry…</h2>' +
+    '<h2>Installing Sentry...</h2>' +
     '<p>This usually takes about 3 seconds.</p>' +
     '<pre id="log"></pre>';
 }
@@ -364,28 +447,28 @@ function runInstall() {
     var installDir = GetInstallDir();
     var dataDir = GetDataDir();
 
-    log("✓ Creating install directory", "ok");
+    log("&#10003; Creating install directory", "ok");
     EnsureDir(installDir);
     EnsureDir(installDir + "\\logs");
     EnsureDir(dataDir);
     sleep(180);
 
-    log("✓ Writing configuration", "ok");
+    log("&#10003; Writing configuration", "ok");
     var cfg = buildConfig();
     WriteTextFile(installDir + "\\sentry.config.json", cfg);
     sleep(180);
 
-    log("✓ Installing recorder engine", "ok");
+    log("&#10003; Installing recorder engine", "ok");
     WriteTextFile(installDir + "\\sentry.ps1", buildRecorderScript());
     WriteTextFile(installDir + "\\sentry-launch.vbs", buildLauncherScript());
     WriteTextFile(installDir + "\\uninstall.vbs", buildUninstaller());
     sleep(200);
 
-    log("✓ Detected cameras: <span class='hl'>scan deferred to first run</span>", "ok");
+    log("&#10003; Detected cameras: <span class='hl'>scan deferred to first run</span>", "ok");
     sleep(150);
 
     if (settings.desktopShortcut) {
-      log("✓ Creating desktop shortcut", "ok");
+      log("&#10003; Creating desktop shortcut", "ok");
       var sh = new ActiveXObject("WScript.Shell");
       var desktop = sh.SpecialFolders("Desktop");
       CreateShortcut("wscript.exe", desktop + "\\Sentry.lnk",
@@ -394,7 +477,7 @@ function runInstall() {
     }
 
     if (settings.autostart) {
-      log("✓ Registering Windows startup", "ok");
+      log("&#10003; Registering Windows startup", "ok");
       var sh2 = new ActiveXObject("WScript.Shell");
       var startup = sh2.SpecialFolders("Startup");
       CreateShortcut("wscript.exe", startup + "\\Sentry.lnk",
@@ -402,18 +485,25 @@ function runInstall() {
       sleep(150);
     }
 
-    log("✓ Applied: <span class='hl'>" + settings.fps + " fps · audio " + settings.audio + " · retain " +
+    log("&#10003; Applied: <span class='hl'>" + settings.fps + " fps &middot; audio " + settings.audio + " &middot; retain " +
         (settings.retention === 0 ? "forever" : settings.retention + "d") + "</span>", "ok");
     sleep(150);
 
-    log("✓ Starting Sentry in background", "ok");
+    log("&#10003; Starting Sentry in background", "ok");
     RunHidden('wscript.exe "' + installDir + '\\sentry-launch.vbs"');
     sleep(250);
 
     log("Sentry is watching.", "done");
-    setTimeout(function () { setStep(4); }, 700);
+    setTimeout(function () {
+      setStep(5);
+      // auto-open Sentry folder on completion
+      try {
+        var sh3 = new ActiveXObject("WScript.Shell");
+        sh3.Run('explorer.exe "' + sh3.ExpandEnvironmentStrings("%USERPROFILE%\\Sentry") + '"', 1, false);
+      } catch (e) { }
+    }, 700);
   } catch (err) {
-    log("✗ " + err.message, "");
+    log("&#10007; " + err.message, "");
   }
 }
 
@@ -427,7 +517,8 @@ function buildConfig() {
     '  "playbackSpeed": ' + settings.speed + ',\n' +
     '  "autostart": ' + (settings.autostart ? "true" : "false") + ',\n' +
     '  "outputDir": "%USERPROFILE%\\\\Sentry",\n' +
-    '  "clipSeconds": 60\n' +
+    '  "clipSeconds": 60,\n' +
+    '  "passwordB64": "' + settings.passwordB64 + '"\n' +
     '}\n';
 }
 
@@ -539,14 +630,28 @@ function openFolder() {
   } catch (e) { }
 }
 
-// resize window & kick off
+// size window, center, and enforce a minimum size for the entire setup
+var MIN_W = 760;
+var MIN_H = 700;
+function enforceSize() {
+  try {
+    var w = window.outerWidth || document.documentElement.clientWidth;
+    var h = window.outerHeight || document.documentElement.clientHeight;
+    var nw = w, nh = h;
+    if (w < MIN_W) nw = MIN_W;
+    if (h < MIN_H) nh = MIN_H;
+    if (nw !== w || nh !== h) window.resizeTo(nw, nh);
+  } catch (e) { }
+}
 try {
-  window.resizeTo(720, 640);
+  window.resizeTo(MIN_W, MIN_H);
   window.moveTo(
-    Math.max(0, (screen.availWidth - 720) / 2),
-    Math.max(0, (screen.availHeight - 640) / 2)
+    Math.max(0, (screen.availWidth - MIN_W) / 2),
+    Math.max(0, (screen.availHeight - MIN_H) / 2)
   );
 } catch (e) { }
+window.onresize = enforceSize;
+setInterval(enforceSize, 400);
 
 render();
 </script>
