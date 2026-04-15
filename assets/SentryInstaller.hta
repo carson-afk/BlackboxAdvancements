@@ -317,7 +317,6 @@ var settings = {
   speed: 1,
   autostart: true,
   desktopShortcut: true,
-  dock: false,
   passwordB64: ""
 };
 
@@ -396,17 +395,12 @@ function renderSettings() {
           '<option value="4">4&times;</option>' +
           '<option value="8">8&times;</option>' +
         '</select></div>' +
-      '<div class="field"><span class="lbl">Startup</span>' +
+      '<div class="field"><span class="lbl">Open Sentry at login</span>' +
         '<div class="toggle" id="autoToggle">' +
-          '<div class="tbtn on" data-v="1">Start with Windows</div>' +
-          '<div class="tbtn" data-v="0">Manual only</div>' +
-        '</div></div>' +
-      '<div class="field" style="grid-column: 1 / -1;"><span class="lbl">Desktop dock</span>' +
-        '<div class="toggle" id="dockToggle">' +
-          '<div class="tbtn" data-v="1">Keep Sentry docked on desktop</div>' +
-          '<div class="tbtn on" data-v="0">No dock (runs silent)</div>' +
+          '<div class="tbtn on" data-v="1">Open at login (disarmed)</div>' +
+          '<div class="tbtn" data-v="0">Open manually only</div>' +
         '</div>' +
-        '<p style="margin:6px 0 0;font-size:12px;color:#9aa4d6;">A small always-visible panel showing recording status, clip count, and a quick-pause button.</p>' +
+        '<p style="margin:6px 0 0;font-size:12px;color:#9aa4d6;">Sentry starts disarmed. It does not record until you press Arm.</p>' +
       '</div>' +
     '</div>' +
     '<div class="actions">' +
@@ -415,7 +409,6 @@ function renderSettings() {
     '</div>';
   bindToggle("audToggle", "audio");
   bindToggle("autoToggle", "autostart");
-  bindToggle("dockToggle", "dock");
 }
 
 var pwMode = null; // null | "password" | "none"
@@ -540,7 +533,7 @@ function bindToggle(groupId, key) {
         for (var j = 0; j < btns.length; j++) btns[j].className = "tbtn";
         b.className = "tbtn on";
         var v = b.getAttribute("data-v");
-        if (key === "autostart" || key === "dock") {
+        if (key === "autostart") {
           settings[key] = (v === "1");
         } else {
           settings[key] = v;
@@ -602,12 +595,11 @@ function runInstall() {
     WriteTextFile(installDir + "\\uninstall.vbs", buildUninstaller());
     sleep(150);
 
-    log("&#10003; Installing Sentry app &amp; dock", "ok");
+    log("&#10003; Installing Sentry app", "ok");
     WriteTextFile(installDir + "\\Sentry.hta", buildDashboardHta());
-    WriteTextFile(installDir + "\\SentryDock.hta", buildDockHta());
     sleep(150);
 
-    log("&#10003; Detected cameras: <span class='hl'>scan deferred to first run</span>", "ok");
+    log("&#10003; Detected cameras: <span class='hl'>scan deferred to arm time</span>", "ok");
     sleep(120);
 
     var sh = new ActiveXObject("WScript.Shell");
@@ -616,7 +608,6 @@ function runInstall() {
     var startMenu = sh.SpecialFolders("Programs");
     var mshta = sh.ExpandEnvironmentStrings("%SystemRoot%") + "\\System32\\mshta.exe";
     var dashArgs = '"' + installDir + '\\Sentry.hta"';
-    var dockArgs = '"' + installDir + '\\SentryDock.hta"';
 
     if (settings.desktopShortcut) {
       log("&#10003; Creating desktop shortcut", "ok");
@@ -634,15 +625,8 @@ function runInstall() {
     sleep(120);
 
     if (settings.autostart) {
-      log("&#10003; Registering recorder for Windows startup", "ok");
-      CreateShortcut("wscript.exe", startup + "\\Sentry Recorder.lnk",
-        '"' + installDir + '\\sentry-launch.vbs"', "");
-      sleep(120);
-    }
-
-    if (settings.dock) {
-      log("&#10003; Enabling desktop dock", "ok");
-      CreateShortcut(mshta, startup + "\\Sentry Dock.lnk", dockArgs, mshta);
+      log("&#10003; Opening Sentry at Windows login (disarmed)", "ok");
+      CreateShortcut(mshta, startup + "\\Sentry.lnk", dashArgs, mshta);
       sleep(120);
     }
 
@@ -650,11 +634,7 @@ function runInstall() {
         (settings.retention === 0 ? "forever" : settings.retention + "d") + "</span>", "ok");
     sleep(120);
 
-    log("&#10003; Starting Sentry in background", "ok");
-    RunHidden('wscript.exe "' + installDir + '\\sentry-launch.vbs"');
-    sleep(200);
-
-    log("Sentry is watching.", "done");
+    log("Sentry installed. Ready to arm.", "done");
     setTimeout(function () {
       setStep(5);
       launchSentry();
@@ -669,13 +649,9 @@ function launchSentry() {
     var sh3 = new ActiveXObject("WScript.Shell");
     var mshta = sh3.ExpandEnvironmentStrings("%SystemRoot%") + "\\System32\\mshta.exe";
     var installDir = GetInstallDir();
-    // Use explicit full path so PATH resolution can't fail
     sh3.Run('"' + mshta + '" "' + installDir + '\\Sentry.hta"', 1, false);
-    if (settings.dock) {
-      sh3.Run('"' + mshta + '" "' + installDir + '\\SentryDock.hta"', 1, false);
-    }
   } catch (e) {
-    try { alert("Couldn't launch Sentry automatically: " + e.message + "\nUse the Start Menu or desktop shortcut."); } catch (_) {}
+    try { alert("Couldn't launch Sentry: " + e.message + "\nUse the Start Menu shortcut."); } catch (_) {}
   }
 }
 
@@ -690,7 +666,6 @@ function buildConfig() {
     '  "autostart": ' + (settings.autostart ? "true" : "false") + ',\n' +
     '  "outputDir": "%USERPROFILE%\\\\Sentry",\n' +
     '  "clipSeconds": 60,\n' +
-    '  "dock": ' + (settings.dock ? "true" : "false") + ',\n' +
     '  "passwordB64": "' + settings.passwordB64 + '"\n' +
     '}\n';
 }
@@ -712,193 +687,231 @@ function buildUninstaller() {
     'On Error Resume Next\r\n' +
     'If fso.FileExists(desktop & "\\Sentry.lnk") Then fso.DeleteFile desktop & "\\Sentry.lnk"\r\n' +
     'If fso.FileExists(startup & "\\Sentry.lnk") Then fso.DeleteFile startup & "\\Sentry.lnk"\r\n' +
-    'If fso.FileExists(startup & "\\Sentry Recorder.lnk") Then fso.DeleteFile startup & "\\Sentry Recorder.lnk"\r\n' +
-    'If fso.FileExists(startup & "\\Sentry Dock.lnk") Then fso.DeleteFile startup & "\\Sentry Dock.lnk"\r\n' +
     'If fso.FolderExists(programs & "\\Sentry") Then fso.DeleteFolder programs & "\\Sentry", True\r\n' +
     'If fso.FolderExists(installDir) Then fso.DeleteFolder installDir, True\r\n' +
     'MsgBox "Sentry has been uninstalled.", 64, "Sentry"\r\n';
 }
 
 function buildDashboardHta() {
-  return [
-'<!DOCTYPE html><html><head>',
-'<title>Sentry</title>',
-'<meta http-equiv="Content-Type" content="text/html; charset=utf-8">',
-'<meta http-equiv="x-ua-compatible" content="ie=edge">',
-'<HTA:APPLICATION ID="SentryApp" APPLICATIONNAME="Sentry" BORDER="dialog" CAPTION="yes" SCROLL="no" SINGLEINSTANCE="yes" SYSMENU="yes" MAXIMIZEBUTTON="yes" WINDOWSTATE="normal" SHOWINTASKBAR="yes" />',
-'<style>',
-'html,body{margin:0;padding:0;height:100%;font-family:"Segoe UI",Inter,Arial,sans-serif;color:#f3f3ff;overflow:hidden;',
-'background:radial-gradient(circle at 15% 10%,rgba(255,46,136,0.22),transparent 45%),radial-gradient(circle at 85% 90%,rgba(34,211,238,0.18),transparent 50%),linear-gradient(180deg,#06060e 0%,#0b0c1c 100%);}',
-'.wrap{padding:22px 28px;height:100%;box-sizing:border-box;display:flex;flex-direction:column;gap:14px;}',
-'.head{display:flex;align-items:center;justify-content:space-between;}',
-'.title{font-size:30px;font-weight:900;letter-spacing:-1.5px;margin:0;color:#ff2e88;background:linear-gradient(135deg,#ff2e88,#8b5cf6 50%,#22d3ee);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;}',
-'.status{display:inline-flex;align-items:center;gap:8px;padding:8px 14px;border-radius:999px;background:rgba(57,255,20,0.1);border:1px solid rgba(57,255,20,0.35);color:#a7ffb0;font-family:Consolas,monospace;font-size:12px;letter-spacing:1.4px;text-transform:uppercase;}',
-'.status.stopped{background:rgba(255,51,85,0.1);border-color:rgba(255,51,85,0.35);color:#ffb0bd;}',
-'.dot{width:8px;height:8px;border-radius:50%;background:#39ff14;box-shadow:0 0 8px #39ff14;animation:pulse 1.3s infinite;}',
-'.status.stopped .dot{background:#ff3355;box-shadow:0 0 8px #ff3355;animation:none;}',
-'@keyframes pulse{0%,100%{opacity:1}50%{opacity:0.4}}',
-'.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;}',
-'.stat{padding:14px;border-radius:12px;background:rgba(13,14,28,0.72);border:1px solid rgba(139,92,246,0.28);}',
-'.stat .k{font-family:Consolas,monospace;font-size:11px;letter-spacing:1.4px;text-transform:uppercase;color:#c0b0ec;margin-bottom:6px;}',
-'.stat .v{font-size:22px;font-weight:800;color:#22d3ee;font-family:Consolas,monospace;}',
-'.list{flex:1;min-height:0;overflow:auto;border-radius:12px;background:rgba(13,14,28,0.72);border:1px solid rgba(139,92,246,0.28);}',
-'.list h3{margin:0;padding:14px 16px;border-bottom:1px solid rgba(255,255,255,0.07);font-size:13px;letter-spacing:1.4px;text-transform:uppercase;color:#c0b0ec;font-family:Consolas,monospace;}',
-'.row{display:flex;align-items:center;justify-content:space-between;padding:10px 16px;border-bottom:1px solid rgba(255,255,255,0.05);font-size:13px;}',
-'.row:hover{background:rgba(255,255,255,0.03);}',
-'.row .nm{color:#e7eaff;}',
-'.row .sz{color:#9aa4d6;font-family:Consolas,monospace;font-size:12px;}',
-'.row button{background:rgba(34,211,238,0.1);border:1px solid rgba(34,211,238,0.35);color:#c7f7ff;padding:5px 10px;border-radius:6px;cursor:pointer;font-size:12px;margin-left:8px;}',
-'.row button:hover{background:rgba(34,211,238,0.2);}',
-'.bar{display:flex;gap:8px;flex-wrap:wrap;}',
-'.btn{padding:9px 16px;border-radius:9px;font-weight:700;font-size:12px;cursor:pointer;border:1px solid transparent;}',
-'.btn.p{background-color:#ff2e88;background-image:linear-gradient(135deg,#ff2e88,#8b5cf6);color:#fff;border-color:rgba(255,255,255,0.18);}',
-'.btn.g{background:transparent;color:#c7f7ff;border-color:rgba(34,211,238,0.35);}',
-'.btn.d{background:rgba(255,51,85,0.1);color:#ffb0bd;border-color:rgba(255,51,85,0.4);}',
-'.btn:disabled{opacity:0.4;cursor:default;}',
-'.pw-gate{position:absolute;inset:0;background:rgba(5,6,14,0.96);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:14px;padding:30px;}',
-'.pw-gate h2{margin:0;font-size:26px;}',
-'.pw-gate input{background:#12132a;border:1px solid rgba(255,255,255,0.18);color:#fff;padding:12px 14px;border-radius:8px;font-size:14px;width:300px;outline:none;}',
-'.pw-gate input:focus{border-color:#ff2e88;}',
-'.pw-gate .err{color:#ff6b8a;font-size:13px;min-height:1em;}',
-'</style></head><body><div class="wrap">',
-'<div class="head"><h1 class="title">SENTRY</h1><div class="status" id="status"><span class="dot"></span><span id="statusText">Recording</span></div></div>',
-'<div class="stats">',
-'<div class="stat"><div class="k">Clips recorded</div><div class="v" id="clipCount">0</div></div>',
-'<div class="stat"><div class="k">Disk used</div><div class="v" id="diskUsed">0 MB</div></div>',
-'<div class="stat"><div class="k">Uptime</div><div class="v" id="uptime">&mdash;</div></div>',
-'</div>',
-'<div class="bar">',
-'<button class="btn p" onclick="openFolder()">Open footage folder</button>',
-'<button class="btn g" onclick="togglePause()" id="pauseBtn">Pause recording</button>',
-'<button class="btn g" onclick="openConfig()">Edit config</button>',
-'<button class="btn d" onclick="uninstall()">Uninstall</button>',
-'</div>',
-'<div class="list"><h3>Recent clips</h3><div id="clipList"></div></div>',
-'</div>',
-'<div class="pw-gate" id="gate" style="display:none;"><h2>Enter Sentry password</h2><input id="pwInput" type="password" placeholder="Password" /><div class="err" id="pwGateErr"></div><button class="btn p" onclick="tryUnlock()">Unlock</button></div>',
-'<\script>',
-'var installDir, dataDir, cfg, startTs = new Date();',
-'var sh = new ActiveXObject("WScript.Shell");',
-'var fso = new ActiveXObject("Scripting.FileSystemObject");',
-'installDir = sh.ExpandEnvironmentStrings("%LOCALAPPDATA%") + "\\\\Sentry";',
-'dataDir = sh.ExpandEnvironmentStrings("%USERPROFILE%") + "\\\\Sentry";',
-'function readCfg(){ try{ var ts = fso.OpenTextFile(installDir+"\\\\sentry.config.json",1); var t = ts.ReadAll(); ts.Close(); return eval("("+t+")"); }catch(e){ return {}; } }',
-'function gateIfNeeded(){ if(cfg.passwordB64){ document.getElementById("gate").style.display="flex"; document.getElementById("pwInput").focus(); } }',
-'function tryUnlock(){ var v = document.getElementById("pwInput").value; var b64=""; try{ b64 = window.btoa(unescape(encodeURIComponent(v))); }catch(e){ b64 = v; } if(b64===cfg.passwordB64){ document.getElementById("gate").style.display="none"; }else{ document.getElementById("pwGateErr").innerHTML="Wrong password."; } }',
-'function openFolder(){ sh.Run("explorer.exe \\""+dataDir+"\\"",1,false); }',
-'function openConfig(){ sh.Run("notepad.exe \\""+installDir+"\\\\sentry.config.json\\"",1,false); }',
-'function uninstall(){ if(confirm("Uninstall Sentry? Your recorded clips will be kept.")){ sh.Run("wscript.exe \\""+installDir+"\\\\uninstall.vbs\\"",1,false); window.close(); } }',
-'var paused = false;',
-'function togglePause(){',
-' paused = !paused;',
-' try{ if(paused){ sh.Run("taskkill /F /IM powershell.exe",0,false); } else { sh.Run("wscript.exe \\""+installDir+"\\\\sentry-launch.vbs\\"",0,false); } }catch(e){}',
-' document.getElementById("pauseBtn").innerHTML = paused?"Resume recording":"Pause recording";',
-' var st = document.getElementById("status"); var t = document.getElementById("statusText");',
-' if(paused){ st.className="status stopped"; t.innerHTML="Paused"; } else { st.className="status"; t.innerHTML="Recording"; }',
-'}',
-'function humanBytes(n){ if(n<1024) return n+" B"; if(n<1048576) return (n/1024).toFixed(1)+" KB"; if(n<1073741824) return (n/1048576).toFixed(1)+" MB"; return (n/1073741824).toFixed(2)+" GB"; }',
-'function refresh(){',
-' try{',
-'  var folder = fso.GetFolder(dataDir); var files = new Enumerator(folder.Files); var count=0, bytes=0, rows="", arr=[];',
-'  for(; !files.atEnd(); files.moveNext()){ var f = files.item(); arr.push(f); count++; bytes += f.Size; }',
-'  arr.sort(function(a,b){ return b.DateLastModified - a.DateLastModified; });',
-'  for(var i=0;i<Math.min(arr.length,30);i++){ var f=arr[i]; rows += \'<div class="row"><span class="nm">\'+f.Name+\'</span><span><span class="sz">\'+humanBytes(f.Size)+\'</span><button onclick="play(\\\'\'+f.Path.replace(/\\\\/g,"\\\\\\\\")+\'\\\')">Play</button></span></div>\'; }',
-'  document.getElementById("clipCount").innerHTML = count;',
-'  document.getElementById("diskUsed").innerHTML = humanBytes(bytes);',
-'  document.getElementById("clipList").innerHTML = rows || \'<div class="row"><span class="nm" style="color:#9aa4d6;">No clips yet. Sentry is recording...</span></div>\';',
-' }catch(e){}',
-' var s = Math.floor((new Date() - startTs)/1000); var h=Math.floor(s/3600), m=Math.floor((s%3600)/60); document.getElementById("uptime").innerHTML = h+"h "+m+"m";',
-'}',
-'function play(p){ sh.Run("\\""+p+"\\"",1,false); }',
-'try{ window.resizeTo(780,620); window.moveTo(Math.max(0,(screen.availWidth-780)/2),Math.max(0,(screen.availHeight-620)/2)); }catch(e){}',
-'cfg = readCfg(); gateIfNeeded(); refresh(); setInterval(refresh, 3000);',
-'<\/script></body></html>'
-  ].join("\r\n");
-}
-
-function buildDockHta() {
-  return [
-'<!DOCTYPE html><html><head>',
-'<title>Sentry Dock</title>',
-'<meta http-equiv="Content-Type" content="text/html; charset=utf-8">',
-'<meta http-equiv="x-ua-compatible" content="ie=edge">',
-'<HTA:APPLICATION ID="SentryDock" APPLICATIONNAME="Sentry Dock" BORDER="none" CAPTION="no" SCROLL="no" SINGLEINSTANCE="yes" SYSMENU="no" MAXIMIZEBUTTON="no" MINIMIZEBUTTON="no" SHOWINTASKBAR="no" />',
-'<style>',
-'html,body{margin:0;padding:0;height:100%;font-family:"Segoe UI",Arial,sans-serif;color:#f3f3ff;overflow:hidden;',
-'background:linear-gradient(180deg,rgba(10,11,22,0.94),rgba(16,12,30,0.94));',
-'border:1px solid rgba(255,46,136,0.5); border-radius:14px;',
-'-webkit-app-region:drag;}',
-'.dock{padding:14px 16px;display:flex;flex-direction:column;gap:10px;height:100%;box-sizing:border-box;}',
-'.top{display:flex;align-items:center;justify-content:space-between;}',
-'.brand{font-size:14px;font-weight:900;letter-spacing:1.5px;color:#ff2e88;}',
-'.x{background:transparent;border:0;color:#9aa4d6;font-size:16px;cursor:pointer;}',
-'.live{display:flex;align-items:center;gap:8px;font-size:11px;font-family:Consolas,monospace;letter-spacing:1.2px;text-transform:uppercase;color:#a7ffb0;}',
-'.live.off{color:#ffb0bd;}',
-'.dot{width:7px;height:7px;border-radius:50%;background:#39ff14;box-shadow:0 0 6px #39ff14;animation:p 1.3s infinite;}',
-'.live.off .dot{background:#ff3355;box-shadow:0 0 6px #ff3355;animation:none;}',
-'@keyframes p{0%,100%{opacity:1}50%{opacity:0.35}}',
-'.grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;}',
-'.c{padding:8px 10px;border-radius:8px;background:rgba(255,255,255,0.04);}',
-'.c .k{font-size:9px;color:#c0b0ec;letter-spacing:1px;text-transform:uppercase;font-family:Consolas,monospace;}',
-'.c .v{font-size:15px;color:#22d3ee;font-family:Consolas,monospace;font-weight:700;}',
-'.btns{display:flex;gap:6px;}',
-'.b{flex:1;padding:7px;font-size:11px;font-weight:700;border:1px solid rgba(255,255,255,0.15);border-radius:7px;background:rgba(255,255,255,0.04);color:#e7eaff;cursor:pointer;}',
-'.b.p{background-color:#ff2e88;background-image:linear-gradient(135deg,#ff2e88,#8b5cf6);border-color:transparent;color:#fff;}',
-'</style></head><body><div class="dock">',
-'<div class="top"><div class="brand">SENTRY</div><button class="x" onclick="window.close()">&times;</button></div>',
-'<div class="live" id="live"><span class="dot"></span><span id="liveT">Recording</span></div>',
-'<div class="grid"><div class="c"><div class="k">Clips</div><div class="v" id="c">0</div></div><div class="c"><div class="k">Disk</div><div class="v" id="d">0 MB</div></div></div>',
-'<div class="btns"><button class="b" onclick="openApp()">Open</button><button class="b" onclick="pause()" id="pb">Pause</button></div>',
-'</div>',
-'<\script>',
-'var sh=new ActiveXObject("WScript.Shell"), fso=new ActiveXObject("Scripting.FileSystemObject");',
-'var installDir=sh.ExpandEnvironmentStrings("%LOCALAPPDATA%")+"\\\\Sentry";',
-'var dataDir=sh.ExpandEnvironmentStrings("%USERPROFILE%")+"\\\\Sentry";',
-'var paused=false;',
-'function openApp(){ sh.Run("mshta.exe \\""+installDir+"\\\\Sentry.hta\\"",1,false); }',
-'function pause(){ paused=!paused; try{ if(paused){ sh.Run("taskkill /F /IM powershell.exe",0,false); }else{ sh.Run("wscript.exe \\""+installDir+"\\\\sentry-launch.vbs\\"",0,false); } }catch(e){}',
-' document.getElementById("pb").innerHTML = paused?"Resume":"Pause";',
-' var l=document.getElementById("live"); l.className = paused?"live off":"live"; document.getElementById("liveT").innerHTML = paused?"Paused":"Recording"; }',
-'function humanBytes(n){ if(n<1048576) return (n/1024).toFixed(0)+" KB"; if(n<1073741824) return (n/1048576).toFixed(1)+" MB"; return (n/1073741824).toFixed(2)+" GB"; }',
-'function refresh(){ try{ var folder=fso.GetFolder(dataDir); var fe=new Enumerator(folder.Files); var count=0,bytes=0; for(;!fe.atEnd();fe.moveNext()){ count++; bytes+=fe.item().Size; } document.getElementById("c").innerHTML=count; document.getElementById("d").innerHTML=humanBytes(bytes); }catch(e){} }',
-'try{ var W=240,H=200; window.resizeTo(W,H); window.moveTo(screen.availWidth-W-16, screen.availHeight-H-16); }catch(e){}',
-'refresh(); setInterval(refresh, 3000);',
-'<\/script></body></html>'
-  ].join("\r\n");
+  var L = [];
+  L.push('<!DOCTYPE html><html><head>');
+  L.push('<title>Sentry</title>');
+  L.push('<meta http-equiv="Content-Type" content="text/html; charset=utf-8">');
+  L.push('<meta http-equiv="x-ua-compatible" content="ie=edge">');
+  L.push('<HTA:APPLICATION ID="SentryApp" APPLICATIONNAME="Sentry" BORDER="dialog" CAPTION="yes" SCROLL="no" SINGLEINSTANCE="yes" SYSMENU="yes" MAXIMIZEBUTTON="no" WINDOWSTATE="normal" SHOWINTASKBAR="yes" />');
+  L.push('<style>');
+  L.push('html,body{margin:0;padding:0;height:100%;font-family:"Segoe UI",Inter,Arial,sans-serif;color:#f3f3ff;overflow:hidden;background:radial-gradient(circle at 15% 10%,rgba(255,46,136,0.22),transparent 45%),radial-gradient(circle at 85% 90%,rgba(34,211,238,0.18),transparent 50%),linear-gradient(180deg,#06060e 0%,#0b0c1c 100%);}');
+  L.push('.v{height:100%;box-sizing:border-box;display:flex;flex-direction:column;padding:28px;gap:18px;}');
+  L.push('.title{font-size:34px;font-weight:900;letter-spacing:-1.5px;margin:0;color:#ff2e88;background:linear-gradient(135deg,#ff2e88,#8b5cf6 50%,#22d3ee);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;}');
+  L.push('.sub{color:#bfc3e4;font-size:13px;margin:0;}');
+  L.push('.status{display:inline-flex;align-items:center;gap:8px;padding:10px 16px;border-radius:999px;font-family:Consolas,monospace;font-size:12px;letter-spacing:1.6px;text-transform:uppercase;border:1px solid;}');
+  L.push('.status.ok{background:rgba(57,255,20,0.08);border-color:rgba(57,255,20,0.4);color:#a7ffb0;}');
+  L.push('.status.off{background:rgba(154,164,214,0.08);border-color:rgba(154,164,214,0.3);color:#c0c6e5;}');
+  L.push('.status.rec{background:rgba(255,51,85,0.1);border-color:rgba(255,51,85,0.5);color:#ffb0bd;}');
+  L.push('.d{width:9px;height:9px;border-radius:50%;background:#9aa4d6;}');
+  L.push('.status.rec .d{background:#ff3355;box-shadow:0 0 10px #ff3355;animation:p 1.2s infinite;}');
+  L.push('@keyframes p{0%,100%{opacity:1}50%{opacity:0.35}}');
+  L.push('.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;}');
+  L.push('.s{padding:14px;border-radius:12px;background:rgba(13,14,28,0.7);border:1px solid rgba(139,92,246,0.25);}');
+  L.push('.s .k{font-family:Consolas,monospace;font-size:10px;letter-spacing:1.4px;text-transform:uppercase;color:#c0b0ec;margin-bottom:6px;}');
+  L.push('.s .v2{font-size:20px;font-weight:800;color:#22d3ee;font-family:Consolas,monospace;}');
+  L.push('.big-arm{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;}');
+  L.push('.arm-btn{padding:26px 60px;border:0;border-radius:18px;font-size:24px;font-weight:900;letter-spacing:3px;cursor:pointer;color:#fff;background-color:#ff2e88;background-image:linear-gradient(135deg,#ff2e88,#8b5cf6);box-shadow:0 14px 50px rgba(255,46,136,0.45);transition:transform 0.15s;}');
+  L.push('.arm-btn:hover{transform:scale(1.04);}');
+  L.push('.arm-note{color:#9aa4d6;font-size:12px;font-family:Consolas,monospace;letter-spacing:1.4px;text-transform:uppercase;}');
+  L.push('.bar{display:flex;gap:8px;flex-wrap:wrap;}');
+  L.push('.b{padding:9px 16px;border-radius:9px;font-weight:700;font-size:12px;cursor:pointer;border:1px solid rgba(255,255,255,0.12);background:rgba(255,255,255,0.03);color:#d7dcff;}');
+  L.push('.b:hover{border-color:#22d3ee;}');
+  L.push('/* armed overlay state */');
+  L.push('body.armed{background:linear-gradient(180deg,#0a0208 0%,#180612 100%);}');
+  L.push('.armed-v{position:fixed;inset:0;display:none;flex-direction:column;align-items:center;justify-content:center;padding:40px;gap:20px;}');
+  L.push('body.armed .armed-v{display:flex;}');
+  L.push('body.armed .disarmed-v{display:none;}');
+  L.push('.armed-title{font-size:64px;font-weight:900;letter-spacing:8px;margin:0;color:#ff3355;text-shadow:0 0 40px rgba(255,51,85,0.6);}');
+  L.push('.armed-rec{font-family:Consolas,monospace;font-size:14px;letter-spacing:3px;color:#ffb0bd;display:flex;align-items:center;gap:10px;}');
+  L.push('.armed-rec .rd{width:12px;height:12px;border-radius:50%;background:#ff3355;box-shadow:0 0 12px #ff3355;animation:p 1.2s infinite;}');
+  L.push('.armed-timer{font-family:Consolas,monospace;font-size:48px;color:#22d3ee;letter-spacing:4px;}');
+  L.push('.disarm-btn{margin-top:20px;padding:24px 80px;border:0;border-radius:18px;font-size:26px;font-weight:900;letter-spacing:4px;cursor:pointer;color:#fff;background-color:#ff3355;background-image:linear-gradient(135deg,#ff3355,#8b5cf6);box-shadow:0 14px 60px rgba(255,51,85,0.5);}');
+  L.push('.disarm-btn:hover{transform:scale(1.04);}');
+  L.push('.live{position:fixed;right:18px;bottom:18px;width:320px;height:240px;border-radius:14px;overflow:hidden;background:#000;border:2px solid rgba(255,51,85,0.7);box-shadow:0 0 40px rgba(255,51,85,0.3);display:flex;flex-direction:column;}');
+  L.push('.live .lh{padding:6px 10px;background:rgba(0,0,0,0.8);font-family:Consolas,monospace;font-size:10px;letter-spacing:2px;color:#ffb0bd;display:flex;align-items:center;gap:6px;}');
+  L.push('.live .lh .rd{width:7px;height:7px;border-radius:50%;background:#ff3355;box-shadow:0 0 6px #ff3355;animation:p 1.2s infinite;}');
+  L.push('.live img{flex:1;width:100%;object-fit:cover;background:#000;}');
+  L.push('.live .nocam{flex:1;display:flex;align-items:center;justify-content:center;color:#9aa4d6;font-size:11px;font-family:Consolas,monospace;}');
+  L.push('.gate{position:fixed;inset:0;background:rgba(5,6,14,0.96);display:none;align-items:center;justify-content:center;flex-direction:column;gap:14px;padding:30px;}');
+  L.push('.gate.show{display:flex;}');
+  L.push('.gate h2{margin:0;font-size:28px;}');
+  L.push('.gate input{background:#12132a;border:1px solid rgba(255,255,255,0.18);color:#fff;padding:14px 16px;border-radius:10px;font-size:15px;width:320px;outline:none;}');
+  L.push('.gate input:focus{border-color:#ff2e88;}');
+  L.push('.gate .err{color:#ff6b8a;font-size:13px;min-height:1em;}');
+  L.push('.gate .row{display:flex;gap:10px;}');
+  L.push('.gate button{padding:12px 22px;border:0;border-radius:10px;font-weight:700;cursor:pointer;}');
+  L.push('.gate .p{background-color:#ff3355;background-image:linear-gradient(135deg,#ff3355,#8b5cf6);color:#fff;}');
+  L.push('.gate .g{background:transparent;border:1px solid rgba(255,255,255,0.15);color:#d7dcff;}');
+  L.push('</style></head><body>');
+  L.push('<div class="v disarmed-v">');
+  L.push('<h1 class="title">SENTRY</h1>');
+  L.push('<div class="status off" id="statusPill"><span class="d"></span><span id="statusText">Disarmed</span></div>');
+  L.push('<div class="stats">');
+  L.push('<div class="s"><div class="k">Stored clips</div><div class="v2" id="clipCount">0</div></div>');
+  L.push('<div class="s"><div class="k">Disk used</div><div class="v2" id="diskUsed">0 MB</div></div>');
+  L.push('<div class="s"><div class="k">Cameras</div><div class="v2" id="camCount">&mdash;</div></div>');
+  L.push('</div>');
+  L.push('<div class="big-arm">');
+  L.push('<div class="arm-note">Press Arm to begin recording</div>');
+  L.push('<button class="arm-btn" onclick="doArm()">ARM SENTRY</button>');
+  L.push('<div class="arm-note" style="color:#c0b0ec;">Sentry will lock this screen and require your password to disarm.</div>');
+  L.push('</div>');
+  L.push('<div class="bar">');
+  L.push('<button class="b" onclick="openFolder()">Open footage folder</button>');
+  L.push('<button class="b" onclick="openConfig()">Edit config</button>');
+  L.push('<button class="b" onclick="uninstallNow()" style="color:#ffb0bd;border-color:rgba(255,51,85,0.35);">Uninstall</button>');
+  L.push('</div>');
+  L.push('</div>');
+  L.push('<div class="armed-v">');
+  L.push('<div class="armed-rec"><span class="rd"></span> RECORDING &middot; <span id="armedCamCount">0</span> CAMERAS</div>');
+  L.push('<h1 class="armed-title">ARMED</h1>');
+  L.push('<div class="armed-timer" id="armedTimer">00:00:00</div>');
+  L.push('<button class="disarm-btn" onclick="askDisarm()">DISARM</button>');
+  L.push('<div class="live" id="livePanel">');
+  L.push('<div class="lh"><span class="rd"></span> LIVE &middot; CAM</div>');
+  L.push('<img id="liveImg" src="" alt="" />');
+  L.push('<div class="nocam" id="liveNoCam" style="display:none;">Waiting for camera feed...</div>');
+  L.push('</div>');
+  L.push('</div>');
+  L.push('<div class="gate" id="gate">');
+  L.push('<h2>Disarm Sentry</h2>');
+  L.push('<p class="sub" id="gateSub">Enter your password to stop recording.</p>');
+  L.push('<input id="gateInput" type="password" placeholder="Password" />');
+  L.push('<div class="err" id="gateErr"></div>');
+  L.push('<div class="row"><button class="g" onclick="closeGate()">Cancel</button><button class="p" onclick="tryDisarm()">Disarm</button></div>');
+  L.push('</div>');
+  L.push('<' + 'script>');
+  L.push('var sh=new ActiveXObject("WScript.Shell"), fso=new ActiveXObject("Scripting.FileSystemObject");');
+  L.push('var installDir=sh.ExpandEnvironmentStrings("%LOCALAPPDATA%")+"\\\\Sentry";');
+  L.push('var dataDir=sh.ExpandEnvironmentStrings("%USERPROFILE%")+"\\\\Sentry";');
+  L.push('var pidFile=installDir+"\\\\sentry.pid";');
+  L.push('var liveFile=installDir+"\\\\live.jpg";');
+  L.push('var armFlag=installDir+"\\\\arm.flag";');
+  L.push('var cfg={}, armedStart=null, previewTimer=null, tickTimer=null;');
+  L.push('function readCfg(){ try{ var ts=fso.OpenTextFile(installDir+"\\\\sentry.config.json",1); var t=ts.ReadAll(); ts.Close(); return eval("("+t+")"); }catch(e){ return {}; } }');
+  L.push('function writeText(path,content){ var ts=fso.CreateTextFile(path,true); ts.Write(content); ts.Close(); }');
+  L.push('function humanBytes(n){ if(n<1024) return n+" B"; if(n<1048576) return (n/1024).toFixed(1)+" KB"; if(n<1073741824) return (n/1048576).toFixed(1)+" MB"; return (n/1073741824).toFixed(2)+" GB"; }');
+  L.push('function countCameras(){');
+  L.push(' try{');
+  L.push('  var wmi=GetObject("winmgmts:\\\\\\\\.\\\\root\\\\cimv2");');
+  L.push('  var q=wmi.ExecQuery("Select Name,PNPClass,Service from Win32_PnPEntity");');
+  L.push('  var e=new Enumerator(q); var n=0;');
+  L.push('  for(;!e.atEnd();e.moveNext()){ var o=e.item(); if(o.PNPClass=="Camera"||o.Service=="usbvideo") n++; }');
+  L.push('  return n;');
+  L.push(' }catch(e){ return 0; }');
+  L.push('}');
+  L.push('function refreshStats(){');
+  L.push(' try{');
+  L.push('  var fe=new Enumerator(fso.GetFolder(dataDir).Files); var count=0,bytes=0;');
+  L.push('  for(;!fe.atEnd();fe.moveNext()){ count++; bytes+=fe.item().Size; }');
+  L.push('  document.getElementById("clipCount").innerHTML=count;');
+  L.push('  document.getElementById("diskUsed").innerHTML=humanBytes(bytes);');
+  L.push(' }catch(e){}');
+  L.push(' var cn=countCameras();');
+  L.push(' document.getElementById("camCount").innerHTML=cn;');
+  L.push(' var ac=document.getElementById("armedCamCount"); if(ac) ac.innerHTML=cn;');
+  L.push('}');
+  L.push('function openFolder(){ sh.Run("explorer.exe \\""+dataDir+"\\"",1,false); }');
+  L.push('function openConfig(){ sh.Run("notepad.exe \\""+installDir+"\\\\sentry.config.json\\"",1,false); }');
+  L.push('function uninstallNow(){ if(confirm("Uninstall Sentry? Recorded clips will be kept in "+dataDir+".")){ sh.Run("wscript.exe \\""+installDir+"\\\\uninstall.vbs\\"",1,false); window.close(); } }');
+  L.push('function doArm(){');
+  L.push(' try{ writeText(armFlag,"armed "+(new Date()).toString()); }catch(e){}');
+  L.push(' try{ sh.Run("wscript.exe \\""+installDir+"\\\\sentry-launch.vbs\\"",0,false); }catch(e){ alert("Failed to start recorder: "+e.message); return; }');
+  L.push(' document.body.className="armed";');
+  L.push(' try{ window.resizeTo(screen.availWidth,screen.availHeight); window.moveTo(0,0); }catch(e){}');
+  L.push(' armedStart=new Date();');
+  L.push(' if(tickTimer) clearInterval(tickTimer);');
+  L.push(' tickTimer=setInterval(tick,1000);');
+  L.push(' if(previewTimer) clearInterval(previewTimer);');
+  L.push(' previewTimer=setInterval(refreshPreview,600);');
+  L.push(' refreshPreview();');
+  L.push('}');
+  L.push('function askDisarm(){');
+  L.push(' if(!cfg.passwordB64){ performDisarm(); return; }');
+  L.push(' document.getElementById("gate").className="gate show";');
+  L.push(' document.getElementById("gateInput").value="";');
+  L.push(' document.getElementById("gateErr").innerHTML="";');
+  L.push(' setTimeout(function(){ try{ document.getElementById("gateInput").focus(); }catch(e){} },50);');
+  L.push('}');
+  L.push('function closeGate(){ document.getElementById("gate").className="gate"; }');
+  L.push('function tryDisarm(){');
+  L.push(' var v=document.getElementById("gateInput").value;');
+  L.push(' var b64=""; try{ b64=window.btoa(unescape(encodeURIComponent(v))); }catch(e){ b64=v; }');
+  L.push(' if(b64===cfg.passwordB64){ closeGate(); performDisarm(); } else { document.getElementById("gateErr").innerHTML="Wrong password."; }');
+  L.push('}');
+  L.push('function performDisarm(){');
+  L.push(' try{');
+  L.push('  if(fso.FileExists(pidFile)){');
+  L.push('   var ts=fso.OpenTextFile(pidFile,1); var pid=ts.ReadAll(); ts.Close();');
+  L.push('   pid=(pid+"").replace(/[^0-9]/g,"");');
+  L.push('   if(pid) sh.Run("taskkill /F /T /PID "+pid,0,true);');
+  L.push('   try{ fso.DeleteFile(pidFile); }catch(e){}');
+  L.push('  }');
+  L.push('  sh.Run("taskkill /F /IM ffmpeg.exe",0,false);');
+  L.push(' }catch(e){}');
+  L.push(' try{ if(fso.FileExists(armFlag)) fso.DeleteFile(armFlag); }catch(e){}');
+  L.push(' if(previewTimer){ clearInterval(previewTimer); previewTimer=null; }');
+  L.push(' if(tickTimer){ clearInterval(tickTimer); tickTimer=null; }');
+  L.push(' document.body.className="";');
+  L.push(' try{ window.resizeTo(780,620); window.moveTo(Math.max(0,(screen.availWidth-780)/2),Math.max(0,(screen.availHeight-620)/2)); }catch(e){}');
+  L.push(' refreshStats();');
+  L.push('}');
+  L.push('function tick(){');
+  L.push(' if(!armedStart) return;');
+  L.push(' var s=Math.floor((new Date()-armedStart)/1000);');
+  L.push(' var h=Math.floor(s/3600), m=Math.floor((s%3600)/60), x=s%60;');
+  L.push(' function pad(n){ return (n<10?"0":"")+n; }');
+  L.push(' document.getElementById("armedTimer").innerHTML=pad(h)+":"+pad(m)+":"+pad(x);');
+  L.push('}');
+  L.push('function refreshPreview(){');
+  L.push(' var img=document.getElementById("liveImg");');
+  L.push(' var no=document.getElementById("liveNoCam");');
+  L.push(' if(fso.FileExists(liveFile)){ img.style.display=""; no.style.display="none"; img.src="file:///"+liveFile.replace(/\\\\/g,"/")+"?t="+(new Date().getTime()); }');
+  L.push(' else { img.style.display="none"; no.style.display="flex"; }');
+  L.push('}');
+  L.push('try{ window.resizeTo(780,620); window.moveTo(Math.max(0,(screen.availWidth-780)/2),Math.max(0,(screen.availHeight-620)/2)); }catch(e){}');
+  L.push('cfg=readCfg(); refreshStats(); setInterval(refreshStats,5000);');
+  L.push('<' + '/script></body></html>');
+  return L.join("\r\n");
 }
 
 function buildRecorderScript() {
-  // PowerShell recorder: finds webcams via WMI, records rolling clips using
-  // Windows-native ffmpeg via DirectShow if present, otherwise graceful fallback.
-  // Runs forever, rotates clips, purges old ones per retention policy.
+  // PowerShell recorder: runs only while armed (spawned by dashboard).
+  // Writes its own PID so dashboard can kill it on disarm, records clips,
+  // writes live.jpg every second for the bottom-right preview, purges old clips.
   return "# Sentry recorder - generated by installer\r\n" +
     "$ErrorActionPreference = 'SilentlyContinue'\r\n" +
     "$installDir = Join-Path $env:LOCALAPPDATA 'Sentry'\r\n" +
     "$dataDir = Join-Path $env:USERPROFILE 'Sentry'\r\n" +
     "$logFile = Join-Path $installDir 'logs\\sentry.log'\r\n" +
     "$cfgPath = Join-Path $installDir 'sentry.config.json'\r\n" +
+    "$pidFile = Join-Path $installDir 'sentry.pid'\r\n" +
+    "$liveFile = Join-Path $installDir 'live.jpg'\r\n" +
+    "$armFlag = Join-Path $installDir 'arm.flag'\r\n" +
     "function Log($m) { Add-Content -Path $logFile -Value ((Get-Date -Format s) + ' ' + $m) }\r\n" +
+    "Set-Content -Path $pidFile -Value $PID -Force\r\n" +
     "if (-not (Test-Path $dataDir)) { New-Item -ItemType Directory -Path $dataDir -Force | Out-Null }\r\n" +
     "$cfg = Get-Content $cfgPath -Raw | ConvertFrom-Json\r\n" +
     "$ret = [int]$cfg.retentionDays\r\n" +
     "$fps = [int]$cfg.fps\r\n" +
     "$audio = $cfg.audio\r\n" +
     "$clipSec = [int]$cfg.clipSeconds\r\n" +
-    "Log \"sentry starting fps=$fps audio=$audio retention=$ret\"\r\n" +
+    "Log \"sentry armed fps=$fps audio=$audio retention=$ret pid=$PID\"\r\n" +
     "function Get-Cameras {\r\n" +
     "  Get-CimInstance -ClassName Win32_PnPEntity |\r\n" +
     "    Where-Object { $_.PNPClass -eq 'Camera' -or $_.Service -eq 'usbvideo' } |\r\n" +
     "    Select-Object -ExpandProperty Name\r\n" +
     "}\r\n" +
     "function Find-FFmpeg {\r\n" +
-    "  $candidates = @(\r\n" +
-    "    (Join-Path $installDir 'ffmpeg.exe'),\r\n" +
-    "    'ffmpeg.exe'\r\n" +
-    "  )\r\n" +
-    "  foreach ($c in $candidates) {\r\n" +
-    "    try { if (Get-Command $c -ErrorAction Stop) { return $c } } catch { }\r\n" +
-    "  }\r\n" +
-    "  return $null\r\n" +
+    "  $c1 = Join-Path $installDir 'ffmpeg.exe'\r\n" +
+    "  if (Test-Path $c1) { return $c1 }\r\n" +
+    "  try { $r = Get-Command ffmpeg.exe -ErrorAction Stop; return $r.Source } catch { return $null }\r\n" +
     "}\r\n" +
     "function Purge-Old {\r\n" +
     "  if ($ret -le 0) { return }\r\n" +
@@ -907,28 +920,41 @@ function buildRecorderScript() {
     "    Where-Object { $_.LastWriteTime -lt $cutoff } |\r\n" +
     "    ForEach-Object { Remove-Item $_.FullName -Force; Log (\"purged \" + $_.Name) }\r\n" +
     "}\r\n" +
+    "function Write-PlaceholderLive {\r\n" +
+    "  # 1x1 transparent PNG so the dashboard preview shows SOMETHING when ffmpeg is missing\r\n" +
+    "  $b64 = 'iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII='\r\n" +
+    "  [IO.File]::WriteAllBytes($liveFile, [Convert]::FromBase64String($b64))\r\n" +
+    "}\r\n" +
     "$ffmpeg = Find-FFmpeg\r\n" +
-    "if (-not $ffmpeg) { Log 'ffmpeg not found; writing placeholder mode' }\r\n" +
-    "while ($true) {\r\n" +
-    "  $cams = Get-Cameras\r\n" +
-    "  if (-not $cams) { Log 'no cameras detected'; Start-Sleep -Seconds 30; continue }\r\n" +
-    "  $ts = Get-Date -Format 'yyyy-MM-dd_HH-mm-ss'\r\n" +
-    "  foreach ($c in $cams) {\r\n" +
-    "    $safe = ($c -replace '[^a-zA-Z0-9]', '_')\r\n" +
+    "if (-not $ffmpeg) { Log 'ffmpeg not found; recording in placeholder mode' }\r\n" +
+    "try {\r\n" +
+    "  while (Test-Path $armFlag) {\r\n" +
+    "    $cams = @(Get-Cameras)\r\n" +
+    "    if (-not $cams -or $cams.Count -eq 0) { Log 'no cameras detected'; Start-Sleep -Seconds 5; continue }\r\n" +
+    "    $cam = $cams[0]\r\n" +
+    "    $ts = Get-Date -Format 'yyyy-MM-dd_HH-mm-ss'\r\n" +
+    "    $safe = ($cam -replace '[^a-zA-Z0-9]', '_')\r\n" +
     "    $out = Join-Path $dataDir (\"sentry_${safe}_${ts}.avi\")\r\n" +
     "    if ($ffmpeg) {\r\n" +
-    "      $audioArg = if ($audio -eq 'on') { \"-f dshow -i audio=default\" } else { '' }\r\n" +
-    "      $args = \"-y -f dshow -framerate $fps -i video=`\"$c`\" $audioArg -t $clipSec -c:v mjpeg `\"$out`\"\"\r\n" +
-    "      Start-Process -FilePath $ffmpeg -ArgumentList $args -NoNewWindow -Wait\r\n" +
+    "      $audioArgs = @()\r\n" +
+    "      if ($audio -eq 'on') { $audioArgs = @('-f','dshow','-i','audio=default') }\r\n" +
+    "      $ffArgs = @('-y','-f','dshow','-framerate',$fps,'-i',\"video=$cam\") + $audioArgs +\r\n" +
+    "        @('-map','0:v','-c:v','mjpeg','-t',$clipSec,$out,\r\n" +
+    "          '-map','0:v','-vf','fps=1','-update','1',$liveFile)\r\n" +
+    "      Start-Process -FilePath $ffmpeg -ArgumentList $ffArgs -NoNewWindow -Wait\r\n" +
     "    } else {\r\n" +
-    "      # fallback: just write a stub marker so user sees activity\r\n" +
-    "      Set-Content -Path ($out + '.txt') -Value ('Sentry clip placeholder for ' + $c + ' at ' + $ts)\r\n" +
+    "      Set-Content -Path ($out + '.txt') -Value ('Sentry clip placeholder for ' + $cam + ' at ' + $ts)\r\n" +
+    "      Write-PlaceholderLive\r\n" +
     "      Start-Sleep -Seconds $clipSec\r\n" +
     "    }\r\n" +
+    "    Purge-Old\r\n" +
     "  }\r\n" +
-    "  Purge-Old\r\n" +
+    "} finally {\r\n" +
+    "  try { Remove-Item $pidFile -Force } catch {}\r\n" +
+    "  Log 'sentry disarmed'\r\n" +
     "}\r\n";
 }
+
 
 function renderDone() {
   panel.innerHTML =
