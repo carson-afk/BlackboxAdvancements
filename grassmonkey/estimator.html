@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<base href="/grassmonkey/" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Free Estimate — Grass Monkey Property Maintenance</title>
+<meta name="description" content="Three quick steps for a rough estimate on your lawn care or property maintenance job. No obligation." />
+<link rel="icon" href="photos/logo.jpeg" type="image/jpeg">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=DM+Sans:wght@400;500;600;700&family=Fraunces:ital,opsz,wght@0,9..144,400;1,9..144,500&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+<div class="grain"></div>
+
+<header class="nav">
+  <a href="index.html" class="nav-brand"><img src="photos/logo.jpeg" alt=""><span>GRASS<em>.</em>MONKEY</span></a>
+  <nav class="nav-links">
+    <a href="index.html">HOME</a><a href="services.html">SERVICES</a><a href="mowing.html">MOWING</a>
+    <a href="landscaping.html">LANDSCAPING</a><a href="cleanup.html">CLEANUP</a><a href="contact.html">CONTACT</a>
+  </nav>
+  <a href="estimator.html" class="nav-cta" style="background:#fff">Free Estimate →</a>
+  <button class="mobile-toggle">— MENU</button>
+</header>
+<div class="mobile-menu">
+  <a href="index.html">Home</a><a href="services.html">Services</a><a href="mowing.html">Mowing</a>
+  <a href="landscaping.html">Landscaping</a><a href="cleanup.html">Cleanup</a>
+  <a href="estimator.html">Free Estimate</a><a href="contact.html">Contact</a>
+</div>
+
+<section class="estimator-hero">
+  <div class="aurora"></div><div class="meteors" data-count="10"></div>
+  <div class="container" style="position:relative;z-index:2">
+    <span class="eyebrow" style="color:var(--grass-300)">Free · No obligation · Under a minute</span>
+    <h1 class="display" style="margin:12px 0 14px">Get a <em class="serif">rough estimate</em> right now.</h1>
+    <p style="max-width:620px;margin:0 auto;opacity:.85">Tell us what you need, who you are, and we'll show you a ballpark. A real person will reach out within the hour to lock in a firm price.</p>
+  </div>
+</section>
+
+<section class="estimator-wrap">
+  <div class="container">
+    <form id="estimator" class="estimator-card" onsubmit="return false;">
+
+      <div class="steps">
+        <div class="step-dot active">1</div>
+        <div class="step-bar"></div>
+        <div class="step-dot">2</div>
+        <div class="step-bar"></div>
+        <div class="step-dot">3</div>
+      </div>
+
+      <!-- STEP 1 -->
+      <div class="step active">
+        <h2>What do you need?</h2>
+        <p class="sub">Pick the service that fits best and tell us the size of your property.</p>
+
+        <label style="font-size:13px;font-weight:700;color:var(--dirt-700);display:block;margin-bottom:10px">Service</label>
+        <div class="choice-grid" data-group="service">
+          <div class="choice" data-value="mowing"><div class="ico">🌱</div><div class="nm">Lawn Mowing</div><div class="desc">weekly / bi-weekly</div></div>
+          <div class="choice" data-value="landscaping"><div class="ico">🌳</div><div class="nm">Landscaping</div><div class="desc">mulch, plants, rock</div></div>
+          <div class="choice" data-value="cleanup"><div class="ico">🍂</div><div class="nm">Seasonal Cleanup</div><div class="desc">spring or fall</div></div>
+          <div class="choice" data-value="hedges"><div class="ico">✂️</div><div class="nm">Hedge Trim</div><div class="desc">shrubs &amp; bushes</div></div>
+          <div class="choice" data-value="mulch"><div class="ico">🪵</div><div class="nm">Mulch Refresh</div><div class="desc">beds &amp; borders</div></div>
+          <div class="choice" data-value="fullservice"><div class="ico">🏡</div><div class="nm">Full Service</div><div class="desc">everything, year-round</div></div>
+        </div>
+
+        <label style="font-size:13px;font-weight:700;color:var(--dirt-700);display:block;margin:24px 0 10px">Property size</label>
+        <div class="choice-grid" data-group="size">
+          <div class="choice" data-value="small"><div class="ico">🏘️</div><div class="nm">Small</div><div class="desc">under 5,000 sqft</div></div>
+          <div class="choice" data-value="medium"><div class="ico">🏡</div><div class="nm">Medium</div><div class="desc">5,000 – 10,000 sqft</div></div>
+          <div class="choice" data-value="large"><div class="ico">🏠</div><div class="nm">Large</div><div class="desc">10,000 sqft – ½ acre</div></div>
+          <div class="choice" data-value="xlarge"><div class="ico">🌄</div><div class="nm">Extra Large</div><div class="desc">½ – 1 acre</div></div>
+          <div class="choice" data-value="acreage"><div class="ico">🚜</div><div class="nm">Acreage</div><div class="desc">1+ acres</div></div>
+        </div>
+
+        <label style="font-size:13px;font-weight:700;color:var(--dirt-700);display:block;margin:24px 0 10px">How often? (optional)</label>
+        <div class="choice-grid" data-group="frequency">
+          <div class="choice" data-value="oneTime"><div class="ico">⚡</div><div class="nm">One-time</div></div>
+          <div class="choice" data-value="weekly"><div class="ico">📅</div><div class="nm">Weekly</div></div>
+          <div class="choice" data-value="biweekly"><div class="ico">🗓️</div><div class="nm">Bi-weekly</div></div>
+          <div class="choice" data-value="monthly"><div class="ico">🍃</div><div class="nm">Monthly</div></div>
+        </div>
+
+        <label style="font-size:13px;font-weight:700;color:var(--dirt-700);display:block;margin:24px 0 10px">Add-ons? (optional, pick any)</label>
+        <div class="choice-grid" data-group="extras" data-multi="true">
+          <div class="choice" data-value="edge"><div class="ico">📏</div><div class="nm">Edging</div></div>
+          <div class="choice" data-value="trim"><div class="ico">✂️</div><div class="nm">Trim Work</div></div>
+          <div class="choice" data-value="haul"><div class="ico">🚛</div><div class="nm">Debris Haul</div></div>
+          <div class="choice" data-value="aerate"><div class="ico">💧</div><div class="nm">Aerate</div></div>
+        </div>
+
+        <div class="step-actions">
+          <div></div>
+          <button type="button" class="btn-dark" data-next>Continue <span style="margin-left:4px">→</span></button>
+        </div>
+      </div>
+
+      <!-- STEP 2 -->
+      <div class="step">
+        <h2>Who are you?</h2>
+        <p class="sub">So we know where to send your estimate and how to reach out. We'll never share your info.</p>
+
+        <div class="field-row">
+          <div class="field"><label>First &amp; last name</label><input type="text" name="name" placeholder="Jane Doe" required></div>
+          <div class="field"><label>Phone</label><input type="tel" name="phone" placeholder="(360) 555-0142" required></div>
+        </div>
+        <div class="field"><label>Email</label><input type="email" name="email" placeholder="you@email.com" required></div>
+        <div class="field"><label>Property address</label><input type="text" name="address" placeholder="Street, City, ZIP"></div>
+        <div class="field"><label>Anything we should know? (optional)</label><textarea name="notes" rows="3" placeholder="Gate codes, dogs, trouble spots, timing preferences..."></textarea></div>
+
+        <div class="step-actions">
+          <button type="button" class="btn-ghost" data-back>← Back</button>
+          <button type="button" class="btn-dark" data-next>See my estimate <span style="margin-left:4px">→</span></button>
+        </div>
+      </div>
+
+      <!-- STEP 3 -->
+      <div class="step">
+        <h2 class="center">Here's your rough price 🐒</h2>
+        <p class="sub center">Thanks, <span id="estName">friend</span> — this is a ballpark based on what you shared. We'll reach out shortly to help lock in the real number.</p>
+
+        <div class="result-box">
+          <div style="font-family:var(--font-mono);font-size:11px;letter-spacing:.18em;color:var(--grass-700);margin-bottom:6px">ESTIMATED PRICE</div>
+          <div class="price" id="estPrice">$—</div>
+          <div class="range">ROUGH ESTIMATE · FINAL PRICE AFTER WALK-THROUGH</div>
+          <div style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap;margin-top:22px;font-size:14px">
+            <div><strong>Service:</strong> <span id="estService">—</span></div>
+            <div><strong>Size:</strong> <span id="estSize">—</span></div>
+            <div><strong>Cadence:</strong> <span id="estFreq">—</span></div>
+          </div>
+        </div>
+
+        <div style="background:var(--dirt-100);border:1px solid rgba(0,0,0,.06);border-radius:14px;padding:20px;text-align:center">
+          <strong style="display:block;font-family:var(--font-display);font-size:22px;margin-bottom:6px">We'll reach out to help.</strong>
+          <p style="margin:0;font-size:14px;opacity:.8">A real, actual human from Grass Monkey will text or email within the hour to walk through the details and schedule a free on-site look.</p>
+        </div>
+
+        <div class="step-actions">
+          <button type="button" class="btn-ghost" data-back>← Change my answers</button>
+          <a href="index.html" class="btn-dark" style="text-decoration:none;display:inline-flex;align-items:center">Back home <span style="margin-left:4px">→</span></a>
+        </div>
+      </div>
+
+    </form>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand"><div style="display:flex;gap:12px;align-items:center;margin-bottom:14px"><img class="bounce-logo" src="photos/logo.jpeg" alt=""><strong style="font-family:var(--font-heavy);font-size:22px;color:var(--cream);letter-spacing:.05em">GRASS MONKEY</strong></div><p>Friendly, reliable property maintenance.</p></div>
+      <div><h4>Services</h4><a href="mowing.html">Lawn Mowing</a><a href="landscaping.html">Landscaping</a><a href="cleanup.html">Seasonal Cleanup</a><a href="services.html">All Services</a></div>
+      <div><h4>Company</h4><a href="contact.html">About</a><a href="contact.html">Contact</a><a href="estimator.html">Free Estimate</a></div>
+      <div><h4>Reach us</h4><a href="tel:3605550142">(360) 555-0142</a><a href="mailto:hello@grassmonkey.co">hello@grassmonkey.co</a><a href="#">Mon – Sat · 7am – 7pm</a></div>
+    </div>
+    <div class="footer-bottom"><span>© 2026 Grass Monkey Property Maintenance</span><span>Built with dirt &amp; grass 🌿</span></div>
+  </div>
+</footer>
+<script src="animations.js"></script>
+</body></html>
