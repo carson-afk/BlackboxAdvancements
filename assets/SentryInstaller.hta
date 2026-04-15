@@ -41,9 +41,11 @@
   .brand {
     font-size: 40px; font-weight: 900;
     letter-spacing: -2px;
-    background: -webkit-linear-gradient(135deg, #ff2e88, #8b5cf6 50%, #22d3ee);
+    color: #ff2e88; /* fallback for engines that don't support background-clip:text */
+    background: linear-gradient(135deg, #ff2e88, #8b5cf6 50%, #22d3ee);
     -webkit-background-clip: text;
-    color: transparent;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
     margin: 0;
   }
   .tag {
@@ -74,7 +76,7 @@
   }
   h2 { margin: 0 0 8px 0; font-size: 22px; line-height: 1.2; }
   p { color: #bfc3e4; line-height: 1.55; font-size: 13px; margin: 0 0 10px; }
-  .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px 18px; margin-top: 14px; }
+  .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 22px 22px; margin-top: 18px; }
   .actions { margin-top: auto; padding-top: 18px; }
   label.row {
     display: block;
@@ -112,8 +114,45 @@
     color: #111122;
   }
   input::-ms-reveal, input::-ms-clear { filter: invert(1); }
-  .pw-stack { display: flex; flex-direction: column; gap: 16px; }
-  .pw-row { display: flex; flex-direction: column; gap: 8px; }
+  .pw-stack { display: flex; flex-direction: column; gap: 20px; }
+  .pw-row { display: flex; flex-direction: column; gap: 10px; }
+  .pw-mode-grid {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 14px;
+    margin-top: 4px;
+  }
+  .pw-choice {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 12px;
+    padding: 18px 16px;
+    color: #e7eaff;
+    cursor: pointer;
+    text-align: left;
+    transition: border-color 0.2s, background 0.2s;
+    font-family: inherit;
+  }
+  .pw-choice:hover { border-color: #ff2e88; }
+  .pw-choice.on {
+    border-color: #ff2e88;
+    background: rgba(255, 46, 136, 0.1);
+    box-shadow: 0 0 20px rgba(255, 46, 136, 0.2);
+  }
+  .pw-choice-icon { font-size: 22px; margin-bottom: 6px; }
+  .pw-choice-title { font-size: 15px; font-weight: 700; margin-bottom: 4px; color: #fff; }
+  .pw-choice-sub { font-size: 12px; color: #a8b0d6; line-height: 1.45; }
+  .pw-none {
+    padding: 16px;
+    background: rgba(255, 189, 46, 0.06);
+    border: 1px solid rgba(255, 189, 46, 0.3);
+    border-radius: 12px;
+  }
+  .pw-none p { margin: 0 0 4px; color: #e8e4d0; }
+  .pw-none code {
+    font-family: Consolas, monospace; font-size: 12px;
+    color: #22d3ee; background: rgba(34,211,238,0.08);
+    padding: 1px 6px; border-radius: 4px;
+  }
   .pw-row .lbl {
     font-family: Consolas, monospace;
     font-size: 11px;
@@ -133,17 +172,24 @@
   }
   .pw-err { color: #ff6b8a; font-size: 12px; min-height: 1em; }
   .showpw {
-    display: flex; align-items: center; gap: 8px;
-    padding: 8px 12px;
-    background: rgba(255,255,255,0.03);
-    border: 1px solid rgba(255,255,255,0.08);
-    border-radius: 8px;
-    font-size: 12px;
-    color: #d4d8f3;
+    display: inline-flex; align-items: center; gap: 10px;
+    padding: 10px 14px;
+    background: rgba(34, 211, 238, 0.06);
+    border: 1px solid rgba(34, 211, 238, 0.3);
+    border-radius: 10px;
+    font-size: 13px;
+    color: #d5f6fd;
     cursor: pointer;
+    user-select: none;
     width: fit-content;
   }
-  .showpw input { width: 14px; height: 14px; margin: 0; }
+  .showpw:hover { border-color: #22d3ee; background: rgba(34,211,238,0.12); }
+  .showpw input {
+    width: 16px; height: 16px; margin: 0;
+    accent-color: #22d3ee;
+    cursor: pointer;
+  }
+  .showpw span { line-height: 1; }
   .toggle { display: flex; gap: 6px; flex-wrap: wrap; }
   .tbtn {
     padding: 7px 12px;
@@ -155,7 +201,7 @@
     font-size: 12px;
   }
   .tbtn.on {
-    background: -webkit-linear-gradient(135deg, #ff2e88, #8b5cf6);
+    background: linear-gradient(135deg, #ff2e88, #8b5cf6);
     color: #fff; border-color: transparent;
   }
   .actions {
@@ -171,8 +217,10 @@
     border: 1px solid transparent;
   }
   .btn.prim {
-    background: -webkit-linear-gradient(135deg, #ff2e88, #8b5cf6);
-    color: #fff;
+    background-color: #ff2e88; /* solid fallback so text is readable if gradient fails */
+    background-image: linear-gradient(135deg, #ff2e88, #8b5cf6);
+    color: #ffffff;
+    border-color: rgba(255,255,255,0.2);
   }
   .btn.ghost {
     background: transparent;
@@ -202,7 +250,7 @@
   }
   .done-banner .big {
     font-size: 28px; font-weight: 900;
-    background: -webkit-linear-gradient(135deg, #ff2e88, #8b5cf6 50%, #22d3ee);
+    background: linear-gradient(135deg, #ff2e88, #8b5cf6 50%, #22d3ee);
     -webkit-background-clip: text; color: transparent;
     margin-bottom: 8px;
   }
@@ -361,57 +409,110 @@ function renderSettings() {
   bindToggle("autoToggle", "autostart");
 }
 
+var pwMode = null; // null | "password" | "none"
+
 function renderPassword() {
+  pwMode = null;
   panel.innerHTML =
-    '<h2>Set a password.</h2>' +
-    '<p style="margin-bottom:16px;">Sentry asks for this password before letting anyone view, export, or delete your recorded footage. Pick something you\'ll remember &mdash; there\'s no recovery option.</p>' +
-    '<div class="pw-stack">' +
-      '<div class="pw-row"><span class="lbl">Password</span>' +
-        '<input id="pw1" type="password" placeholder="Your password" autocomplete="off" />' +
-        '<div class="pw-bar"><div id="pwBar"></div></div>' +
-        '<span class="pw-hint" id="pwStrength">strength: &mdash;</span>' +
-      '</div>' +
-      '<div class="pw-row"><span class="lbl">Confirm password</span>' +
-        '<input id="pw2" type="password" placeholder="Type it again" autocomplete="off" />' +
-      '</div>' +
-      '<label class="showpw"><input type="checkbox" id="pwShow" /> <span>Show passwords</span></label>' +
-      '<div class="pw-err" id="pwErr"></div>' +
+    '<h2>Protect your footage.</h2>' +
+    '<p style="margin-bottom:18px;">Pick one. You can change this later from the Sentry tray icon.</p>' +
+    '<div class="pw-mode-grid">' +
+      '<button type="button" class="pw-choice" onclick="pickPwMode(\'password\')">' +
+        '<div class="pw-choice-icon">&#128274;</div>' +
+        '<div class="pw-choice-title">Set a password</div>' +
+        '<div class="pw-choice-sub">Required to view, export, or delete clips. Recommended.</div>' +
+      '</button>' +
+      '<button type="button" class="pw-choice" onclick="pickPwMode(\'none\')">' +
+        '<div class="pw-choice-icon">&#128275;</div>' +
+        '<div class="pw-choice-title">No password</div>' +
+        '<div class="pw-choice-sub">Anyone on this PC can view your footage. Faster to use.</div>' +
+      '</button>' +
     '</div>' +
+    '<div id="pwBody" style="margin-top:18px;"></div>' +
     '<div class="actions">' +
       '<button class="btn ghost" onclick="setStep(2)">&larr; Back</button>' +
-      '<button class="btn prim" onclick="confirmPassword()">Install &rarr;</button>' +
+      '<button class="btn prim" id="pwNext" onclick="confirmPassword()" disabled style="opacity:0.45;">Install &rarr;</button>' +
     '</div>';
-  var pw1 = document.getElementById("pw1");
-  var pw2 = document.getElementById("pw2");
-  var show = document.getElementById("pwShow");
-  var bar = document.getElementById("pwBar");
-  var strength = document.getElementById("pwStrength");
-  pw1.onkeyup = function () {
-    var v = pw1.value, score = 0, label = "weak";
-    if (v.length >= 6) score += 20;
-    if (v.length >= 10) score += 20;
-    if (/[A-Z]/.test(v)) score += 15;
-    if (/[0-9]/.test(v)) score += 15;
-    if (/[^A-Za-z0-9]/.test(v)) score += 30;
-    if (score >= 70) label = "strong";
-    else if (score >= 40) label = "decent";
-    bar.style.width = Math.min(score, 100) + "%";
-    strength.innerHTML = "strength: " + label;
-  };
-  show.onclick = function () {
-    var t = show.checked ? "text" : "password";
-    pw1.type = t; pw2.type = t;
-  };
-  pw1.focus();
+}
+
+function pickPwMode(mode) {
+  pwMode = mode;
+  // highlight selected choice
+  var choices = document.getElementsByClassName("pw-choice");
+  for (var i = 0; i < choices.length; i++) choices[i].className = "pw-choice";
+  var picked = (mode === "password") ? choices[0] : choices[1];
+  picked.className = "pw-choice on";
+  var body = document.getElementById("pwBody");
+  var nxt = document.getElementById("pwNext");
+  if (mode === "password") {
+    body.innerHTML =
+      '<div class="pw-stack">' +
+        '<div class="pw-row"><span class="lbl">Password</span>' +
+          '<input id="pw1" type="password" placeholder="Your password" autocomplete="off" />' +
+          '<div class="pw-bar"><div id="pwBar"></div></div>' +
+          '<span class="pw-hint" id="pwStrength">strength: &mdash;</span>' +
+        '</div>' +
+        '<div class="pw-row"><span class="lbl">Confirm password</span>' +
+          '<input id="pw2" type="password" placeholder="Type it again" autocomplete="off" />' +
+        '</div>' +
+        '<label class="showpw"><input type="checkbox" id="pwShow" /> <span>Show passwords</span></label>' +
+        '<div class="pw-err" id="pwErr"></div>' +
+      '</div>';
+    var pw1 = document.getElementById("pw1");
+    var pw2 = document.getElementById("pw2");
+    var show = document.getElementById("pwShow");
+    var bar = document.getElementById("pwBar");
+    var strength = document.getElementById("pwStrength");
+    function refreshNxt() {
+      var ok = pw1.value.length > 0 && pw1.value === pw2.value;
+      nxt.disabled = !ok;
+      nxt.style.opacity = ok ? 1 : 0.45;
+    }
+    pw1.onkeyup = function () {
+      var v = pw1.value, score = 0, label = "weak";
+      if (v.length >= 6) score += 20;
+      if (v.length >= 10) score += 20;
+      if (/[A-Z]/.test(v)) score += 15;
+      if (/[0-9]/.test(v)) score += 15;
+      if (/[^A-Za-z0-9]/.test(v)) score += 30;
+      if (score >= 70) label = "strong";
+      else if (score >= 40) label = "decent";
+      bar.style.width = Math.min(score, 100) + "%";
+      strength.innerHTML = "strength: " + label;
+      refreshNxt();
+    };
+    pw2.onkeyup = refreshNxt;
+    show.onclick = function () {
+      var t = show.checked ? "text" : "password";
+      pw1.type = t; pw2.type = t;
+    };
+    pw1.focus();
+    nxt.disabled = true; nxt.style.opacity = 0.45;
+  } else {
+    body.innerHTML =
+      '<div class="pw-none">' +
+        '<p><b>No password will be required.</b> Sentry will start recording immediately on install. Your clips in <code>%USERPROFILE%\\Sentry</code> will be accessible to anyone signed into this Windows account.</p>' +
+        '<button type="button" class="btn prim" onclick="confirmPassword()" style="margin-top:8px;">Continue without password &rarr;</button>' +
+      '</div>';
+    // main next button also enabled so user has two equivalent paths
+    nxt.disabled = false; nxt.style.opacity = 1;
+  }
 }
 
 function confirmPassword() {
+  if (pwMode === "none") {
+    settings.passwordB64 = "";
+    setStep(4);
+    setTimeout(runInstall, 250);
+    return;
+  }
+  if (pwMode !== "password") return;
   var pw1 = document.getElementById("pw1").value;
   var pw2 = document.getElementById("pw2").value;
   var err = document.getElementById("pwErr");
   err.innerHTML = "";
+  if (pw1.length === 0) { err.innerHTML = "Enter a password, or go back and pick \'No password\'."; return; }
   if (pw1 !== pw2) { err.innerHTML = "Passwords don\'t match."; return; }
-  // store base64 (reversible placeholder; recorder can rehash on first run)
   try {
     settings.passwordB64 = window.btoa(unescape(encodeURIComponent(pw1)));
   } catch (e) {
