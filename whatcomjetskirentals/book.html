@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Book a Jet Ski · Whatcom Jet Ski Rentals</title>
+<meta name="description" content="Book your jet ski rental on Lake Whatcom or Lake Samish. 4-hour and 8-hour packages. Call, text, or fill out the form." />
+
+<link rel="icon" href="photos/Logo.jpg" type="image/jpeg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=DM+Sans:wght@400;500;600;700&family=Fraunces:ital,opsz,wght@0,9..144,400;1,9..144,400&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+<div class="grain" aria-hidden="true"></div>
+
+<header class="nav">
+  <a href="index.html" class="nav-brand">
+    <img src="photos/Logo.jpg" alt="">
+    <span>WHATCOM<em>.</em>JET-SKI</span>
+  </a>
+  <nav class="nav-links">
+    <a href="index.html">HOME</a>
+    <a href="fleet.html">FLEET</a>
+    <a href="locations.html">LOCATIONS</a>
+    <a href="book.html" class="active">BOOK</a>
+  </nav>
+  <a href="tel:+13603186781" class="nav-cta">Call Now →</a>
+  <button class="mobile-toggle" aria-label="Menu">— MENU</button>
+</header>
+<div class="mobile-menu">
+  <a href="index.html">Home</a>
+  <a href="fleet.html">Fleet</a>
+  <a href="locations.html">Locations</a>
+  <a href="book.html">Book</a>
+</div>
+
+<section class="subhero spotlight-host">
+  <div class="aurora" aria-hidden="true"></div>
+  <div class="meteors" data-count="10" aria-hidden="true"></div>
+  <div class="spotlight" aria-hidden="true"></div>
+  <div class="container subhero-inner">
+    <h1 class="display reveal">
+      Let's<br>
+      <em class="serif flicker">ride.</em>
+    </h1>
+    <div class="subhero-meta reveal">
+      <span class="eyebrow">Request a reservation</span>
+      <strong>Fill this out and we'll text you back within a few hours to confirm availability, time slot, and final price. Or just call us directly at 360-318-6781 — fastest path.</strong>
+    </div>
+  </div>
+</section>
+
+<div class="ticker">
+  <div class="ticker-track">
+    <span class="ticker-item"><span class="mark">●</span> CALL · 360-318-6781</span>
+    <span class="ticker-item"><span class="mark">◆</span> TEXT · SAME NUMBER</span>
+    <span class="ticker-item">EMAIL · VONGSALFRED@GMAIL.COM</span>
+    <span class="ticker-item"><span class="mark">●</span> OPEN 10 AM – 8 PM DAILY</span>
+    <span class="ticker-item">DEPOSIT REQUIRED FOR ALL RENTALS</span>
+  </div>
+</div>
+
+<section class="container">
+  <div class="book-grid">
+
+    <form class="book-form reveal-stagger" data-demo-form>
+      <div class="field-row">
+        <div class="field">
+          <label for="name">Your Name</label>
+          <input id="name" name="name" type="text" placeholder="First &amp; last" required>
+        </div>
+        <div class="field">
+          <label for="phone">Phone (text OK)</label>
+          <input id="phone" name="phone" type="tel" placeholder="(555) 555-5555" required>
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="email">Email</label>
+        <input id="email" name="email" type="email" placeholder="you@domain.com" required>
+      </div>
+
+      <div class="field-row">
+        <div class="field">
+          <label for="date">Preferred Date</label>
+          <input id="date" name="date" type="date" required>
+        </div>
+        <div class="field">
+          <label for="time">Preferred Start Time</label>
+          <select id="time" name="time">
+            <option>10:00 AM</option>
+            <option>12:00 PM</option>
+            <option>2:00 PM</option>
+            <option>4:00 PM</option>
+            <option>Any time — we'll pick</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="field-row">
+        <div class="field">
+          <label for="location">Which Lake</label>
+          <select id="location" name="location">
+            <option>Lake Whatcom</option>
+            <option>Lake Samish</option>
+            <option>Either — whichever is available</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="package">Package</label>
+          <select id="package" name="package">
+            <option>4 Hours · 1 Jet Ski</option>
+            <option>4 Hours · 2 Jet Skis</option>
+            <option>8 Hours · 1 Jet Ski</option>
+            <option>8 Hours · 2 Jet Skis</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="field-row">
+        <div class="field">
+          <label for="riders">Total Riders</label>
+          <select id="riders" name="riders">
+            <option>1</option>
+            <option>2</option>
+            <option>3</option>
+            <option>4</option>
+            <option>5+</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="experience">Experience Level</label>
+          <select id="experience" name="experience">
+            <option>Never ridden before</option>
+            <option>Ridden a few times</option>
+            <option>Pretty experienced</option>
+            <option>Pro / competitive</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="notes">Anything we should know?</label>
+        <textarea id="notes" name="notes" placeholder="Kids along, special occasion, specific questions — tell us."></textarea>
+      </div>
+
+      <div>
+        <button type="submit" class="btn btn-primary">Send Request <span class="arrow">→</span></button>
+      </div>
+
+      <p class="form-confirm" style="opacity:0; transition:opacity 0.5s; color:var(--aqua); font-family:var(--font-mono); font-size:0.9rem; letter-spacing:0.1em; margin-top:0.5rem;"></p>
+
+      <p style="color:var(--foam-faint); font-family:var(--font-mono); font-size:0.72rem; letter-spacing:0.12em; text-transform:uppercase; margin-top:1.5rem;">
+        By submitting, you agree we'll text you back at the number provided. Deposit collected when we confirm the booking.
+      </p>
+    </form>
+
+    <aside class="book-info reveal">
+      <h3>Or just call.</h3>
+
+      <div class="info-row">
+        <span class="k">Phone</span>
+        <span class="v mono"><a href="tel:+13603186781">360-318-6781</a></span>
+      </div>
+      <div class="info-row">
+        <span class="k">Alt</span>
+        <span class="v mono"><a href="tel:+13602962671">360-296-2671</a></span>
+      </div>
+      <div class="info-row">
+        <span class="k">Email</span>
+        <span class="v mono"><a href="mailto:vongsalfred@gmail.com">vongsalfred@gmail.com</a></span>
+      </div>
+      <div class="info-row">
+        <span class="k">Hours</span>
+        <span class="v"><em>10 AM – 8 PM</em> · every day</span>
+      </div>
+      <div class="info-row">
+        <span class="k">Lakes</span>
+        <span class="v">Whatcom · Samish</span>
+      </div>
+      <div class="info-row">
+        <span class="k">Deposit</span>
+        <span class="v">Required · refunded after safe return</span>
+      </div>
+
+      <div style="margin-top:2.5rem;">
+        <span class="eyebrow">TIP</span>
+        <p style="color:var(--foam-dim); margin-top:0.75rem; font-size:0.95rem; line-height:1.6;">
+          Fastest way to lock in a slot is just to call or text. Summer weekends book up by mid-week — don't wait until Saturday morning.
+        </p>
+      </div>
+    </aside>
+
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <h3>Whatcom<em>.</em>Jet-Ski</h3>
+        <p>Jet ski rentals on Lake Whatcom and Lake Samish. Safety first, equipment second-to-none, fun mandatory.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Pages</h4>
+        <a href="index.html">Home</a>
+        <a href="fleet.html">Fleet</a>
+        <a href="locations.html">Locations</a>
+        <a href="book.html">Book</a>
+      </div>
+      <div class="footer-col">
+        <h4>Contact</h4>
+        <p>360-318-6781</p>
+        <p>360-296-2671</p>
+        <a href="mailto:vongsalfred@gmail.com">vongsalfred@gmail.com</a>
+      </div>
+      <div class="footer-col">
+        <h4>Legal</h4>
+        <p>Waiver &amp; Liability</p>
+        <p>Rental Agreement</p>
+        <p>Safety Requirements</p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© WHATCOM JET-SKI RENTALS, LLC</span>
+      <span>BELLINGHAM, WA · OPEN 10AM – 8PM</span>
+    </div>
+  </div>
+</footer>
+
+<script src="animations.js"></script>
+</body>
+</html>
