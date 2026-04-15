@@ -148,6 +148,112 @@
     }, { passive: true });
   }
 
+  /* Estimator --------------------------------------------------------- */
+  const est = document.getElementById('estimatorForm');
+  if (est) {
+    const step1 = est.querySelector('[data-step="1"]');
+    const step2 = est.querySelector('[data-step="2"]');
+    const resultEl = est.querySelector('[data-step="result"]');
+    const continueBtn = est.querySelector('#estContinue');
+    const backBtn = est.querySelector('#estBack');
+
+    const show = (which) => {
+      [step1, step2, resultEl].forEach((el) => { if (el) el.hidden = true; });
+      which.hidden = false;
+      const y = est.getBoundingClientRect().top + window.scrollY - 80;
+      window.scrollTo({ top: y, behavior: 'smooth' });
+    };
+
+    const flash = (input, msg) => {
+      let err = input.parentNode.querySelector('.est-error');
+      if (!err) {
+        err = document.createElement('span');
+        err.className = 'est-error';
+        input.parentNode.appendChild(err);
+      }
+      err.textContent = msg;
+      input.style.borderColor = '#ff8a8a';
+      input.addEventListener('input', () => {
+        err.textContent = '';
+        input.style.borderColor = '';
+      }, { once: true });
+    };
+
+    const emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    continueBtn.addEventListener('click', () => {
+      const name = est.elements.name;
+      const phone = est.elements.phone;
+      const email = est.elements.email;
+      let ok = true;
+      if (!name.value.trim()) { flash(name, 'Required'); ok = false; }
+      if (!phone.value.trim() || phone.value.replace(/\D/g, '').length < 7) { flash(phone, 'Enter a valid phone'); ok = false; }
+      if (!emailRe.test(email.value.trim())) { flash(email, 'Enter a valid email'); ok = false; }
+      if (!ok) return;
+      show(step2);
+    });
+
+    backBtn.addEventListener('click', () => show(step1));
+
+    const PRICES = {
+      '4hr-1': { base: 399, label: '4 Hours · 1 Jet Ski' },
+      '4hr-2': { base: 749, label: '4 Hours · 2 Jet Skis' },
+      '8hr-1': { base: 649, label: '8 Hours · 1 Jet Ski' },
+      '8hr-2': { base: 1249, label: '8 Hours · 2 Jet Skis' },
+    };
+
+    est.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const lake = est.elements.lake;
+      const pkg = est.elements.package;
+      if (!lake.value) { flash(lake, 'Pick a lake'); return; }
+      if (!pkg.value) { flash(pkg, 'Pick a package'); return; }
+
+      const riders = parseInt(est.elements.riders.value, 10) || 2;
+      const skis = pkg.value.endsWith('-2') ? 2 : 1;
+      const cap = skis * 2;
+      const extraRiderFee = Math.max(0, riders - cap) * 40;
+      const { base, label } = PRICES[pkg.value];
+      const total = base + extraRiderFee;
+      const low = Math.round((total * 0.92) / 5) * 5;
+      const high = Math.round((total * 1.08) / 5) * 5;
+
+      const fmt = (n) => `$${n.toLocaleString('en-US')}`;
+      const range = est.querySelector('.est-range');
+      const summary = est.querySelector('.est-summary');
+      range.textContent = `${fmt(low)} – ${fmt(high)}`;
+      const dateStr = est.elements.date.value ? ` on ${est.elements.date.value}` : '';
+      summary.textContent = `${label} at ${lake.value}${dateStr} for ${riders} rider${riders === 1 ? '' : 's'}. We'll text a firm quote with open time slots ASAP.`;
+      show(resultEl);
+
+      const payload = {
+        name: est.elements.name.value.trim(),
+        phone: est.elements.phone.value.trim(),
+        email: est.elements.email.value.trim(),
+        lake: lake.value,
+        package: label,
+        riders,
+        date: est.elements.date.value || '',
+        estimate_low: low,
+        estimate_high: high,
+        source: 'whatcomjetskirentals estimator',
+        _subject: `New jet-ski estimate request — ${est.elements.name.value.trim()}`,
+      };
+      const endpoint = est.getAttribute('data-formspree-id');
+      if (endpoint) {
+        try {
+          await fetch(`https://formspree.io/f/${endpoint}`, {
+            method: 'POST',
+            headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload),
+          });
+        } catch (_) { /* UX already rendered */ }
+      } else {
+        console.info('[estimator] lead captured (no endpoint configured):', payload);
+      }
+    });
+  }
+
   /* Booking form — fake submit for demo ------------------------------- */
   const form = document.querySelector('form[data-demo-form]');
   if (form) {

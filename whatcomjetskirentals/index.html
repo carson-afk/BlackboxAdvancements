@@ -65,7 +65,7 @@
       </p>
 
       <div class="hero-cta-row">
-        <a href="book.html" class="btn btn-primary">Book a Jet Ski <span class="arrow">→</span></a>
+        <a href="#estimate" class="btn btn-primary">Get Instant Estimate <span class="arrow">→</span></a>
         <a href="fleet.html" class="btn">See the Fleet <span class="arrow">→</span></a>
       </div>
     </div>
@@ -84,6 +84,99 @@
         <div class="v mono">360-318-6781</div>
       </div>
     </aside>
+  </div>
+</section>
+
+<!-- ESTIMATOR -->
+<section class="estimator" id="estimate">
+  <div class="container">
+    <div class="estimator-header reveal">
+      <span class="eyebrow">INSTANT QUOTE · NO OBLIGATION</span>
+      <h2 class="display">Get a rough <em class="serif">estimate</em>.</h2>
+      <p>Tell us who you are and how you want to ride — we'll text or email back a firm quote with actual availability within the hour.</p>
+    </div>
+
+    <form class="estimator-form reveal" id="estimatorForm" data-formspree-id="" novalidate>
+      <!-- STEP 1 -->
+      <fieldset class="est-step" data-step="1">
+        <legend class="est-step-title"><span class="est-step-num">01</span> Your info</legend>
+        <div class="field-row">
+          <div class="field">
+            <label for="est-name">Name</label>
+            <input type="text" id="est-name" name="name" required autocomplete="name" />
+          </div>
+          <div class="field">
+            <label for="est-phone">Phone</label>
+            <input type="tel" id="est-phone" name="phone" required autocomplete="tel" placeholder="360-555-0123" />
+          </div>
+        </div>
+        <div class="field">
+          <label for="est-email">Email</label>
+          <input type="email" id="est-email" name="email" required autocomplete="email" />
+        </div>
+        <button type="button" class="btn btn-primary" id="estContinue">Continue <span class="arrow">→</span></button>
+        <p class="est-note">Your info stays with us — used only to confirm your booking.</p>
+      </fieldset>
+
+      <!-- STEP 2 -->
+      <fieldset class="est-step" data-step="2" hidden>
+        <legend class="est-step-title"><span class="est-step-num">02</span> Your ride</legend>
+        <div class="field-row">
+          <div class="field">
+            <label for="est-lake">Lake</label>
+            <select id="est-lake" name="lake" required>
+              <option value="">Select lake</option>
+              <option value="Lake Whatcom">Lake Whatcom</option>
+              <option value="Lake Samish">Lake Samish</option>
+              <option value="Either">Either — whichever has a slot</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="est-package">Package</label>
+            <select id="est-package" name="package" required>
+              <option value="">Select package</option>
+              <option value="4hr-1">4 Hours · 1 Jet Ski</option>
+              <option value="4hr-2">4 Hours · 2 Jet Skis</option>
+              <option value="8hr-1">8 Hours · 1 Jet Ski</option>
+              <option value="8hr-2">8 Hours · 2 Jet Skis</option>
+            </select>
+          </div>
+        </div>
+        <div class="field-row">
+          <div class="field">
+            <label for="est-riders">Riders</label>
+            <select id="est-riders" name="riders" required>
+              <option value="1">1 rider</option>
+              <option value="2" selected>2 riders</option>
+              <option value="3">3 riders</option>
+              <option value="4">4 riders</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="est-date">Preferred date <span class="est-opt">(optional)</span></label>
+            <input type="date" id="est-date" name="date" />
+          </div>
+        </div>
+        <div class="est-step-actions">
+          <button type="button" class="btn" id="estBack">← Back</button>
+          <button type="submit" class="btn btn-primary">Get Estimate <span class="arrow">→</span></button>
+        </div>
+      </fieldset>
+
+      <!-- RESULT -->
+      <div class="est-result" data-step="result" hidden aria-live="polite">
+        <div class="est-quote-card">
+          <span class="eyebrow">ESTIMATED TOTAL</span>
+          <div class="est-price"><span class="est-range">—</span></div>
+          <p class="est-summary">—</p>
+          <div class="est-actions">
+            <a href="book.html" class="btn btn-primary">Lock in a Booking <span class="arrow">→</span></a>
+            <a href="tel:3603186781" class="btn">Call 360-318-6781</a>
+          </div>
+          <p class="est-fineprint">Final price depends on date, season, and availability. Taxes and launch fees not included. We'll confirm in writing before you're charged.</p>
+        </div>
+      </div>
+    </form>
   </div>
 </section>
 
