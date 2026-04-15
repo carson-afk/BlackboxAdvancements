@@ -83,8 +83,8 @@ button{font:inherit;cursor:pointer;border:0;background:none;color:inherit}
 }
 .nav-brand{display:flex;align-items:center;gap:12px;font-weight:800;letter-spacing:.04em}
 .nav-brand img{width:44px;height:44px;border-radius:50%;object-fit:cover;box-shadow:0 0 0 2px var(--grass-500)}
-.nav-brand span{font-family:var(--font-heavy);font-size:20px;letter-spacing:.05em}
-.nav-brand em{color:var(--grass-400);font-style:normal}
+.nav-brand span{font-family:var(--font-sans);font-weight:800;font-size:15px;letter-spacing:.22em;text-transform:uppercase}
+.nav-brand em{color:var(--grass-400);font-style:normal;margin:0 4px}
 .nav-links{display:flex;gap:6px;margin-left:auto;flex-wrap:wrap}
 .nav-links a{
   padding:10px 14px;border-radius:999px;
@@ -214,8 +214,9 @@ button{font:inherit;cursor:pointer;border:0;background:none;color:inherit}
   border-bottom:1px solid rgba(255,255,255,.05);
 }
 .carousel-track{
-  display:flex;gap:28px;width:max-content;
+  display:flex;gap:28px;width:max-content;padding-right:28px;
   animation:marquee 42s linear infinite;
+  will-change:transform;
 }
 .carousel:hover .carousel-track{animation-play-state:paused}
 .carousel-item{
@@ -232,8 +233,8 @@ button{font:inherit;cursor:pointer;border:0;background:none;color:inherit}
   backdrop-filter:blur(6px);
 }
 @keyframes marquee{
-  0%{transform:translateX(0)}
-  100%{transform:translateX(calc(-50% - 14px))}
+  0%{transform:translate3d(0,0,0)}
+  100%{transform:translate3d(-50%,0,0)}
 }
 .carousel-fade{position:absolute;top:0;bottom:0;width:120px;pointer-events:none;z-index:2}
 .carousel-fade.left{left:0;background:linear-gradient(90deg,var(--dirt-800),transparent)}
@@ -433,9 +434,11 @@ section{position:relative}
 /* Pricing card */
 .pricing-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:22px;margin-top:40px}
 .pricing-card{
-  padding:30px;background:#fff;border-radius:18px;border:1px solid rgba(0,0,0,.06);
+  padding:30px;background:#fff;color:var(--ink);border-radius:18px;border:1px solid rgba(0,0,0,.06);
   box-shadow:var(--shadow-md);transition:transform .3s;
 }
+.pricing-card p{color:var(--dirt-700);opacity:.85}
+.pricing-card li{color:var(--ink)}
 .pricing-card:hover{transform:translateY(-6px)}
 .pricing-card.featured{border-color:var(--grass-500);background:linear-gradient(180deg,#fff,var(--grass-100))}
 .pricing-card h3{font-family:var(--font-display);font-size:28px;margin:0 0 6px;font-weight:500}
