@@ -657,17 +657,25 @@ function runInstall() {
     log("Sentry is watching.", "done");
     setTimeout(function () {
       setStep(5);
-      // launch the Sentry app (and dock, if enabled) so the user sees it running
-      try {
-        var sh3 = new ActiveXObject("WScript.Shell");
-        sh3.Run('mshta.exe "' + installDir + '\\Sentry.hta"', 1, false);
-        if (settings.dock) {
-          sh3.Run('mshta.exe "' + installDir + '\\SentryDock.hta"', 1, false);
-        }
-      } catch (e) { }
+      launchSentry();
     }, 700);
   } catch (err) {
     log("&#10007; " + err.message, "");
+  }
+}
+
+function launchSentry() {
+  try {
+    var sh3 = new ActiveXObject("WScript.Shell");
+    var mshta = sh3.ExpandEnvironmentStrings("%SystemRoot%") + "\\System32\\mshta.exe";
+    var installDir = GetInstallDir();
+    // Use explicit full path so PATH resolution can't fail
+    sh3.Run('"' + mshta + '" "' + installDir + '\\Sentry.hta"', 1, false);
+    if (settings.dock) {
+      sh3.Run('"' + mshta + '" "' + installDir + '\\SentryDock.hta"', 1, false);
+    }
+  } catch (e) {
+    try { alert("Couldn't launch Sentry automatically: " + e.message + "\nUse the Start Menu or desktop shortcut."); } catch (_) {}
   }
 }
 
@@ -935,8 +943,9 @@ function renderDone() {
       '<div class="field"><span class="lbl">Need help?</span><p style="margin:0;"><a style="color:#22d3ee;" href="https://blackboxadvancements.com/sentry">blackboxadvancements.com/sentry</a></p></div>' +
     '</div>' +
     '<div class="actions">' +
-      '<button class="btn ghost" onclick="openFolder()">Open Sentry Folder</button>' +
-      '<button class="btn prim" onclick="window.close()">Finish</button>' +
+      '<button class="btn ghost" onclick="openFolder()">Open Folder</button>' +
+      '<button class="btn ghost" onclick="launchSentry()">Open Sentry</button>' +
+      '<button class="btn prim" onclick="launchSentry(); window.close();">Launch &amp; Finish</button>' +
     '</div>';
 }
 
