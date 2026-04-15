@@ -913,6 +913,38 @@ function buildRecorderScript() {
     "  if (Test-Path $c1) { return $c1 }\r\n" +
     "  try { $r = Get-Command ffmpeg.exe -ErrorAction Stop; return $r.Source } catch { return $null }\r\n" +
     "}\r\n" +
+    "function Ensure-FFmpeg {\r\n" +
+    "  $existing = Find-FFmpeg\r\n" +
+    "  if ($existing) { return $existing }\r\n" +
+    "  $stateFile = Join-Path $installDir 'ffmpeg.state'\r\n" +
+    "  Set-Content -Path $stateFile -Value 'downloading' -Force\r\n" +
+    "  Log 'ffmpeg missing; downloading recorder engine'\r\n" +
+    "  $zipUrl = 'https://www.gyan.dev/ffmpeg/builds/ffmpeg-release-essentials.zip'\r\n" +
+    "  $zipPath = Join-Path $installDir 'ffmpeg.zip'\r\n" +
+    "  $extractDir = Join-Path $installDir 'ffmpeg-src'\r\n" +
+    "  try {\r\n" +
+    "    [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12\r\n" +
+    "    Invoke-WebRequest -Uri $zipUrl -OutFile $zipPath -UseBasicParsing -TimeoutSec 300\r\n" +
+    "    if (Test-Path $extractDir) { Remove-Item $extractDir -Recurse -Force }\r\n" +
+    "    Expand-Archive -Path $zipPath -DestinationPath $extractDir -Force\r\n" +
+    "    $binary = Get-ChildItem -Path $extractDir -Filter 'ffmpeg.exe' -Recurse | Select-Object -First 1\r\n" +
+    "    if ($binary) {\r\n" +
+    "      Copy-Item -Path $binary.FullName -Destination (Join-Path $installDir 'ffmpeg.exe') -Force\r\n" +
+    "      Remove-Item $zipPath -Force\r\n" +
+    "      Remove-Item $extractDir -Recurse -Force\r\n" +
+    "      Set-Content -Path $stateFile -Value 'ok' -Force\r\n" +
+    "      Log 'ffmpeg downloaded and installed'\r\n" +
+    "      return (Join-Path $installDir 'ffmpeg.exe')\r\n" +
+    "    }\r\n" +
+    "    Set-Content -Path $stateFile -Value 'extract_failed' -Force\r\n" +
+    "    Log 'ffmpeg.exe not found inside downloaded archive'\r\n" +
+    "    return $null\r\n" +
+    "  } catch {\r\n" +
+    "    Set-Content -Path $stateFile -Value ('error: ' + $_.Exception.Message) -Force\r\n" +
+    "    Log ('ffmpeg download failed: ' + $_.Exception.Message)\r\n" +
+    "    return $null\r\n" +
+    "  }\r\n" +
+    "}\r\n" +
     "function Purge-Old {\r\n" +
     "  if ($ret -le 0) { return }\r\n" +
     "  $cutoff = (Get-Date).AddDays(-$ret)\r\n" +
@@ -920,33 +952,30 @@ function buildRecorderScript() {
     "    Where-Object { $_.LastWriteTime -lt $cutoff } |\r\n" +
     "    ForEach-Object { Remove-Item $_.FullName -Force; Log (\"purged \" + $_.Name) }\r\n" +
     "}\r\n" +
-    "function Write-PlaceholderLive {\r\n" +
-    "  # 1x1 transparent PNG so the dashboard preview shows SOMETHING when ffmpeg is missing\r\n" +
-    "  $b64 = 'iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII='\r\n" +
-    "  [IO.File]::WriteAllBytes($liveFile, [Convert]::FromBase64String($b64))\r\n" +
-    "}\r\n" +
-    "$ffmpeg = Find-FFmpeg\r\n" +
-    "if (-not $ffmpeg) { Log 'ffmpeg not found; recording in placeholder mode' }\r\n" +
+    "# One-time cleanup: remove placeholder .txt files from older versions\r\n" +
+    "Get-ChildItem -Path $dataDir -Filter 'sentry_*.txt' -File -ErrorAction SilentlyContinue |\r\n" +
+    "  ForEach-Object { Remove-Item $_.FullName -Force; Log (\"cleanup: \" + $_.Name) }\r\n" +
+    "$ffmpeg = Ensure-FFmpeg\r\n" +
     "try {\r\n" +
     "  while (Test-Path $armFlag) {\r\n" +
+    "    if (-not $ffmpeg) {\r\n" +
+    "      Log 'cannot record: ffmpeg not available; retrying download in 60s'\r\n" +
+    "      Start-Sleep -Seconds 60\r\n" +
+    "      $ffmpeg = Ensure-FFmpeg\r\n" +
+    "      continue\r\n" +
+    "    }\r\n" +
     "    $cams = @(Get-Cameras)\r\n" +
     "    if (-not $cams -or $cams.Count -eq 0) { Log 'no cameras detected'; Start-Sleep -Seconds 5; continue }\r\n" +
     "    $cam = $cams[0]\r\n" +
     "    $ts = Get-Date -Format 'yyyy-MM-dd_HH-mm-ss'\r\n" +
     "    $safe = ($cam -replace '[^a-zA-Z0-9]', '_')\r\n" +
     "    $out = Join-Path $dataDir (\"sentry_${safe}_${ts}.avi\")\r\n" +
-    "    if ($ffmpeg) {\r\n" +
-    "      $audioArgs = @()\r\n" +
-    "      if ($audio -eq 'on') { $audioArgs = @('-f','dshow','-i','audio=default') }\r\n" +
-    "      $ffArgs = @('-y','-f','dshow','-framerate',$fps,'-i',\"video=$cam\") + $audioArgs +\r\n" +
-    "        @('-map','0:v','-c:v','mjpeg','-t',$clipSec,$out,\r\n" +
-    "          '-map','0:v','-vf','fps=1','-update','1',$liveFile)\r\n" +
-    "      Start-Process -FilePath $ffmpeg -ArgumentList $ffArgs -NoNewWindow -Wait\r\n" +
-    "    } else {\r\n" +
-    "      Set-Content -Path ($out + '.txt') -Value ('Sentry clip placeholder for ' + $cam + ' at ' + $ts)\r\n" +
-    "      Write-PlaceholderLive\r\n" +
-    "      Start-Sleep -Seconds $clipSec\r\n" +
-    "    }\r\n" +
+    "    $audioArgs = @()\r\n" +
+    "    if ($audio -eq 'on') { $audioArgs = @('-f','dshow','-i','audio=default') }\r\n" +
+    "    $ffArgs = @('-y','-f','dshow','-framerate',$fps,'-i',\"video=$cam\") + $audioArgs +\r\n" +
+    "      @('-map','0:v','-c:v','mjpeg','-t',$clipSec,$out,\r\n" +
+    "        '-map','0:v','-vf','fps=1','-update','1',$liveFile)\r\n" +
+    "    Start-Process -FilePath $ffmpeg -ArgumentList $ffArgs -NoNewWindow -Wait\r\n" +
     "    Purge-Old\r\n" +
     "  }\r\n" +
     "} finally {\r\n" +
