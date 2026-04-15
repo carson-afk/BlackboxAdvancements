@@ -180,13 +180,13 @@ body::after {
 .display {
   font-family: var(--font-display);
   font-weight: 400;
-  letter-spacing: 0.01em;
-  line-height: 0.88;
+  letter-spacing: 0.02em;
+  line-height: 1;
   text-transform: uppercase;
 }
-.display-xl { font-size: clamp(4rem, 13vw, 15rem); }
-.display-lg { font-size: clamp(3rem, 8vw, 8rem); }
-.display-md { font-size: clamp(2rem, 5vw, 4.5rem); }
+.display-xl { font-size: clamp(2.5rem, 7.5vw, 7rem); }
+.display-lg { font-size: clamp(2rem, 5vw, 4.5rem); }
+.display-md { font-size: clamp(1.6rem, 3.2vw, 2.75rem); }
 
 .mono { font-family: var(--font-mono); letter-spacing: 0.02em; }
 .serif { font-family: var(--font-serif); font-style: italic; font-weight: 400; }
@@ -544,8 +544,8 @@ section { position: relative; z-index: 3; }
 }
 .rates-header h2 {
   font-family: var(--font-display);
-  font-size: clamp(2.5rem, 6vw, 5.5rem);
-  line-height: 0.9; max-width: 14ch;
+  font-size: clamp(1.9rem, 4vw, 3.5rem);
+  line-height: 0.95; max-width: 14ch;
 }
 .rates-header p { max-width: 420px; color: var(--foam-dim); font-size: 0.95rem; }
 
@@ -581,7 +581,7 @@ section { position: relative; z-index: 3; }
 }
 .rate-card h3 {
   font-family: var(--font-display);
-  font-size: 2rem; line-height: 1;
+  font-size: 1.5rem; line-height: 1.05;
   margin: 1.25rem 0 0.5rem;
   text-transform: uppercase;
 }
@@ -619,8 +619,8 @@ section { position: relative; z-index: 3; }
 .feature-split .photo:hover img { transform: scale(1.04); }
 .feature-split h2 {
   font-family: var(--font-display);
-  font-size: clamp(2.5rem, 6vw, 5rem);
-  line-height: 0.9; margin-bottom: 1.25rem;
+  font-size: clamp(1.9rem, 4vw, 3.25rem);
+  line-height: 0.95; margin-bottom: 1.25rem;
 }
 .feature-split h2 em { font-family: var(--font-serif); color: var(--cyan-hot); text-shadow: 0 0 14px var(--cyan-glow); }
 .feature-split p { color: var(--foam-dim); max-width: 48ch; margin-bottom: 2rem; font-size: 1rem; line-height: 1.7; }
@@ -662,8 +662,8 @@ section { position: relative; z-index: 3; }
 }
 .location-card h3 {
   font-family: var(--font-display);
-  font-size: clamp(2.5rem, 5vw, 4rem);
-  line-height: 0.9;
+  font-size: clamp(1.9rem, 3.5vw, 2.75rem);
+  line-height: 0.95;
   margin-bottom: 1rem;
 }
 .location-card .info p { color: var(--foam-dim); max-width: 40ch; font-size: 0.95rem; margin-bottom: 1rem; }
@@ -691,8 +691,8 @@ section { position: relative; z-index: 3; }
 }
 .cta-strip h2 {
   font-family: var(--font-display);
-  font-size: clamp(3rem, 10vw, 9rem);
-  line-height: 0.9; margin-bottom: 2rem;
+  font-size: clamp(2.25rem, 6vw, 5.5rem);
+  line-height: 0.95; margin-bottom: 2rem;
   position: relative;
 }
 .cta-strip h2 em { font-family: var(--font-serif); color: var(--cyan-hot); text-shadow: 0 0 18px var(--cyan-glow); }
@@ -711,7 +711,7 @@ section { position: relative; z-index: 3; }
 }
 .footer-brand h3 {
   font-family: var(--font-display);
-  font-size: 2.6rem; line-height: 0.9; margin-bottom: 1rem;
+  font-size: 1.9rem; line-height: 1; margin-bottom: 1rem;
   text-transform: uppercase;
 }
 .footer-brand h3 em { font-family: var(--font-serif); font-style: italic; color: var(--cyan-hot); text-shadow: 0 0 12px var(--cyan-glow); }
@@ -761,8 +761,8 @@ section { position: relative; z-index: 3; }
 }
 .subhero h1 {
   font-family: var(--font-display);
-  font-size: clamp(4rem, 11vw, 11rem);
-  line-height: 0.88; max-width: 16ch;
+  font-size: clamp(2.5rem, 7vw, 6rem);
+  line-height: 0.95; max-width: 16ch;
 }
 .subhero h1 em { font-family: var(--font-serif); font-style: italic; color: var(--cyan-hot); text-shadow: 0 0 18px var(--cyan-glow); }
 .subhero-meta {
@@ -807,8 +807,8 @@ section { position: relative; z-index: 3; }
 .fleet-row .eyebrow { margin-bottom: 1rem; }
 .fleet-row h3 {
   font-family: var(--font-display);
-  font-size: clamp(2rem, 4vw, 3.5rem);
-  line-height: 0.95;
+  font-size: clamp(1.6rem, 3vw, 2.4rem);
+  line-height: 1;
   text-transform: uppercase;
   margin-bottom: 1rem;
 }
@@ -868,10 +868,10 @@ section { position: relative; z-index: 3; }
 
 .book-info h3 {
   font-family: var(--font-display);
-  font-size: 2.2rem;
+  font-size: 1.6rem;
   text-transform: uppercase;
   margin-bottom: 1.5rem;
-  line-height: 1;
+  line-height: 1.05;
 }
 .info-row {
   display: grid; grid-template-columns: auto 1fr;
