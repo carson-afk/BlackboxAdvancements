@@ -5,54 +5,51 @@
 <base href="/barbosplumbing/" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Instant Estimator — Barbo's Plumbing</title>
-<meta name="description" content="Get a 60-second ballpark estimate for water heaters, leak repairs, remodels, water line replacement, or sump pumps across the South Sound." />
+<meta name="description" content="60-second ballpark estimate for water heaters, leak repair, remodels, water line replacement, or sump pumps across the South Sound." />
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Anton&family=DM+Sans:wght@400;500;600;700&family=Fraunces:ital,opsz,wght@0,9..144,400;1,9..144,400&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Nunito:wght@400;600;700;800;900&family=Caveat:wght@500;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-<div class="grain" aria-hidden="true"></div>
 
 <header class="nav">
-  <a href="index.html" class="nav-brand"><span class="mark">◇</span><span>BARBO'S<em>.</em>PLUMBING</span></a>
+  <a href="index.html" class="nav-brand">
+    <span class="mark">🔧</span>
+    <span><span class="tm">Barbo's <em>Plumbing</em></span><small>a family business built on trust</small></span>
+  </a>
   <nav class="nav-links">
-    <a href="index.html">HOME</a>
-    <a href="services.html">SERVICES</a>
-    <a href="estimator.html" class="active">ESTIMATE</a>
-    <a href="gallery.html">GALLERY</a>
-    <a href="about.html">ABOUT</a>
-    <a href="contact.html">CONTACT</a>
+    <a href="index.html">Home</a>
+    <a href="services.html">Services</a>
+    <a href="estimator.html" class="active">Instant Estimate</a>
+    <a href="gallery.html">Gallery</a>
+    <a href="about.html">About</a>
+    <a href="contact.html">Contact</a>
   </nav>
   <a href="tel:+13605849290" class="nav-cta">(360) 584-9290</a>
-  <button class="mobile-toggle" aria-label="Menu">— MENU</button>
+  <button class="mobile-toggle" aria-label="Menu">Menu ☰</button>
 </header>
 <div class="mobile-menu">
-  <a href="index.html">Home</a>
-  <a href="services.html">Services</a>
-  <a href="estimator.html">Instant Estimate</a>
-  <a href="gallery.html">Gallery</a>
-  <a href="about.html">About</a>
-  <a href="contact.html">Contact</a>
+  <a href="index.html">Home</a><a href="services.html">Services</a><a href="estimator.html">Instant Estimate</a><a href="gallery.html">Gallery</a><a href="about.html">About</a><a href="contact.html">Contact</a>
+  <a href="tel:+13605849290" class="btn btn-coral" style="margin-top:1rem;">Call (360) 584-9290</a>
 </div>
 
-<section class="page-hero spotlight-host">
-  <div class="aurora" aria-hidden="true"></div>
-  <div class="meteors" data-count="8" aria-hidden="true"></div>
-  <div class="spotlight" aria-hidden="true"></div>
-  <div class="container">
-    <span class="eyebrow">INSTANT ESTIMATOR</span>
-    <h1 class="display display-lg">60-SECOND <span class="glow-cyan">BALLPARK.</span></h1>
+<section class="page-hero">
+  <div class="wrap">
+    <span class="eye">instant estimator</span>
+    <h1>60-second <span class="sq">ballpark.</span></h1>
     <p>Pick the kind of job, tell us a few details, and we'll send a range. Final price locks in at the free on-site walk-through — no surprises.</p>
   </div>
 </section>
 
 <section class="section">
-  <div class="container est-wrap">
-    <form class="est-form" id="estimatorForm" data-formspree-id="" novalidate>
+  <div class="wrap">
+    <form class="est-host" id="estForm" novalidate>
 
-      <!-- STEP 1: contact + job -->
+      <!-- STEP 1 -->
       <div data-step="1">
+        <span class="kicker">step one · say hello</span>
+        <h2>Who are we quoting?</h2>
         <div class="est-row">
           <div class="est-field"><label>Your name</label><input name="name" required placeholder="e.g. Alex Johnson" /></div>
           <div class="est-field"><label>Phone</label><input name="phone" type="tel" required placeholder="360-555-1234" /></div>
@@ -61,20 +58,21 @@
           <div class="est-field"><label>Email</label><input name="email" type="email" required placeholder="you@example.com" /></div>
           <div class="est-field"><label>ZIP code</label><input name="zip" inputmode="numeric" maxlength="5" placeholder="98501" /></div>
         </div>
-
-        <div class="est-actions" style="margin-top:1.2rem;">
-          <button type="button" id="estContinue" class="btn btn-primary">Continue <span class="arrow">→</span></button>
+        <div class="est-actions">
+          <button type="button" id="estGo" class="btn btn-coral">Continue <span class="arrow">→</span></button>
           <a href="tel:+13605849290" class="btn">Or call (360) 584-9290</a>
         </div>
       </div>
 
-      <!-- STEP 2: details -->
+      <!-- STEP 2 -->
       <div data-step="2" hidden>
+        <span class="kicker">step two · the job</span>
+        <h2>What's going on?</h2>
         <div class="est-row">
           <div class="est-field">
             <label>Job type</label>
             <select name="job" required>
-              <option value="">Choose one…</option>
+              <option value="">Pick one…</option>
               <option value="water-heater">Water heater (install / replace)</option>
               <option value="repair">Leak / fixture repair</option>
               <option value="bathroom">Bathroom remodel</option>
@@ -85,26 +83,25 @@
             </select>
           </div>
           <div class="est-field">
-            <label>Timing</label>
+            <label>When do you need us?</label>
             <select name="urgency" required>
               <option value="thisweek">This week</option>
-              <option value="emergency">Emergency (today)</option>
+              <option value="emergency">Emergency — today</option>
               <option value="flexible">Flexible</option>
             </select>
           </div>
         </div>
-
         <div class="est-row">
           <div class="est-field">
             <label>Scope / scale</label>
             <select name="scope">
-              <option value="small">Small — single fixture or one-room</option>
+              <option value="small">Small — single fixture / one-room</option>
               <option value="medium" selected>Medium — typical service call</option>
               <option value="large">Large — multi-day or remodel</option>
             </select>
           </div>
           <div class="est-field">
-            <label>Bathrooms in scope</label>
+            <label>Bathrooms in scope (if remodel)</label>
             <select name="bathrooms">
               <option value="0" selected>Not a bath remodel</option>
               <option value="1">1 bath</option>
@@ -113,77 +110,56 @@
             </select>
           </div>
         </div>
-
         <div class="est-row full">
-          <div class="est-field"><label>Anything else we should know?</label><textarea name="notes" rows="3" placeholder="Age of home, brand preferences, access issues, anything that helps us narrow it down."></textarea></div>
+          <div class="est-field"><label>Anything else we should know?</label><textarea name="notes" rows="3" placeholder="Age of home, brand preferences, access issues — anything that helps narrow it down."></textarea></div>
         </div>
-
         <div class="est-actions">
-          <button type="submit" class="btn btn-primary">Calculate my estimate <span class="arrow">→</span></button>
+          <button type="submit" class="btn btn-coral">Calculate my estimate <span class="arrow">→</span></button>
           <button type="button" id="estBack" class="btn">← Back</button>
         </div>
       </div>
 
       <!-- RESULT -->
-      <div data-step="result" hidden>
-        <span class="eyebrow">YOUR BALLPARK</span>
+      <div data-step="result" hidden style="text-align:center;">
+        <span class="kicker">your ballpark</span>
         <div class="est-range"></div>
         <p class="est-summary"></p>
-        <div class="est-actions" style="justify-content:center; margin-top:2rem;">
-          <a href="tel:+13605849290" class="btn btn-primary">Call to lock it in <span class="arrow">→</span></a>
+        <p class="est-disclaimer">— ballpark only · final price locked at free walk-through —</p>
+        <div class="est-actions" style="justify-content:center; margin-top:1.6rem;">
+          <a href="tel:+13605849290" class="btn btn-coral">Call to lock it in <span class="arrow">→</span></a>
           <a href="contact.html" class="btn">Email us instead</a>
         </div>
-        <p class="mono" style="text-align:center; color:var(--foam-faint); font-size:0.7rem; letter-spacing:0.18em; margin-top:1.2rem;">RANGE ONLY · FINAL PRICE LOCKED AT FREE WALK-THROUGH</p>
       </div>
-
     </form>
 
-    <div style="margin-top:2rem;" class="feature-grid">
+    <div class="feature-grid stagger" style="margin-top:3rem;">
       <div class="feature">
         <div class="ico">💡</div>
         <h3>How ranges are built</h3>
-        <p>We base each range on 15 years of real South Sound job data — typical parts cost, labor hours, permit likelihood, and trip distance.</p>
+        <p>Every range is grounded in 15 years of real South Sound job data — typical parts cost, labor hours, permit likelihood, and trip distance.</p>
       </div>
       <div class="feature">
         <div class="ico">🔒</div>
-        <h3>Why final price is always locked later</h3>
-        <p>Until we see the crawlspace, the panel, and the fittings, numbers are estimates. After the walk-through, the price is flat-rate and contractual.</p>
+        <h3>Why final price is locked later</h3>
+        <p>Until we see the crawlspace, the panel, and the fittings, a number is an estimate. After the walk-through, your price is flat-rate and contractual.</p>
       </div>
       <div class="feature">
         <div class="ico">📍</div>
-        <h3>Out-of-area pickup</h3>
-        <p>Outside our primary zone? Small travel fee applies — you'll see it reflected in your range and itemized on the final quote.</p>
+        <h3>Out-of-area travel</h3>
+        <p>Outside our primary zone? A small travel fee applies — you'll see it in your range and itemized on the final quote.</p>
       </div>
     </div>
   </div>
 </section>
 
-<footer class="footer">
-  <div class="container">
-    <div class="footer-grid">
-      <div>
-        <div class="nav-brand" style="margin-bottom:1rem;"><span class="mark">◇</span><span>BARBO'S<em>.</em>PLUMBING</span></div>
-        <p style="color:var(--foam-dim); max-width:32ch;">Father-daughter master plumbers serving the South Sound since 2009.</p>
-      </div>
-      <div><h5>Services</h5><ul>
-        <li><a href="services.html">Water Heaters</a></li>
-        <li><a href="services.html">Leak Repair</a></li>
-        <li><a href="services.html">Bath &amp; Kitchen</a></li>
-      </ul></div>
-      <div><h5>Service Area</h5><ul>
-        <li>Olympia · Lacey · Tumwater</li>
-        <li>Yelm · Tenino · Rainier</li>
-      </ul></div>
-      <div><h5>Contact</h5><ul>
-        <li><a href="tel:+13605849290">(360) 584-9290</a></li>
-        <li><a href="mailto:barbosplumbing@gmail.com">barbosplumbing@gmail.com</a></li>
-      </ul></div>
-    </div>
-    <div class="footer-bottom">
-      <span>© <span id="year"></span> Barbo's Plumbing LLC</span>
-      <span>Built by <a href="https://blackboxadvancements.com">Blackbox Advancements</a></span>
-    </div>
+<footer class="foot">
+  <div class="wrap foot-grid">
+    <div><div class="brand"><span class="mark">🔧</span><span class="tm">Barbo's Plumbing</span></div><p style="color:rgba(255,255,255,0.7); max-width:30ch;">Father-daughter master plumbers serving the South Sound since 2009.</p></div>
+    <div><h5>Services</h5><ul><li><a href="services.html">Water Heaters</a></li><li><a href="services.html">Leak Repair</a></li><li><a href="services.html">Bath &amp; Kitchen</a></li></ul></div>
+    <div><h5>Service area</h5><ul><li>Olympia · Lacey · Tumwater</li><li>Yelm · Tenino · Rainier</li></ul></div>
+    <div><h5>Say hi</h5><ul><li><a href="tel:+13605849290">(360) 584-9290</a></li><li><a href="mailto:barbosplumbing@gmail.com">barbosplumbing@gmail.com</a></li></ul></div>
   </div>
+  <div class="wrap foot-bottom"><span>© <span id="year"></span> Barbo's Plumbing LLC</span><span>Built by <a href="https://blackboxadvancements.com">Blackbox Advancements</a></span></div>
 </footer>
 
 <script src="animations.js" defer></script>

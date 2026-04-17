@@ -8,95 +8,76 @@
 <meta name="description" content="Call (360) 584-9290 or email barbosplumbing@gmail.com. Mon–Thu 7am–5pm. Serving Olympia, Lacey, Tumwater, Yelm and the South Sound." />
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Anton&family=DM+Sans:wght@400;500;600;700&family=Fraunces:ital,opsz,wght@0,9..144,400;1,9..144,400&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Nunito:wght@400;600;700;800;900&family=Caveat:wght@500;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-<div class="grain" aria-hidden="true"></div>
 
 <header class="nav">
-  <a href="index.html" class="nav-brand"><span class="mark">◇</span><span>BARBO'S<em>.</em>PLUMBING</span></a>
+  <a href="index.html" class="nav-brand">
+    <span class="mark">🔧</span>
+    <span><span class="tm">Barbo's <em>Plumbing</em></span><small>a family business built on trust</small></span>
+  </a>
   <nav class="nav-links">
-    <a href="index.html">HOME</a>
-    <a href="services.html">SERVICES</a>
-    <a href="estimator.html">ESTIMATE</a>
-    <a href="gallery.html">GALLERY</a>
-    <a href="about.html">ABOUT</a>
-    <a href="contact.html" class="active">CONTACT</a>
+    <a href="index.html">Home</a>
+    <a href="services.html">Services</a>
+    <a href="estimator.html">Instant Estimate</a>
+    <a href="gallery.html">Gallery</a>
+    <a href="about.html">About</a>
+    <a href="contact.html" class="active">Contact</a>
   </nav>
   <a href="tel:+13605849290" class="nav-cta">(360) 584-9290</a>
-  <button class="mobile-toggle" aria-label="Menu">— MENU</button>
+  <button class="mobile-toggle" aria-label="Menu">Menu ☰</button>
 </header>
 <div class="mobile-menu">
-  <a href="index.html">Home</a>
-  <a href="services.html">Services</a>
-  <a href="estimator.html">Instant Estimate</a>
-  <a href="gallery.html">Gallery</a>
-  <a href="about.html">About</a>
-  <a href="contact.html">Contact</a>
+  <a href="index.html">Home</a><a href="services.html">Services</a><a href="estimator.html">Instant Estimate</a><a href="gallery.html">Gallery</a><a href="about.html">About</a><a href="contact.html">Contact</a>
+  <a href="tel:+13605849290" class="btn btn-coral" style="margin-top:1rem;">Call (360) 584-9290</a>
 </div>
 
-<section class="page-hero spotlight-host">
-  <div class="aurora" aria-hidden="true"></div>
-  <div class="meteors" data-count="8" aria-hidden="true"></div>
-  <div class="spotlight" aria-hidden="true"></div>
-  <div class="container">
-    <span class="eyebrow">CONTACT</span>
-    <h1 class="display display-lg">LET'S <span class="glow-cyan">TALK PLUMBING.</span></h1>
+<section class="page-hero">
+  <div class="wrap">
+    <span class="eye">contact</span>
+    <h1>Let's <span class="sq">talk plumbing.</span></h1>
     <p>Phone is fastest during business hours. The form below is great for quotes, scheduled work, and remodel plans — we reply within one business day.</p>
   </div>
 </section>
 
 <section class="section">
-  <div class="container contact-grid">
-    <form class="est-form" data-demo-form data-formspree-id="">
-      <h3 class="display display-md" style="margin-bottom:0.4rem;">SEND A <span class="glow-cyan">MESSAGE.</span></h3>
-      <p style="color:var(--foam-dim); margin-bottom:1.5rem;">We read every message and reply by phone or email.</p>
-
+  <div class="wrap contact-grid">
+    <form class="est-host" data-demo>
+      <span class="kicker">send a message</span>
+      <h2>Tell us what's up.</h2>
       <div class="est-row">
         <div class="est-field"><label>Your name</label><input name="name" required placeholder="e.g. Carson Smith" /></div>
-        <div class="est-field"><label>Phone</label><input name="phone" type="tel" required placeholder="e.g. 360-555-1234" /></div>
+        <div class="est-field"><label>Phone</label><input name="phone" type="tel" required placeholder="360-555-1234" /></div>
       </div>
       <div class="est-row">
         <div class="est-field"><label>Email</label><input name="email" type="email" placeholder="you@example.com" /></div>
-        <div class="est-field"><label>ZIP code</label><input name="zip" inputmode="numeric" placeholder="98501" /></div>
+        <div class="est-field"><label>ZIP code</label><input name="zip" inputmode="numeric" maxlength="5" placeholder="98501" /></div>
       </div>
       <div class="est-row full">
-        <div class="est-field"><label>What's going on?</label><textarea name="message" rows="5" required placeholder="Leaky sink · water heater out · remodel scoping — whatever it is."></textarea></div>
+        <div class="est-field"><label>What's going on?</label><textarea name="message" rows="5" required placeholder="Leaky sink, water heater out, remodel scoping — whatever it is."></textarea></div>
       </div>
-
       <div class="est-actions">
-        <button type="submit" class="btn btn-primary">Send message <span class="arrow">→</span></button>
+        <button type="submit" class="btn btn-coral">Send message <span class="arrow">→</span></button>
         <a href="tel:+13605849290" class="btn">Or call (360) 584-9290</a>
       </div>
-      <p class="form-confirm mono" style="opacity:0; transition:opacity 0.4s; color:var(--aqua); font-size:0.75rem; letter-spacing:0.18em; text-transform:uppercase; margin-top:1rem;"></p>
+      <p class="demo-confirm est-disclaimer" style="opacity:0; transition:opacity 0.4s; margin-top:1rem;"></p>
     </form>
 
     <aside>
-      <a href="tel:+13605849290" class="info-card">
-        <div class="ico">☎</div>
-        <div><div class="k">PHONE</div><div class="v">(360) 584-9290</div></div>
-      </a>
-      <a href="mailto:barbosplumbing@gmail.com" class="info-card">
-        <div class="ico">✉</div>
-        <div><div class="k">EMAIL</div><div class="v">barbosplumbing@gmail.com</div></div>
-      </a>
-      <div class="info-card">
-        <div class="ico">◉</div>
-        <div><div class="k">BASED IN</div><div class="v">Olympia, WA — South Sound service area</div></div>
-      </div>
-      <div class="info-card">
-        <div class="ico">◷</div>
-        <div><div class="k">HOURS</div><div class="v">Mon–Thu 7am–5pm
+      <a href="tel:+13605849290" class="info"><div class="ico">☎</div><div><div class="k">phone</div><div class="v">(360) 584-9290</div></div></a>
+      <a href="mailto:barbosplumbing@gmail.com" class="info"><div class="ico">✉</div><div><div class="k">email</div><div class="v">barbosplumbing@gmail.com</div></div></a>
+      <div class="info"><div class="ico">◉</div><div><div class="k">based in</div><div class="v">Olympia, WA — South Sound service area</div></div></div>
+      <div class="info"><div class="ico">◷</div><div><div class="k">hours</div><div class="v">Mon–Thu 7am–5pm
 Fri: phone calls only
-Sat/Sun: closed</div></div>
-      </div>
+Sat/Sun: closed</div></div></div>
     </aside>
   </div>
 </section>
 
-<section class="section">
-  <div class="container">
+<section class="section" style="padding-top:0;">
+  <div class="wrap">
     <div class="map-embed reveal">
       <iframe loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Service area map"
         src="https://www.google.com/maps?q=Olympia,WA&output=embed"></iframe>
@@ -104,32 +85,14 @@ Sat/Sun: closed</div></div>
   </div>
 </section>
 
-<footer class="footer">
-  <div class="container">
-    <div class="footer-grid">
-      <div>
-        <div class="nav-brand" style="margin-bottom:1rem;"><span class="mark">◇</span><span>BARBO'S<em>.</em>PLUMBING</span></div>
-        <p style="color:var(--foam-dim); max-width:32ch;">Father-daughter master plumbers serving the South Sound since 2009.</p>
-      </div>
-      <div><h5>Services</h5><ul>
-        <li><a href="services.html">Water Heaters</a></li>
-        <li><a href="services.html">Leak Repair</a></li>
-        <li><a href="services.html">Bath &amp; Kitchen</a></li>
-      </ul></div>
-      <div><h5>Service Area</h5><ul>
-        <li>Olympia · Lacey · Tumwater</li>
-        <li>Yelm · Tenino · Rainier</li>
-      </ul></div>
-      <div><h5>Contact</h5><ul>
-        <li><a href="tel:+13605849290">(360) 584-9290</a></li>
-        <li><a href="mailto:barbosplumbing@gmail.com">barbosplumbing@gmail.com</a></li>
-      </ul></div>
-    </div>
-    <div class="footer-bottom">
-      <span>© <span id="year"></span> Barbo's Plumbing LLC</span>
-      <span>Built by <a href="https://blackboxadvancements.com">Blackbox Advancements</a></span>
-    </div>
+<footer class="foot">
+  <div class="wrap foot-grid">
+    <div><div class="brand"><span class="mark">🔧</span><span class="tm">Barbo's Plumbing</span></div><p style="color:rgba(255,255,255,0.7); max-width:30ch;">Father-daughter master plumbers serving the South Sound since 2009.</p></div>
+    <div><h5>Services</h5><ul><li><a href="services.html">Water Heaters</a></li><li><a href="services.html">Leak Repair</a></li><li><a href="services.html">Bath &amp; Kitchen</a></li></ul></div>
+    <div><h5>Service area</h5><ul><li>Olympia · Lacey · Tumwater</li><li>Yelm · Tenino · Rainier</li></ul></div>
+    <div><h5>Say hi</h5><ul><li><a href="tel:+13605849290">(360) 584-9290</a></li><li><a href="mailto:barbosplumbing@gmail.com">barbosplumbing@gmail.com</a></li></ul></div>
   </div>
+  <div class="wrap foot-bottom"><span>© <span id="year"></span> Barbo's Plumbing LLC</span><span>Built by <a href="https://blackboxadvancements.com">Blackbox Advancements</a></span></div>
 </footer>
 
 <script src="animations.js" defer></script>
