@@ -130,8 +130,9 @@ input, textarea, select { font: inherit; color: inherit; }
 
 .nav-dd-menu {
   position: absolute;
-  top: calc(100% + 8px);
+  top: 100%;
   left: 50%;
+  margin-top: 14px;
   transform: translateX(-50%) translateY(-6px);
   min-width: 280px;
   background: white;
@@ -147,6 +148,13 @@ input, textarea, select { font: inherit; color: inherit; }
   pointer-events: none;
   transition: opacity 180ms var(--ease-out), transform 220ms var(--ease-out), visibility 0s 220ms;
   z-index: 200;
+}
+/* Invisible hover bridge across the gap between trigger and menu */
+.nav-dd-menu::after {
+  content: '';
+  position: absolute;
+  top: -16px; left: 0; right: 0;
+  height: 16px;
 }
 .nav-dd:hover .nav-dd-menu,
 .nav-dd:focus-within .nav-dd-menu {
