@@ -60,36 +60,68 @@
     <a href="contact.html">Contact</a>
   </nav>
   <a href="tel:+19717126763" class="nav-cta">(971) 712-6763</a>
-  <button class="mobile-toggle" aria-label="Menu">Menu</button>
+  <button class="mobile-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-menu"><span class="mt-bar"></span></button>
 </header>
-<div class="mobile-menu">
-  <a href="index.html">Home</a>
-  <a href="residential-hvac-services.html">Residential</a>
-  <a href="ac-installations.html">&nbsp;&nbsp;AC Installation</a>
-  <a href="ac-maintenance.html">&nbsp;&nbsp;AC Maintenance</a>
-  <a href="ac-repair.html">&nbsp;&nbsp;AC Repair</a>
-  <a href="furnace-installations.html">&nbsp;&nbsp;Furnace Installation</a>
-  <a href="furnace-maintenance.html">&nbsp;&nbsp;Furnace Maintenance</a>
-  <a href="furnace-repair.html">&nbsp;&nbsp;Furnace Repair</a>
-  <a href="heat-pumps-and-ductless-solutions.html">&nbsp;&nbsp;Heat Pumps &amp; Ductless</a>
-  <a href="air-duct-services.html">&nbsp;&nbsp;Air Ducts</a>
-  <a href="commercial-hvac-services.html">Commercial</a>
-  <a href="commercial-ac-installations.html">&nbsp;&nbsp;Commercial AC</a>
-  <a href="commercial-heating-and-installations.html">&nbsp;&nbsp;Commercial Heating</a>
-  <a href="repairs-and-maintenance.html">&nbsp;&nbsp;Repairs &amp; Maintenance</a>
-  <a href="estimator.html">Estimate</a>
-  <a href="request-consultation.html">Request Consultation</a>
-  <a href="areas.html">Service Areas</a>
-  <a href="about.html">About</a>
-  <a href="reviews.html">Reviews</a>
-  <a href="faqs.html">FAQs</a>
-  <a href="blog.html">Blog</a>
-  <a href="customer-savings-plans.html">Savings Plans</a>
-  <a href="affiliate-services.html">Affiliate Services</a>
-  <a href="gallery.html">Work</a>
-  <a href="contact.html">Contact</a>
-</div>
+<div class="mobile-menu" id="mobile-menu" aria-hidden="true">
+  <div class="mm-head">
+    <a href="index.html" class="mm-brand">
+      <img src="https://lh3.googleusercontent.com/d/1oEo3tFVFCspVWwUCMgyz49gkMNJ11pue=w120" alt="Valley View HVAC" />
+      <span>Valley View HVAC<small>CCB #243211 · Salem &amp; area</small></span>
+    </a>
+    <button type="button" class="mm-close" aria-label="Close menu">&times;</button>
+  </div>
+  <nav class="mm-links" aria-label="Mobile">
+    <a href="index.html">Home</a>
 
+    <button type="button" class="mm-group" data-mm-group="residential" aria-expanded="false" aria-controls="mm-sub-residential">
+      Residential <i class="mm-chev" aria-hidden="true">&#9662;</i>
+    </button>
+    <div class="mm-sub" id="mm-sub-residential" data-mm-member="residential">
+      <a href="residential-hvac-services.html">All Residential Services</a>
+      <a href="ac-installations.html">AC Installation</a>
+      <a href="ac-maintenance.html">AC Maintenance</a>
+      <a href="ac-repair.html">AC Repair</a>
+      <a href="furnace-installations.html">Furnace Installation</a>
+      <a href="furnace-maintenance.html">Furnace Maintenance</a>
+      <a href="furnace-repair.html">Furnace Repair</a>
+      <a href="heat-pumps-and-ductless-solutions.html">Heat Pumps &amp; Ductless</a>
+      <a href="air-duct-services.html">Air Duct Services</a>
+    </div>
+
+    <button type="button" class="mm-group" data-mm-group="commercial" aria-expanded="false" aria-controls="mm-sub-commercial">
+      Commercial <i class="mm-chev" aria-hidden="true">&#9662;</i>
+    </button>
+    <div class="mm-sub" id="mm-sub-commercial" data-mm-member="commercial">
+      <a href="commercial-hvac-services.html">All Commercial Services</a>
+      <a href="commercial-ac-installations.html">Commercial AC Installation</a>
+      <a href="commercial-heating-and-installations.html">Commercial Heating</a>
+      <a href="repairs-and-maintenance.html">Repairs &amp; Maintenance</a>
+    </div>
+
+    <a href="estimator.html">Instant Estimate</a>
+    <a href="request-consultation.html">Request Consultation</a>
+    <a href="areas.html">Service Areas</a>
+
+    <button type="button" class="mm-group" data-mm-group="about" aria-expanded="false" aria-controls="mm-sub-about">
+      About &amp; Resources <i class="mm-chev" aria-hidden="true">&#9662;</i>
+    </button>
+    <div class="mm-sub" id="mm-sub-about" data-mm-member="about">
+      <a href="about.html">About Us</a>
+      <a href="reviews.html">Reviews</a>
+      <a href="faqs.html">FAQs</a>
+      <a href="blog.html">Blog</a>
+      <a href="customer-savings-plans.html">Savings Plans</a>
+      <a href="affiliate-services.html">Affiliate Services</a>
+      <a href="gallery.html">Our Work</a>
+    </div>
+
+    <a href="contact.html">Contact</a>
+  </nav>
+  <div class="mm-foot">
+    <a href="tel:+19717126763" class="mm-call">&#128222; (971) 712-6763</a>
+    <span class="mm-note">Licensed · CCB #243211 · Salem, OR</span>
+  </div>
+</div>
 <section class="page-hero"><div class="wrap">
   <span class="pill"><span class="dot"></span>Marion County · Local HVAC Companies</span>
   <h1>Local HVAC Companies in<br/><span class="blue">Silverton, OR.</span></h1>

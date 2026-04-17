@@ -10,9 +10,43 @@
   const toggle = document.querySelector('.mobile-toggle');
   const menu = document.querySelector('.mobile-menu');
   if (toggle && menu) {
-    const set = (o) => { menu.classList.toggle('open', o); toggle.textContent = o ? 'Close' : 'Menu'; document.body.style.overflow = o ? 'hidden' : ''; };
+    let scrim = document.querySelector('.mobile-menu-scrim');
+    if (!scrim) {
+      scrim = document.createElement('div');
+      scrim.className = 'mobile-menu-scrim';
+      scrim.setAttribute('aria-hidden', 'true');
+      document.body.appendChild(scrim);
+    }
+    const set = (o) => {
+      menu.classList.toggle('open', o);
+      scrim.classList.toggle('open', o);
+      toggle.classList.toggle('is-open', o);
+      toggle.setAttribute('aria-expanded', o ? 'true' : 'false');
+      menu.setAttribute('aria-hidden', o ? 'false' : 'true');
+      document.body.classList.toggle('menu-open', o);
+    };
     toggle.addEventListener('click', () => set(!menu.classList.contains('open')));
-    menu.querySelectorAll('a').forEach((a) => a.addEventListener('click', () => set(false)));
+    scrim.addEventListener('click', () => set(false));
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && menu.classList.contains('open')) set(false); });
+    // Close on link navigation (not on group toggles)
+    menu.querySelectorAll('a[href]').forEach((a) => a.addEventListener('click', () => set(false)));
+    // Group toggles (Residential, Commercial, About)
+    menu.querySelectorAll('.mm-group').forEach((btn) => {
+      btn.addEventListener('click', (e) => {
+        e.preventDefault();
+        const key = btn.getAttribute('data-mm-group');
+        const sub = menu.querySelector(`.mm-sub[data-mm-member="${key}"]`);
+        const nowOpen = btn.getAttribute('aria-expanded') !== 'true';
+        btn.setAttribute('aria-expanded', nowOpen ? 'true' : 'false');
+        if (sub) sub.classList.toggle('is-open', nowOpen);
+      });
+    });
+    // Close menu on resize beyond breakpoint so state doesn't get stuck
+    let rtid;
+    window.addEventListener('resize', () => {
+      clearTimeout(rtid);
+      rtid = setTimeout(() => { if (window.innerWidth > 980 && menu.classList.contains('open')) set(false); }, 120);
+    });
   }
 
   document.querySelectorAll('.ticker-track, .showcase-track').forEach((track) => {
