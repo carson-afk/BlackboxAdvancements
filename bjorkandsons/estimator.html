@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<base href="/bjorkandsons/" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Request an Estimate — Bjork &amp; Sons Plumbing</title>
+<meta name="description" content="Request a plumbing estimate from Bjork &amp; Sons in Eugene, OR. 60-second form with instant pricing range for water heaters, repairs, remodels, and service lines." />
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+<header class="nav">
+  <a href="index.html" class="nav-brand"><span class="mark">B</span><span><span class="tm">Bjork &amp; Sons</span><small>plumbing · eugene, or</small></span></a>
+  <nav class="nav-links">
+    <a href="index.html">Home</a><a href="services.html">Services</a><a href="estimator.html" class="active">Estimate</a><a href="gallery.html">Work</a><a href="about.html">About</a><a href="contact.html">Contact</a>
+  </nav>
+  <a href="tel:+15414209370" class="nav-cta">(541) 420-9370</a>
+  <button class="mobile-toggle" aria-label="Menu">≡ Menu</button>
+</header>
+<div class="mobile-menu">
+  <a href="index.html">Home</a><a href="services.html">Services</a><a href="estimator.html">Estimate</a><a href="gallery.html">Work</a><a href="about.html">About</a><a href="contact.html">Contact</a>
+</div>
+
+<section class="page-hero">
+  <div class="wrap">
+    <span class="eyebrow">Request an estimate</span>
+    <h1>Honest numbers,<br/><em>no pressure.</em></h1>
+    <p>Tell us a little about the job — we'll reply with a ballpark range grounded in 40 years of Willamette Valley plumbing data, and if you'd like, we'll schedule a free in-home walk-through.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap">
+    <form id="estForm" class="est-host" novalidate>
+      <div data-step="1">
+        <span class="kicker">Step 01 · Contact</span>
+        <h2>Let's <em>introduce ourselves.</em></h2>
+        <p class="sub">Four fields, takes under a minute. Your info won't be sold or sent to a call-center — promise.</p>
+        <div class="est-row">
+          <div class="est-field"><label>Name</label><input name="name" required placeholder="e.g. Anna Karlsson" /></div>
+          <div class="est-field"><label>Phone</label><input name="phone" type="tel" required placeholder="541-555-1234" /></div>
+        </div>
+        <div class="est-row">
+          <div class="est-field"><label>Email</label><input name="email" type="email" required placeholder="you@example.com" /></div>
+          <div class="est-field"><label>ZIP code</label><input name="zip" inputmode="numeric" maxlength="5" placeholder="97401" /></div>
+        </div>
+        <div class="est-actions">
+          <button type="button" id="estGo" class="btn btn-primary">Continue <span class="arrow">→</span></button>
+          <a href="tel:+15414209370" class="btn">Or call (541) 420-9370</a>
+        </div>
+      </div>
+
+      <div data-step="2" hidden>
+        <span class="kicker">Step 02 · The job</span>
+        <h2>What <em>can we help with?</em></h2>
+        <div class="est-row">
+          <div class="est-field">
+            <label>Service</label>
+            <select name="job" required>
+              <option value="">Select a service</option>
+              <option value="water-heater">Water heater</option>
+              <option value="repair">Leak or fixture repair</option>
+              <option value="remodel">Bath / kitchen remodel</option>
+              <option value="waterline">Water line replacement</option>
+              <option value="sump">Sump pump</option>
+              <option value="drain">Drain or sewer</option>
+              <option value="emergency">Emergency</option>
+              <option value="inspection">Home inspection</option>
+            </select>
+          </div>
+          <div class="est-field">
+            <label>Timing</label>
+            <select name="urgency">
+              <option value="thisweek">This week</option>
+              <option value="emergency">Emergency / today</option>
+              <option value="flexible">Flexible</option>
+            </select>
+          </div>
+        </div>
+        <div class="est-row">
+          <div class="est-field">
+            <label>Scope</label>
+            <select name="scope">
+              <option value="small">Small — single fixture / area</option>
+              <option value="medium" selected>Medium — typical service call</option>
+              <option value="large">Large — multi-day / whole-home</option>
+            </select>
+          </div>
+          <div class="est-field">
+            <label>Property age</label>
+            <select name="propage">
+              <option value="new">Post-2000</option>
+              <option value="midcentury" selected>1960s–1990s</option>
+              <option value="older">Pre-1960s (historic)</option>
+            </select>
+          </div>
+        </div>
+        <div class="est-row full">
+          <div class="est-field"><label>Notes (optional)</label><textarea name="notes" rows="3" placeholder="Brand preferences, access quirks, past repairs, anything that helps."></textarea></div>
+        </div>
+        <div class="est-actions">
+          <button type="submit" class="btn btn-primary">Calculate range <span class="arrow">→</span></button>
+          <button type="button" id="estBack" class="btn">← Back</button>
+        </div>
+      </div>
+
+      <div data-step="result" hidden style="text-align:center;">
+        <span class="kicker">Your ballpark</span>
+        <h2>Here's the <em>range.</em></h2>
+        <div class="est-range"></div>
+        <p class="est-summary"></p>
+        <p class="est-disclaimer">Range only · final price locked at a free on-site walk-through · 5-yr workmanship warranty</p>
+        <div class="est-actions" style="justify-content:center; margin-top:1.4rem;">
+          <a href="tel:+15414209370" class="btn btn-copper">Call to schedule <span class="arrow">→</span></a>
+          <a href="contact.html" class="btn">Email us instead</a>
+        </div>
+      </div>
+    </form>
+
+    <div class="philosophy reveal" style="margin-top:3rem;">
+      <div class="phil-item"><div class="n">↳</div><h4>How this range is built</h4><p>40 years of South Willamette plumbing labor, parts costs, permit fees, and trip distances — calibrated against current market pricing.</p></div>
+      <div class="phil-item"><div class="n">↳</div><h4>Why the final price is locked in-person</h4><p>Until we see the water heater closet, the shut-off, and the fittings, a number is an estimate. After the walk, it's flat-rate.</p></div>
+    </div>
+  </div>
+</section>
+
+<footer class="foot">
+  <div class="wrap foot-grid">
+    <div><div class="brand"><span class="mark">B</span><span class="tm">Bjork &amp; Sons</span></div><p class="foot-desc">Quiet plumbing for Eugene since 1985.</p></div>
+    <div><h5>Services</h5><ul><li><a href="services.html">Water heaters</a></li><li><a href="services.html">Leak repair</a></li></ul></div>
+    <div><h5>Service area</h5><ul><li>Eugene · Springfield</li></ul></div>
+    <div><h5>Contact</h5><ul><li><a href="tel:+15414209370">(541) 420-9370</a></li><li><a href="mailto:kevin.bjork85@gmail.com">kevin.bjork85@gmail.com</a></li></ul></div>
+  </div>
+  <div class="wrap foot-bottom"><span>© <span id="year"></span> Bjork &amp; Sons Plumbing</span><span>Built by <a href="https://blackboxadvancements.com">Blackbox Advancements</a></span></div>
+</footer>
+
+<script src="animations.js" defer></script>
+<script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+</body>
+</html>
