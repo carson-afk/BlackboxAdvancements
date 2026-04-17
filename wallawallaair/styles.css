@@ -296,6 +296,10 @@ input, textarea, select { font: inherit; color: inherit; }
   font-size: 0.98rem;
   position: relative;
 }
+.mobile-menu.mm-services-open [data-mm-member="services"],
+.mobile-menu.mm-areas-open [data-mm-member="areas"] {
+  display: block;
+}
 .mobile-menu [data-mm-member]::before {
   content: ''; position: absolute; left: 0.9rem; top: 50%;
   width: 6px; height: 1px; background: var(--line-hot);

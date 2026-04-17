@@ -63,17 +63,20 @@
     document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && menu.classList.contains('open')) set(false); });
 
     // Collapsible sections inside the mobile menu (Services / Service Areas).
+    // CSS defaults [data-mm-member] to display:none; we toggle a class on the
+    // menu so the revealed group wins via a higher-specificity selector.
     menu.querySelectorAll('[data-mm-group]').forEach((trigger) => {
       const group = trigger.getAttribute('data-mm-group');
-      const children = menu.querySelectorAll('[data-mm-member="' + group + '"]');
+      const openClass = 'mm-' + group + '-open';
       const setOpen = (o) => {
         trigger.classList.toggle('is-open', o);
         trigger.setAttribute('aria-expanded', o ? 'true' : 'false');
-        children.forEach((c) => c.style.display = o ? '' : 'none');
+        menu.classList.toggle(openClass, o);
       };
       setOpen(false);
       trigger.addEventListener('click', (e) => {
         e.preventDefault();
+        e.stopPropagation();
         setOpen(!trigger.classList.contains('is-open'));
       });
     });
