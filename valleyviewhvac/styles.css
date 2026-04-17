@@ -642,3 +642,8 @@ details.feature[open] summary::after { transform: rotate(45deg); }
   line-height: 1;
 }
 .ph { line-height: 1; vertical-align: middle; }
+
+
+/* Pill — blue variant (used on hero trust badge) */
+.pill.pill-blue { background: var(--blue-soft); color: var(--blue); }
+.pill.pill-blue .dot { background: var(--blue); box-shadow: 0 0 0 3px rgba(30, 58, 138, 0.22); }
