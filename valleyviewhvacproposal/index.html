@@ -11,7 +11,13 @@
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
-<link rel="stylesheet" href="styles.css" />
+<!-- Asset paths are absolute (/valleyviewhvacproposal/...) on purpose.
+     Vercel serves this page at /valleyviewhvacproposal (no trailing slash),
+     which would break relative paths like "styles.css". Do NOT change these
+     back to relative paths — the page has regressed to unstyled black-on-white
+     four times from that exact mistake. A <base href> also worked but kept
+     getting dropped by github.com web edits, so we use absolute paths instead. -->
+<link rel="stylesheet" href="/valleyviewhvacproposal/styles.css" />
 </head>
 <body>
 
@@ -20,7 +26,7 @@
 <header class="site-header">
   <div class="container navbar">
     <a class="brand" href="#top">
-      <img class="brand-logo" src="logo.svg" alt="Blackbox Advancements" />
+      <img class="brand-logo" src="/valleyviewhvacproposal/logo.svg" alt="Blackbox Advancements" />
     </a>
     <div class="nav-actions">
       <a class="btn btn-ghost" href="#scope">Scope</a>
@@ -404,7 +410,7 @@
   <div class="container footer-grid">
     <div>
       <div class="brand">
-        <img class="brand-logo" src="logo.svg" alt="Blackbox Advancements" />
+        <img class="brand-logo" src="/valleyviewhvacproposal/logo.svg" alt="Blackbox Advancements" />
       </div>
       <p class="footer-tag">AI &amp; web systems that actually run your business</p>
     </div>
@@ -420,6 +426,6 @@
   </div>
 </footer>
 
-<script src="script.js"></script>
+<script src="/valleyviewhvacproposal/script.js"></script>
 </body>
 </html>
