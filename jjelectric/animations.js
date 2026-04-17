@@ -59,7 +59,7 @@
     let err = input.parentNode.querySelector('.est-err');
     if (!err) { err = document.createElement('span'); err.className = 'est-err'; input.parentNode.appendChild(err); }
     err.textContent = msg;
-    input.style.borderColor = '#ff3b3b';
+    input.style.borderColor = '#ef2b2d';
     input.addEventListener('input', () => { err.textContent = ''; input.style.borderColor = ''; }, { once: true });
   };
 

@@ -4,21 +4,21 @@
    ======================================================================== */
 
 :root {
-  --bg: #0a0c0a;
-  --surface: #141614;
-  --surface-2: #1d201c;
-  --line: #262a26;
-  --line-hot: #343834;
+  --bg: #030a1a;
+  --surface: #0a1630;
+  --surface-2: #0f1e42;
+  --line: #1a2a4a;
+  --line-hot: #2a3a5a;
   --bone: #f4f0e4;
   --fog: #a4a8a0;
   --fog-2: #6a6e68;
 
-  --yellow: #fddb00;
-  --yellow-hot: #fff12a;
-  --yellow-deep: #c9a700;
-  --yellow-glow: rgba(253, 219, 0, 0.4);
-  --orange: #ff6b1f;
-  --green: #3fd27f;
+  --yellow: #0693e3;
+  --yellow-hot: #3ab4ff;
+  --yellow-deep: #0070b8;
+  --yellow-glow: rgba(6, 147, 227, 0.45);
+  --orange: #00d084;
+  --green: #00d084;
   --red: #ff3b3b;
 
   --ff-display: 'Chakra Petch', 'Orbitron', sans-serif;
@@ -47,15 +47,15 @@ input, textarea, select { font: inherit; color: inherit; }
 body::before {
   content: ''; position: fixed; inset: 0;
   background-image:
-    linear-gradient(rgba(253, 219, 0, 0.04) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(253, 219, 0, 0.04) 1px, transparent 1px);
+    linear-gradient(rgba(6, 147, 227, 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(6, 147, 227, 0.04) 1px, transparent 1px);
   background-size: 48px 48px;
   mask-image: radial-gradient(ellipse 80% 60% at 50% 50%, black 30%, transparent 85%);
   pointer-events: none; z-index: 0;
 }
 body::after {
   content: ''; position: fixed; inset: 0;
-  background: radial-gradient(ellipse 50% 40% at 80% 0%, rgba(253, 219, 0, 0.08), transparent 60%);
+  background: radial-gradient(ellipse 50% 40% at 80% 0%, rgba(6, 147, 227, 0.08), transparent 60%);
   pointer-events: none; z-index: 0;
 }
 
@@ -202,7 +202,7 @@ main { padding-top: 64px; }
   content: '⚡ ELECTRIC ⚡ LICENSED ⚡ BONDED ⚡ INSURED ⚡ YAKIMA ⚡';
   position: absolute; left: -5%; right: -5%; bottom: -10px;
   font-family: var(--ff-display); font-size: 12rem;
-  color: rgba(253, 219, 0, 0.03);
+  color: rgba(6, 147, 227, 0.03);
   white-space: nowrap;
   letter-spacing: -0.03em;
   pointer-events: none;
@@ -502,7 +502,7 @@ main { padding-top: 64px; }
   border: 1px solid var(--yellow);
   padding: clamp(2rem, 3vw, 3rem);
   position: relative;
-  box-shadow: 0 0 40px rgba(253, 219, 0, 0.1);
+  box-shadow: 0 0 40px rgba(6, 147, 227, 0.1);
   clip-path: polygon(20px 0, 100% 0, 100% calc(100% - 20px), calc(100% - 20px) 100%, 0 100%, 0 20px);
 }
 .est-host::before {
@@ -530,11 +530,11 @@ main { padding-top: 64px; }
 }
 .est-field input:focus, .est-field select:focus, .est-field textarea:focus {
   outline: none; border-color: var(--yellow);
-  box-shadow: 0 0 0 3px rgba(253, 219, 0, 0.15);
+  box-shadow: 0 0 0 3px rgba(6, 147, 227, 0.15);
 }
 .est-field select {
   appearance: none;
-  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%23fddb00' stroke-width='2' stroke-linecap='round'><path d='M6 9l6 6 6-6'/></svg>");
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%230693e3' stroke-width='2' stroke-linecap='round'><path d='M6 9l6 6 6-6'/></svg>");
   background-repeat: no-repeat;
   background-position: right 1rem center;
   padding-right: 2.5rem;
