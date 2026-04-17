@@ -7,6 +7,18 @@
   }, { threshold: 0.15, rootMargin: '0px 0px -60px 0px' });
   document.querySelectorAll('.reveal, .stagger').forEach((el) => io.observe(el));
 
+  // Track the live bottom edge of the sticky nav so the mobile menu sits flush
+  // under it regardless of reviews-bar / emergency-strip / scroll position.
+  const navEl = document.querySelector('.nav');
+  const setHeaderOffset = () => {
+    if (!navEl) return;
+    const b = Math.max(0, Math.round(navEl.getBoundingClientRect().bottom));
+    document.documentElement.style.setProperty('--mobile-menu-top', b + 'px');
+  };
+  setHeaderOffset();
+  window.addEventListener('resize', setHeaderOffset);
+  window.addEventListener('scroll', setHeaderOffset, { passive: true });
+
   const toggle = document.querySelector('.mobile-toggle');
   const menu = document.querySelector('.mobile-menu');
   if (toggle && menu) {
@@ -24,18 +36,47 @@
       closeBtn.innerHTML = '<i class="ph ph-x" aria-hidden="true"></i>';
       menu.prepend(closeBtn);
     }
+
+    let scrollY = 0;
     const set = (o) => {
+      if (o) {
+        scrollY = window.scrollY;
+        setHeaderOffset();
+        document.body.style.position = 'fixed';
+        document.body.style.top = '-' + scrollY + 'px';
+        document.body.style.width = '100%';
+      } else {
+        document.body.style.position = '';
+        document.body.style.top = '';
+        document.body.style.width = '';
+        window.scrollTo(0, scrollY);
+      }
       menu.classList.toggle('open', o);
       toggle.innerHTML = o ? '<i class="ph ph-x" aria-hidden="true"></i>' : '<i class="ph ph-list" aria-hidden="true"></i>';
       toggle.setAttribute('aria-label', o ? 'Close menu' : 'Open menu');
       toggle.setAttribute('aria-expanded', o ? 'true' : 'false');
-      document.body.style.overflow = o ? 'hidden' : '';
     };
     toggle.addEventListener('click', () => set(!menu.classList.contains('open')));
     closeBtn.addEventListener('click', () => set(false));
     menu.querySelectorAll('a').forEach((a) => a.addEventListener('click', () => set(false)));
     // Close on Escape
     document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && menu.classList.contains('open')) set(false); });
+
+    // Collapsible sections inside the mobile menu (Services / Service Areas).
+    menu.querySelectorAll('[data-mm-group]').forEach((trigger) => {
+      const group = trigger.getAttribute('data-mm-group');
+      const children = menu.querySelectorAll('[data-mm-member="' + group + '"]');
+      const setOpen = (o) => {
+        trigger.classList.toggle('is-open', o);
+        trigger.setAttribute('aria-expanded', o ? 'true' : 'false');
+        children.forEach((c) => c.style.display = o ? '' : 'none');
+      };
+      setOpen(false);
+      trigger.addEventListener('click', (e) => {
+        e.preventDefault();
+        setOpen(!trigger.classList.contains('is-open'));
+      });
+    });
   }
 
   document.querySelectorAll('.marquee-track, .showcase-track').forEach((track) => {
