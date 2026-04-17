@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<base href="/wolfpackplumbing/" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Contact — Wolf Pack Plumbing</title>
+<meta name="description" content="Reach Wolf Pack Plumbing. Phone (503) 878-2523 24/7. Email joe@wolfpackplumbingservices.com. Salem, Keizer, Woodburn + mid-Willamette." />
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+<header class="nav">
+  <a href="index.html" class="nav-brand"><span class="mark">▲</span><span class="tm">WOLF PACK<small>plumbing · salem or</small></span></a>
+  <nav class="nav-links">
+    <a href="index.html">Home</a><a href="services.html">Services</a><a href="estimator.html">Estimator</a><a href="gallery.html">Projects</a><a href="about.html">About</a><a href="contact.html" class="active">Contact</a>
+  </nav>
+  <span class="nav-meta">24/7 dispatch</span>
+  <a href="tel:+15038782523" class="nav-cta">(503) 878-2523 <span>→</span></a>
+  <button class="mobile-toggle" aria-label="Menu">/ menu</button>
+</header>
+<div class="mobile-menu">
+  <a href="index.html">Home</a><a href="services.html">Services</a><a href="estimator.html">Estimator</a><a href="gallery.html">Projects</a><a href="about.html">About</a><a href="contact.html">Contact</a>
+</div>
+
+<main>
+<section class="page-hero" data-bigword="CONTACT">
+  <div class="wrap">
+    <span class="eye">DISPATCH / TRANSMIT</span>
+    <h1>CALL. TEXT. EMAIL.<br/><span class="red">WE ANSWER.</span></h1>
+    <p>Phone is fastest — dispatch is live 24/7. For scheduled work and remodels, the form below lands in Joe's inbox and gets replied to within a business day.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap contact-grid">
+    <form class="est-host" data-demo>
+      <h2>SEND A MESSAGE</h2>
+      <p class="sub">For quotes, scheduled work, or anything non-emergency. Emergencies: call the line.</p>
+      <div class="est-row">
+        <div class="est-field"><label>Name</label><input name="name" required placeholder="Carson Smith" /></div>
+        <div class="est-field"><label>Phone</label><input name="phone" type="tel" required placeholder="503-555-1234" /></div>
+      </div>
+      <div class="est-row">
+        <div class="est-field"><label>Email</label><input name="email" type="email" placeholder="you@example.com" /></div>
+        <div class="est-field"><label>ZIP</label><input name="zip" inputmode="numeric" maxlength="5" placeholder="97301" /></div>
+      </div>
+      <div class="est-row full">
+        <div class="est-field"><label>What's going on?</label><textarea name="message" rows="5" required placeholder="Drain backed up · water heater out · remodel scoping — whatever it is."></textarea></div>
+      </div>
+      <div class="est-actions">
+        <button type="submit" class="btn btn-primary">TRANSMIT <span class="arrow">→</span></button>
+        <a href="tel:+15038782523" class="btn">OR CALL NOW</a>
+      </div>
+      <p class="demo-confirm est-disclaimer" style="opacity:0; transition:opacity 0.4s; margin-top:1rem;"></p>
+    </form>
+
+    <aside>
+      <a href="tel:+15038782523" class="info"><div class="ico">☎</div><div><div class="k">phone / dispatch</div><div class="v">(503) 878-2523</div></div></a>
+      <a href="mailto:joe@wolfpackplumbingservices.com" class="info"><div class="ico">✉</div><div><div class="k">email</div><div class="v">joe@wolfpack<wbr/>plumbingservices.com</div></div></a>
+      <div class="info"><div class="ico">◉</div><div><div class="k">base of ops</div><div class="v">Salem, OR · mid-Willamette</div></div></div>
+      <div class="info"><div class="ico">◷</div><div><div class="k">hours</div><div class="v">Mon–Fri 7am–6pm (office)
+Emergency dispatch 24/7</div></div></div>
+    </aside>
+  </div>
+</section>
+
+<section class="section" style="padding-top:0;">
+  <div class="wrap">
+    <div class="map-embed reveal">
+      <iframe loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Service area map"
+        src="https://www.google.com/maps?q=Salem,OR&output=embed"></iframe>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer class="foot">
+  <div class="wrap foot-grid">
+    <div><div class="brand"><span class="mark">▲</span><span class="tm">WOLF PACK</span></div><p style="max-width:30ch;">Straight-shooting plumbers for Salem &amp; the mid-Willamette.</p></div>
+    <div><h5>/ services</h5><ul><li><a href="services.html">Drain cleaning</a></li><li><a href="services.html">Water heaters</a></li><li><a href="services.html">Leak detection</a></li></ul></div>
+    <div><h5>/ service area</h5><ul><li>Salem · Keizer · Woodburn</li><li>Silverton · Stayton</li></ul></div>
+    <div><h5>/ contact</h5><ul><li><a href="tel:+15038782523">(503) 878-2523</a></li><li><a href="mailto:joe@wolfpackplumbingservices.com">joe@wolfpack<wbr/>plumbingservices.com</a></li></ul></div>
+  </div>
+  <div class="wrap foot-bottom"><span>© <span id="year"></span> Wolf Pack Plumbing</span><span>Built by <a href="https://blackboxadvancements.com">Blackbox Advancements</a></span></div>
+</footer>
+
+<script src="animations.js" defer></script>
+<script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+</body>
+</html>

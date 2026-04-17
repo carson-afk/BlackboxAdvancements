@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<base href="/wolfpackplumbing/" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Estimator — Wolf Pack Plumbing</title>
+<meta name="description" content="Wolf Pack instant estimator. Drain, water heater, pipe, leak, fixture, emergency, and remodel plumbing — live pricing range for Salem + Willamette Valley." />
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+<header class="nav">
+  <a href="index.html" class="nav-brand"><span class="mark">▲</span><span class="tm">WOLF PACK<small>plumbing · salem or</small></span></a>
+  <nav class="nav-links">
+    <a href="index.html">Home</a><a href="services.html">Services</a><a href="estimator.html" class="active">Estimator</a><a href="gallery.html">Projects</a><a href="about.html">About</a><a href="contact.html">Contact</a>
+  </nav>
+  <span class="nav-meta">24/7 dispatch</span>
+  <a href="tel:+15038782523" class="nav-cta">(503) 878-2523 <span>→</span></a>
+  <button class="mobile-toggle" aria-label="Menu">/ menu</button>
+</header>
+<div class="mobile-menu">
+  <a href="index.html">Home</a><a href="services.html">Services</a><a href="estimator.html">Estimator</a><a href="gallery.html">Projects</a><a href="about.html">About</a><a href="contact.html">Contact</a>
+</div>
+
+<main>
+<section class="page-hero" data-bigword="ESTIMATE">
+  <div class="wrap">
+    <span class="eye">SYS.ESTIMATE/60s</span>
+    <h1>LIVE RANGE.<br/><span class="red">NO GUESSING.</span></h1>
+    <p>Punch the scope, we run it against six years of mid-Valley job data and spit out a range. It's a number, not a sales hook — no one calls you unless you ask.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap">
+    <form id="estForm" class="est-host" novalidate>
+      <div data-step="1">
+        <h2>STEP 01 / CONTACT</h2>
+        <p class="sub">Four fields. Thirty seconds.</p>
+        <div class="est-row">
+          <div class="est-field"><label>Name</label><input name="name" required placeholder="Alex Johnson" /></div>
+          <div class="est-field"><label>Phone</label><input name="phone" type="tel" required placeholder="503-555-1234" /></div>
+        </div>
+        <div class="est-row">
+          <div class="est-field"><label>Email</label><input name="email" type="email" required placeholder="you@example.com" /></div>
+          <div class="est-field"><label>ZIP</label><input name="zip" inputmode="numeric" maxlength="5" placeholder="97301" /></div>
+        </div>
+        <div class="est-actions">
+          <button type="button" id="estGo" class="btn btn-primary">CONTINUE <span class="arrow">→</span></button>
+          <a href="tel:+15038782523" class="btn">OR CALL (503) 878-2523</a>
+        </div>
+      </div>
+
+      <div data-step="2" hidden>
+        <h2>STEP 02 / JOB SPEC</h2>
+        <p class="sub">Pick the closest match. Details help — but the range adjusts live.</p>
+        <div class="est-row">
+          <div class="est-field">
+            <label>Job Type</label>
+            <select name="job" required>
+              <option value="">-- select --</option>
+              <option value="drain">Drain cleaning / hydro-jet</option>
+              <option value="water-heater">Water heater install</option>
+              <option value="pipe">Pipe replacement / repipe</option>
+              <option value="leak">Leak detection + repair</option>
+              <option value="repair">Fixture repair</option>
+              <option value="emergency">Emergency plumbing</option>
+              <option value="remodel">Kitchen/bath remodel plumbing</option>
+            </select>
+          </div>
+          <div class="est-field">
+            <label>Urgency</label>
+            <select name="urgency" required>
+              <option value="thisweek">This week</option>
+              <option value="emergency">Emergency / today</option>
+              <option value="flexible">Flexible</option>
+            </select>
+          </div>
+        </div>
+        <div class="est-row">
+          <div class="est-field">
+            <label>Scope</label>
+            <select name="scope">
+              <option value="small">Small — single fixture / one area</option>
+              <option value="medium" selected>Medium — typical service call</option>
+              <option value="large">Large — multi-day / whole-home</option>
+            </select>
+          </div>
+          <div class="est-field">
+            <label>Property Type</label>
+            <select name="property">
+              <option value="residential" selected>Residential</option>
+              <option value="rental">Rental / property management</option>
+              <option value="commercial">Commercial</option>
+            </select>
+          </div>
+        </div>
+        <div class="est-row full">
+          <div class="est-field"><label>Notes (optional)</label><textarea name="notes" rows="3" placeholder="Brand preferences, access issues, age of plumbing, anything that helps narrow the range."></textarea></div>
+        </div>
+        <div class="est-actions">
+          <button type="submit" class="btn btn-primary">RUN ESTIMATE <span class="arrow">→</span></button>
+          <button type="button" id="estBack" class="btn">← BACK</button>
+        </div>
+      </div>
+
+      <div data-step="result" hidden>
+        <h2>LIVE RANGE</h2>
+        <div class="est-range"></div>
+        <p class="est-summary"></p>
+        <p class="est-disclaimer">// RANGE ONLY · FINAL PRICE LOCKED AT ON-SITE WALK-THROUGH</p>
+        <div class="est-actions" style="justify-content:center; margin-top:1.6rem;">
+          <a href="tel:+15038782523" class="btn btn-primary">LOCK IT IN — CALL NOW <span class="arrow">→</span></a>
+          <a href="contact.html" class="btn">EMAIL US INSTEAD</a>
+        </div>
+      </div>
+    </form>
+
+    <div class="guarantee reveal" style="margin-top:3rem;">
+      <div class="g"><span class="n">/ 01</span><h4>6-YEAR WARRANTY</h4><p>Every install: parts + labor. No fine-print exclusions.</p></div>
+      <div class="g"><span class="n">/ 02</span><h4>30-DAY NO-CLOG</h4><p>Drain backs up within 30 days? We come back free.</p></div>
+      <div class="g"><span class="n">/ 03</span><h4>FLAT-RATE</h4><p>Price before work. No invoice surprises, ever.</p></div>
+      <div class="g"><span class="n">/ 04</span><h4>~35 MIN DISPATCH</h4><p>Average across Salem/Keizer/Woodburn 24/7.</p></div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer class="foot">
+  <div class="wrap foot-grid">
+    <div><div class="brand"><span class="mark">▲</span><span class="tm">WOLF PACK</span></div><p style="max-width:30ch;">Straight-shooting plumbers for Salem &amp; the mid-Willamette.</p></div>
+    <div><h5>/ services</h5><ul><li><a href="services.html">Drain cleaning</a></li><li><a href="services.html">Water heaters</a></li><li><a href="services.html">Leak detection</a></li></ul></div>
+    <div><h5>/ service area</h5><ul><li>Salem · Keizer · Woodburn</li></ul></div>
+    <div><h5>/ contact</h5><ul><li><a href="tel:+15038782523">(503) 878-2523</a></li><li><a href="mailto:joe@wolfpackplumbingservices.com">joe@wolfpack<wbr/>plumbingservices.com</a></li></ul></div>
+  </div>
+  <div class="wrap foot-bottom"><span>© <span id="year"></span> Wolf Pack Plumbing</span><span>Built by <a href="https://blackboxadvancements.com">Blackbox Advancements</a></span></div>
+</footer>
+
+<script src="animations.js" defer></script>
+<script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+</body>
+</html>
