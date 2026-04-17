@@ -44,7 +44,15 @@
         </div>
         <div class="est-row">
           <div class="est-field"><label>Email</label><input name="email" type="email" required placeholder="you@example.com" /></div>
-          <div class="est-field"><label>ZIP</label><input name="zip" inputmode="numeric" maxlength="5" placeholder="97301" /></div>
+          <div class="est-field"><label>Street address</label><input name="street" required placeholder="123 Main St" autocomplete="street-address" /></div>
+        </div>
+        <div class="est-row">
+          <div class="est-field"><label>City</label><input name="city" required placeholder="Salem" autocomplete="address-level2" /></div>
+          <div class="est-field"><label>State</label><input name="state" required placeholder="OR" maxlength="2" autocomplete="address-level1" value="OR" /></div>
+        </div>
+        <div class="est-row">
+          <div class="est-field"><label>ZIP</label><input name="zip" inputmode="numeric" maxlength="5" required placeholder="97301" autocomplete="postal-code" /></div>
+          <div class="est-field"><label>Unit / apt (optional)</label><input name="unit" placeholder="Apt 2B" autocomplete="address-line2" /></div>
         </div>
         <div class="est-actions">
           <button type="button" id="estGo" class="btn btn-primary">Continue <span class="arrow">→</span></button>

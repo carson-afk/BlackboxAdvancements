@@ -103,11 +103,15 @@
   };
 
   goBtn && goBtn.addEventListener('click', () => {
-    const name = est.elements.name, phone = est.elements.phone, email = est.elements.email;
+    const f = est.elements;
     let ok = true;
-    if (!name.value.trim()) { flash(name, 'Required'); ok = false; }
-    if (!phone.value.trim() || phone.value.replace(/\D/g, '').length < 7) { flash(phone, 'Valid phone'); ok = false; }
-    if (!emailRe.test(email.value.trim())) { flash(email, 'Valid email'); ok = false; }
+    if (!f.name.value.trim()) { flash(f.name, 'Required'); ok = false; }
+    if (!f.phone.value.trim() || f.phone.value.replace(/\D/g, '').length < 7) { flash(f.phone, 'Valid phone'); ok = false; }
+    if (!emailRe.test(f.email.value.trim())) { flash(f.email, 'Valid email'); ok = false; }
+    if (f.street && !f.street.value.trim()) { flash(f.street, 'Required'); ok = false; }
+    if (f.city && !f.city.value.trim()) { flash(f.city, 'Required'); ok = false; }
+    if (f.state && !f.state.value.trim()) { flash(f.state, 'Required'); ok = false; }
+    if (f.zip && (!f.zip.value.trim() || f.zip.value.replace(/\D/g, '').length !== 5)) { flash(f.zip, 'Valid 5-digit ZIP'); ok = false; }
     if (!ok) return;
     show(step2);
   });
@@ -134,8 +138,10 @@
 
     const fmt = (n) => `$${n.toLocaleString('en-US')}`;
     est.querySelector('.est-range').textContent = `${fmt(lo)} – ${fmt(hi)}`;
+    const f = est.elements;
+    const addr = [f.street && f.street.value.trim(), f.unit && f.unit.value.trim(), f.city && f.city.value.trim(), f.state && f.state.value.trim(), zip].filter(Boolean).join(', ');
     est.querySelector('.est-summary').textContent =
-      `${LABELS[jobSel.value]} · ${property} · ${size}${discount ? ' · 10% community discount applied' : ''}${outOfArea ? ' · out-of-area travel' : ''}. 10-year equipment / 2-year workmanship warranty. Final price confirmed at free in-home estimate.`;
+      `${LABELS[jobSel.value]} · ${property} · ${size}${discount ? ' · 10% community discount applied' : ''}${outOfArea ? ' · out-of-area travel' : ''}. 10-year equipment / 2-year workmanship warranty. Final price confirmed at free in-home estimate at ${addr || 'your address'}.`;
     show(result);
   });
 
