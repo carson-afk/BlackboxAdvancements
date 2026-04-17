@@ -6,27 +6,47 @@
    ======================================================================== */
 
 :root {
-  --bg: #f7f4ec;
-  --paper: #fdfbf5;
-  --paper-2: #eee8d8;
-  --ink: #0f1410;
+  --bg: #f8f7f2;
+  --paper: #ffffff;
+  --paper-2: #eee9d8;
+  --ink: #0f1414;
   --ink-soft: #2e3530;
   --mute: #6a7369;
-  --line: rgba(15, 20, 16, 0.12);
-  --line-soft: rgba(15, 20, 16, 0.06);
+  --line: rgba(15, 20, 20, 0.14);
+  --line-soft: rgba(15, 20, 20, 0.07);
 
-  --forest: #0D4F3D;
-  --forest-deep: #073528;
-  --forest-light: #2a7458;
-  --forest-soft: rgba(13, 79, 61, 0.08);
-  --forest-glow: rgba(13, 79, 61, 0.35);
+  /* Primary — navy blue sampled from wallawallaair.com (#2b5672) */
+  --blue: #2b5672;
+  --blue-deep: #1a3e57;
+  --blue-light: #4a7494;
+  --blue-bright: #116dff;
+  --blue-soft: rgba(43, 86, 114, 0.08);
+  --blue-glow: rgba(43, 86, 114, 0.35);
 
-  --navy: #0F2CCF;
-  --navy-deep: #091a7d;
-  --navy-soft: rgba(15, 44, 207, 0.06);
+  /* Accent — vivid red sampled from wallawallaair.com (#E20F25) */
+  --red: #E20F25;
+  --red-deep: #a80b1c;
+  --red-light: #ff3d4f;
+  --red-soft: rgba(226, 15, 37, 0.08);
+  --red-glow: rgba(226, 15, 37, 0.35);
 
   --brass: #b8923a;
   --cream: #f0ead2;
+
+  /* Backwards-compat aliases — keep old name, map to new color role
+     (forest = primary, navy = accent) */
+  --forest: var(--blue);
+  --forest-deep: var(--blue-deep);
+  --forest-light: var(--blue-light);
+  --forest-soft: var(--blue-soft);
+  --forest-glow: var(--blue-glow);
+  --navy: var(--red);
+  --navy-deep: var(--red-deep);
+  --navy-soft: var(--red-soft);
+  --wine: var(--red);
+  --wine-deep: var(--red-deep);
+  --terra: var(--red);
+  --terra-soft: var(--red-soft);
 
   --ff-display: 'Playfair Display', 'Cormorant Garamond', Georgia, serif;
   --ff-body: 'Lora', Georgia, serif;
@@ -567,3 +587,21 @@ a.info:hover { padding-left: 0.5rem; }
   --terra: var(--navy);
   --terra-soft: rgba(15, 44, 207, 0.12);
 }
+
+
+/* Nav/footer logo image — replaces the old "W" text mark */
+.nav-brand .nav-logo {
+  height: 40px;
+  width: auto;
+  max-width: 280px;
+  display: block;
+}
+.foot .brand .nav-logo {
+  height: 42px;
+  width: auto;
+  max-width: 220px;
+  display: block;
+  filter: brightness(0) invert(1) contrast(1.1);
+  /* knock out colors so the logo reads on dark footer */
+}
+@media (max-width: 540px) { .nav-brand .nav-logo { height: 32px; max-width: 200px; } }
