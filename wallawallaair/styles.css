@@ -1260,7 +1260,14 @@ a.info:active { transform: translateY(-1px) scale(0.995); transition-duration: v
 .foot a:hover { color: white; }
 .foot ul { list-style: none; display: grid; gap: 0.35rem; }
 .foot .brand { display: flex; align-items: center; gap: 0.7rem; margin-bottom: 1rem; }
-.foot .brand .nav-logo { height: 40px; width: auto; max-width: 200px; display: block; filter: brightness(0) invert(1) contrast(1.05); }
+.foot .brand .nav-logo {
+  height: auto;
+  width: 100%;
+  max-width: 260px;
+  display: block;
+  border-radius: 10px;
+  box-shadow: 0 4px 14px rgba(0,0,0,0.25);
+}
 .foot-desc { max-width: 34ch; font-size: 0.94rem; line-height: 1.55; }
 .foot-bottom { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 0.8rem; padding-top: 1.5rem; border-top: 1px solid rgba(255,255,255,0.1); font-size: 0.82rem; color: rgba(255,255,255,0.5); }
 
