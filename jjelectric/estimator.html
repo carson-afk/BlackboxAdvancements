@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<base href="/jjelectric/" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Job Estimator — JJ &amp; S Electric</title>
+<meta name="description" content="JJ &amp; S Electric instant estimator. Panel upgrade, EV charger, rewire, lighting, troubleshooting, commercial, and new construction pricing for Yakima County." />
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+<header class="nav">
+  <a href="index.html" class="nav-brand"><span class="mark">⚡</span><span class="tm">JJ <em>&amp;</em> S Electric<small>yakima · 509</small></span></a>
+  <nav class="nav-links">
+    <a href="index.html">Home</a><a href="services.html">Services</a><a href="estimator.html" class="active">Estimate</a><a href="gallery.html">Projects</a><a href="about.html">About</a><a href="contact.html">Contact</a>
+  </nav>
+  <span class="nav-status">24/7 · ONLINE</span>
+  <a href="tel:+15095045504" class="nav-cta">509.504.5504</a>
+  <button class="mobile-toggle" aria-label="Menu">MENU</button>
+</header>
+<div class="mobile-menu">
+  <a href="index.html">Home</a><a href="services.html">Services</a><a href="estimator.html">Estimate</a><a href="gallery.html">Projects</a><a href="about.html">About</a><a href="contact.html">Contact</a>
+</div>
+
+<main>
+<section class="page-hero" data-bigword="ESTIMATE">
+  <div class="wrap">
+    <span class="eye">JOB.ESTIMATE / 60s</span>
+    <h1>LIVE PRICING.<br/><span class="y">NO GUESSING.</span></h1>
+    <p>Punch the circuit type, the scale, and your ZIP. We calculate a pricing range from Yakima-area install data — and zero pressure to book anything.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap">
+    <form id="estForm" class="est-host" novalidate>
+      <div data-step="1">
+        <h2>01 / <span class="y">CONTACT</span></h2>
+        <p class="sub">Four fields. Thirty seconds. No spam, no sales funnel.</p>
+        <div class="est-row">
+          <div class="est-field"><label>NAME</label><input name="name" required placeholder="Alex Johnson" /></div>
+          <div class="est-field"><label>PHONE</label><input name="phone" type="tel" required placeholder="509-555-1234" /></div>
+        </div>
+        <div class="est-row">
+          <div class="est-field"><label>EMAIL</label><input name="email" type="email" required placeholder="you@example.com" /></div>
+          <div class="est-field"><label>ZIP</label><input name="zip" inputmode="numeric" maxlength="5" placeholder="98901" /></div>
+        </div>
+        <div class="est-actions">
+          <button type="button" id="estGo" class="btn btn-primary">CONTINUE <span class="arrow">→</span></button>
+          <a href="tel:+15095045504" class="btn">OR CALL 509.504.5504</a>
+        </div>
+      </div>
+
+      <div data-step="2" hidden>
+        <h2>02 / <span class="y">JOB SPEC</span></h2>
+        <p class="sub">Pick the closest match. Details below help, but the range will adapt.</p>
+        <div class="est-row">
+          <div class="est-field">
+            <label>JOB TYPE</label>
+            <select name="job" required>
+              <option value="">-- SELECT --</option>
+              <option value="panel">Panel upgrade (100A / 200A / 400A)</option>
+              <option value="rewire">Rewire / remodel electrical</option>
+              <option value="ev-charger">EV charger install</option>
+              <option value="lighting">Lighting install / upgrade</option>
+              <option value="outlets">Outlets / switches</option>
+              <option value="troubleshoot">Troubleshoot / diagnostic</option>
+              <option value="generator">Generator + transfer switch</option>
+              <option value="commercial">Commercial electrical</option>
+              <option value="newconstruct">New construction wiring</option>
+            </select>
+          </div>
+          <div class="est-field">
+            <label>SERVICE SIZE</label>
+            <select name="amps">
+              <option value="small">100A / small job</option>
+              <option value="standard" selected>200A / standard</option>
+              <option value="large">400A / large / multi-family</option>
+            </select>
+          </div>
+        </div>
+        <div class="est-row">
+          <div class="est-field">
+            <label>PROPERTY TYPE</label>
+            <select name="property">
+              <option value="residential" selected>Residential</option>
+              <option value="commercial">Commercial</option>
+              <option value="industrial">Industrial / agricultural</option>
+            </select>
+          </div>
+          <div class="est-field">
+            <label>URGENCY</label>
+            <select name="urgency">
+              <option value="thisweek">This week</option>
+              <option value="emergency">Emergency / today</option>
+              <option value="flexible">Flexible</option>
+            </select>
+          </div>
+        </div>
+        <div class="est-row full">
+          <div class="est-field"><label>NOTES (OPTIONAL)</label><textarea name="notes" rows="3" placeholder="Home age, panel brand, access issues, anything that helps narrow it down."></textarea></div>
+        </div>
+        <div class="est-actions">
+          <button type="submit" class="btn btn-primary">CALCULATE RANGE <span class="arrow">→</span></button>
+          <button type="button" id="estBack" class="btn">← BACK</button>
+        </div>
+      </div>
+
+      <div data-step="result" hidden style="text-align:center;">
+        <h2>PRICING <span class="y">RANGE</span></h2>
+        <div class="est-range"></div>
+        <p class="est-summary"></p>
+        <p class="est-disclaimer">⚡ RANGE ONLY · FINAL PRICE LOCKED AT FREE ON-SITE ASSESSMENT</p>
+        <div class="est-actions" style="justify-content:center; margin-top:1.6rem;">
+          <a href="tel:+15095045504" class="btn btn-primary">LOCK IT IN — 509.504.5504 <span class="arrow">→</span></a>
+          <a href="contact.html" class="btn">EMAIL INSTEAD</a>
+        </div>
+      </div>
+    </form>
+
+    <div class="feature-grid stagger" style="margin-top:3rem;">
+      <div class="feature"><span class="ico">// 01</span><h3>PERMIT-PULLED</h3><p>Every invasive job pulled under the correct permit. Inspector sign-off handled.</p></div>
+      <div class="feature"><span class="ico">// 02</span><h3>CODE-FIRST</h3><p>NEC + Washington code. Your inspector will like the work. So will the next buyer of the house.</p></div>
+      <div class="feature"><span class="ico">// 03</span><h3>LICENSED + BONDED</h3><p>WA L&amp;I licensed. Bonded. Insured. Your homeowner's policy will be happy we were involved.</p></div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer class="foot">
+  <div class="wrap foot-grid">
+    <div><div class="brand"><span class="mark">⚡</span><span class="tm">JJ <em>&amp;</em> S ELECTRIC</span></div><p style="max-width:30ch;">Licensed electricians for Yakima County.</p></div>
+    <div><h5>// SERVICES</h5><ul><li><a href="services.html">Panel Upgrade</a></li><li><a href="services.html">EV Charger</a></li></ul></div>
+    <div><h5>// SERVICE AREA</h5><ul><li>Yakima · Selah · Moxee</li></ul></div>
+    <div><h5>// CONTACT</h5><ul><li><a href="tel:+15095045504">509.504.5504</a></li><li><a href="mailto:jjselectricllc509@gmail.com">jjselectricllc509@gmail.com</a></li></ul></div>
+  </div>
+  <div class="wrap foot-bottom"><span>© <span id="year"></span> JJ &amp; S ELECTRIC LLC</span><span>BUILT BY <a href="https://blackboxadvancements.com">BLACKBOX ADVANCEMENTS</a></span></div>
+</footer>
+
+<script src="animations.js" defer></script>
+<script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+</body>
+</html>
