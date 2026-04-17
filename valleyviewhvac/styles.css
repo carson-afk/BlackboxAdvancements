@@ -630,3 +630,15 @@ details.feature summary::marker { display: none; }
 details.feature summary { display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
 details.feature summary::after { content: '+'; font-family: var(--ff-display); font-weight: 400; font-size: 1.5rem; color: var(--orange); transition: transform 0.3s; }
 details.feature[open] summary::after { transform: rotate(45deg); }
+
+
+/* Phosphor icon centering ----------------- */
+.ico > .ph, .si > .ph, .tico > .ph, .info .ico > .ph, .feature .ico > .ph, .svc .ico > .ph,
+.step .si > .ph, .trust .tico > .ph {
+  display: grid;
+  place-items: center;
+  width: 100%;
+  height: 100%;
+  line-height: 1;
+}
+.ph { line-height: 1; vertical-align: middle; }
