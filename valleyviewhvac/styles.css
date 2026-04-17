@@ -219,13 +219,6 @@ input, textarea, select { font: inherit; color: inherit; }
 .hero-card .tile.t3 { bottom: 1.5rem; right: 1rem; animation: floatY 4.5s ease-in-out infinite 1.2s; }
 @keyframes floatY { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
 
-/* Extra breathing room on large desktops where the card is wider */
-@media (min-width: 1200px) {
-  .hero-card .tile.t1 { right: -1.25rem; }
-  .hero-card .tile.t2 { left: -1.25rem; }
-  .hero-card .tile { min-width: 210px; }
-}
-
 @media (max-width: 900px) {
   .hero .wrap { grid-template-columns: 1fr; }
   .hero-card { aspect-ratio: 16/11; }
