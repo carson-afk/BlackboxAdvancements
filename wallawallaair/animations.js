@@ -10,9 +10,32 @@
   const toggle = document.querySelector('.mobile-toggle');
   const menu = document.querySelector('.mobile-menu');
   if (toggle && menu) {
-    const set = (o) => { menu.classList.toggle('open', o); toggle.textContent = o ? 'Close' : 'Menu'; document.body.style.overflow = o ? 'hidden' : ''; };
+    // Upgrade toggle to icon-based button
+    toggle.innerHTML = '<i class="ph ph-list" aria-hidden="true"></i>';
+    toggle.setAttribute('aria-label', 'Open menu');
+    toggle.setAttribute('aria-expanded', 'false');
+    // Inject close button inside the menu if not present
+    let closeBtn = menu.querySelector('.mobile-menu-close');
+    if (!closeBtn) {
+      closeBtn = document.createElement('button');
+      closeBtn.type = 'button';
+      closeBtn.className = 'mobile-menu-close';
+      closeBtn.setAttribute('aria-label', 'Close menu');
+      closeBtn.innerHTML = '<i class="ph ph-x" aria-hidden="true"></i>';
+      menu.prepend(closeBtn);
+    }
+    const set = (o) => {
+      menu.classList.toggle('open', o);
+      toggle.innerHTML = o ? '<i class="ph ph-x" aria-hidden="true"></i>' : '<i class="ph ph-list" aria-hidden="true"></i>';
+      toggle.setAttribute('aria-label', o ? 'Close menu' : 'Open menu');
+      toggle.setAttribute('aria-expanded', o ? 'true' : 'false');
+      document.body.style.overflow = o ? 'hidden' : '';
+    };
     toggle.addEventListener('click', () => set(!menu.classList.contains('open')));
+    closeBtn.addEventListener('click', () => set(false));
     menu.querySelectorAll('a').forEach((a) => a.addEventListener('click', () => set(false)));
+    // Close on Escape
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && menu.classList.contains('open')) set(false); });
   }
 
   document.querySelectorAll('.marquee-track, .showcase-track').forEach((track) => {
