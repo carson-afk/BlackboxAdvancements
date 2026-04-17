@@ -52,9 +52,6 @@
     counters.forEach((c) => cIO.observe(c));
   }
 
-  const est = document.getElementById('estForm');
-  if (!est) return;
-
   const emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   const flash = (input, msg) => {
     let err = input.parentNode.querySelector('.est-err');
@@ -64,78 +61,125 @@
     input.addEventListener('input', () => { err.textContent = ''; input.style.borderColor = ''; }, { once: true });
   };
 
-  /* Walla Walla + College Place area */
-  const PRIMARY_ZIPS = new Set([
-    '99362','99361','99363','99324','99330','99328','99329','97862','97875','99326'
-  ]);
-  const BASES = {
-    'ductless':  [3000, 9800],
-    'hvac':      [4500, 12500],
-    'fireplace': [2400, 7500],
-    'gasline':   [450, 2800],
-    'repair':    [180, 1100],
-    'maintenance':[149, 399],
-    'furnace':   [3500, 7800],
-    'ac':        [4200, 9800]
-  };
-  const LABELS = {
-    'ductless': 'Ductless mini-split install',
-    'hvac': 'HVAC system install',
-    'fireplace': 'Fireplace service or install',
-    'gasline': 'Natural gas line work',
-    'repair': 'System repair or diagnostic',
-    'maintenance': 'Seasonal maintenance / tune-up',
-    'furnace': 'Furnace install or replace',
-    'ac': 'AC install or replace'
-  };
+  /* Quote tool (mirrors wallawallaair.com/instant-quote) */
+  const qForm = document.getElementById('estForm');
+  if (qForm && qForm.classList.contains('quote-host')) {
+    const TOTAL_STEPS = 6;
+    const state = { system:'', heat:'', loc:'', size:'', units:'', _labels:{} };
+    const steps = qForm.querySelectorAll('.quote-step');
+    const bar = document.getElementById('quoteProgress');
+    const stepLbl = document.getElementById('qStepNum');
+    const backWrap = qForm.querySelector('.quote-back');
+    const backBtn = document.getElementById('quoteBack');
+    const summaryBox = document.getElementById('quoteSummary');
+    const history = [];
+    let current = 1;
 
-  const step1 = est.querySelector('[data-step="1"]');
-  const step2 = est.querySelector('[data-step="2"]');
-  const result = est.querySelector('[data-step="result"]');
-  const goBtn = est.querySelector('#estGo');
-  const backBtn = est.querySelector('#estBack');
+    const SYSTEM_BASE = {
+      hvac: [3500, 6500],
+      heat: [2200, 4200],
+      ac:   [1800, 3500]
+    };
+    const HEAT_M = { gas: 1.0, electric: 0.92, dual: 1.15 };
+    const LOC_M  = { attic: 1.07, garage: 0.97, closet: 1.0, basement: 1.0, crawl: 1.10 };
+    const SYSTEM_LBL = {
+      hvac: 'Complete heating & cooling system',
+      heat: 'Heating system',
+      ac:   'A/C system'
+    };
+    const HEAT_LBL = { gas: 'natural gas', electric: 'electric', dual: 'dual fuel' };
+    const LOC_LBL  = { attic: 'attic', garage: 'garage', closet: 'closet', basement: 'basement', crawl: 'crawl space' };
+    const TON_LBL  = { '2': '2 Ton', '2.5': '2.5 Ton', '3': '3 Ton', '4': '4 Ton', '5': '5 Ton' };
 
-  const show = (which) => {
-    [step1, step2, result].forEach((el) => { if (el) el.hidden = true; });
-    which.hidden = false;
-    const y = est.getBoundingClientRect().top + scrollY - 80;
-    scrollTo({ top: y, behavior: 'smooth' });
-  };
+    const showStep = (n) => {
+      steps.forEach(s => { s.hidden = true; });
+      const tgt = qForm.querySelector('[data-qstep="' + n + '"]');
+      if (!tgt) return;
+      tgt.hidden = false;
+      current = n;
+      if (typeof n === 'number') {
+        if (stepLbl) stepLbl.textContent = n;
+        if (bar) bar.style.width = (Math.min(n, TOTAL_STEPS) / TOTAL_STEPS * 100) + '%';
+        if (backWrap) backWrap.hidden = (n === 1);
+      } else {
+        if (backWrap) backWrap.hidden = true;
+        if (bar) bar.style.width = '100%';
+      }
+      const y = qForm.getBoundingClientRect().top + scrollY - 80;
+      try { scrollTo({ top: y, behavior: 'smooth' }); } catch (e) { window.scrollTo(0, y); }
+    };
 
-  goBtn && goBtn.addEventListener('click', () => {
-    const name = est.elements.name, phone = est.elements.phone, email = est.elements.email;
-    let ok = true;
-    if (!name.value.trim()) { flash(name, 'Required'); ok = false; }
-    if (!phone.value.trim() || phone.value.replace(/\D/g, '').length < 7) { flash(phone, 'Valid phone'); ok = false; }
-    if (!emailRe.test(email.value.trim())) { flash(email, 'Valid email'); ok = false; }
-    if (!ok) return;
-    show(step2);
-  });
-  backBtn && backBtn.addEventListener('click', () => show(step1));
+    const renderSummary = () => {
+      if (!summaryBox) return;
+      const items = [
+        ['System', SYSTEM_LBL[state.system]],
+        ['Heat source', HEAT_LBL[state.heat]],
+        ['Indoor unit', LOC_LBL[state.loc]],
+        ['Size', TON_LBL[state.size]],
+        ['Units', state.units]
+      ].filter(([_, v]) => v);
+      summaryBox.innerHTML = items.map(([k, v]) =>
+        `<div class="qsum-row"><span class="qsum-k">${k}</span><span class="qsum-v">${v}</span></div>`
+      ).join('');
+    };
 
-  est.addEventListener('submit', (e) => {
-    e.preventDefault();
-    const jobSel = est.elements.job;
-    if (!jobSel.value) { flash(jobSel, 'Please select a service'); return; }
-    const size = est.elements.size.value || 'medium';
-    const urgency = est.elements.urgency.value || 'flexible';
-    const zip = (est.elements.zip.value || '').trim();
+    qForm.querySelectorAll('.qtile').forEach(tile => {
+      tile.addEventListener('click', () => {
+        const key = tile.dataset.q;
+        const val = tile.dataset.v;
+        state[key] = val;
+        qForm.querySelectorAll('.qtile[data-q="' + key + '"]').forEach(t => t.classList.remove('is-selected'));
+        tile.classList.add('is-selected');
+        history.push(current);
+        const next = (typeof current === 'number') ? current + 1 : 1;
+        if (next === 6) renderSummary();
+        setTimeout(() => showStep(next), 220);
+      });
+    });
 
-    let [lo, hi] = BASES[jobSel.value];
-    const sizeM = { small: 0.72, medium: 1.0, large: 1.5 }[size] || 1;
-    lo *= sizeM; hi *= sizeM;
-    const urgM = { emergency: 1.28, thisweek: 1.0, flexible: 0.92 }[urgency] || 1;
-    lo *= urgM; hi *= urgM;
-    const outOfArea = zip.length === 5 && !PRIMARY_ZIPS.has(zip);
-    if (outOfArea) { lo += 120; hi += 180; }
-    lo = Math.round(lo / 25) * 25; hi = Math.round(hi / 25) * 25;
+    backBtn && backBtn.addEventListener('click', () => {
+      if (history.length) {
+        const prev = history.pop();
+        showStep(prev);
+      } else if (typeof current === 'number' && current > 1) {
+        showStep(current - 1);
+      }
+    });
 
-    const fmt = (n) => `$${n.toLocaleString('en-US')}`;
-    est.querySelector('.est-range').innerHTML = `${fmt(lo)} <em>—</em> ${fmt(hi)}`;
-    est.querySelector('.est-summary').textContent =
-      `${LABELS[jobSel.value]}. ${size} scope, ${urgency} timing${outOfArea ? ', out-of-area travel included' : ''}. Dan personally confirms final pricing at a complimentary in-home consultation.`;
-    show(result);
-  });
+    qForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const fullname = qForm.elements.fullname;
+      const email = qForm.elements.email;
+      const phone = qForm.elements.phone;
+      const address = qForm.elements.address;
+      let ok = true;
+      if (!fullname || !fullname.value.trim()) { flash(fullname, 'Required'); ok = false; }
+      if (!email || !emailRe.test((email.value || '').trim())) { flash(email, 'Valid email'); ok = false; }
+      if (!phone || !phone.value.trim() || phone.value.replace(/\D/g, '').length < 7) { flash(phone, 'Valid phone'); ok = false; }
+      if (!address || !address.value.trim()) { flash(address, 'Required'); ok = false; }
+      if (!state.system || !state.heat || !state.loc || !state.size || !state.units) {
+        if (address) flash(address, 'Please complete all earlier steps');
+        ok = false;
+      }
+      if (!ok) return;
+
+      const tons = parseFloat(state.size) || 3;
+      const units = parseInt(state.units, 10) || 1;
+      const base = SYSTEM_BASE[state.system] || SYSTEM_BASE.hvac;
+      let lo = base[0] * tons;
+      let hi = base[1] * tons;
+      const m = (HEAT_M[state.heat] || 1) * (LOC_M[state.loc] || 1) * units;
+      lo *= m; hi *= m;
+      lo = Math.round(lo / 100) * 100;
+      hi = Math.round(hi / 100) * 100;
+
+      const fmt = (n) => '$' + n.toLocaleString('en-US');
+      qForm.querySelector('.est-range').innerHTML = fmt(lo) + ' <em>—</em> ' + fmt(hi);
+      qForm.querySelector('.est-summary').textContent =
+        SYSTEM_LBL[state.system] + ' · ' + TON_LBL[state.size] + ' · ' + HEAT_LBL[state.heat] + ' heat · indoor unit in ' + LOC_LBL[state.loc] + ' · ' + units + ' unit' + (units > 1 ? 's' : '') + '. Dan will be in touch within one business day to confirm final pricing.';
+      showStep('result');
+    });
+  }
 
   const demo = document.querySelector('form[data-demo]');
   if (demo) {

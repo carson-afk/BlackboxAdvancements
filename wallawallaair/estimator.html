@@ -4,11 +4,12 @@
 <meta charset="UTF-8" />
 <base href="/wallawallaair/" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Request an Estimate — Walla Walla Air</title>
-<meta name="description" content="Request an HVAC estimate from Walla Walla Air. Ductless, furnace, AC, fireplace, or gas line pricing range for the Walla Walla Valley." />
+<title>Get Your Online HVAC Quote — Walla Walla Air</title>
+<meta name="description" content="Get your personalized online HVAC system replacement quote from American Air Heating &amp; Cooling — heating &amp; cooling, heat pumps, dual fuel. Walla Walla Valley." />
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="styles.css" />
+<script src="https://unpkg.com/@phosphor-icons/web@2.1.1" defer></script>
 </head>
 <body>
 <header class="nav">
@@ -25,102 +26,202 @@
 
 <section class="page-hero">
   <div class="wrap">
-    <span class="eyebrow">Request an estimate</span>
-    <h1>Honest numbers,<br/><em>no pressure.</em></h1>
-    <p>Describe the scope in a few fields — we'll respond with a ballpark range grounded in recent Valley project data, and schedule Dan's complimentary in-home consultation if you'd like to go further.</p>
+    <span class="eyebrow">Instant quote</span>
+    <h1>Get Your Online HVAC<br/><em>System Replacement Quote</em></h1>
+    <p>Six quick steps. Owner-led numbers. Dan personally reviews every quote and follows up within one business day.</p>
   </div>
 </section>
 
 <section class="section">
   <div class="wrap">
-    <form id="estForm" class="est-host" novalidate>
-      <div data-step="1">
-        <span class="kicker">Step 1 of 2 · Introduction</span>
-        <h2>Let's be <em>introduced.</em></h2>
-        <p class="sub">Four fields. No spam, no sales intermediaries — your information comes to Dan directly.</p>
-        <div class="est-row">
-          <div class="est-field"><label>Name</label><input name="name" required placeholder="e.g. Alex Johnson" /></div>
-          <div class="est-field"><label>Phone</label><input name="phone" type="tel" required placeholder="509-555-1234" /></div>
-        </div>
-        <div class="est-row">
-          <div class="est-field"><label>Email</label><input name="email" type="email" required placeholder="you@example.com" /></div>
-          <div class="est-field"><label>ZIP code</label><input name="zip" inputmode="numeric" maxlength="5" placeholder="99362" /></div>
-        </div>
-        <div class="est-actions">
-          <button type="button" id="estGo" class="btn btn-wine">Continue <span class="arrow">→</span></button>
-          <a href="tel:+15095251339" class="btn">Or call (509) 525-1339</a>
+    <form id="estForm" class="quote-host" novalidate>
+
+      <div class="quote-progress">
+        <div class="quote-progress-bar" id="quoteProgress"></div>
+        <span class="quote-progress-label">Step <strong id="qStepNum">1</strong> of 6</span>
+      </div>
+
+      <!-- STEP 1: System type -->
+      <div class="quote-step" data-qstep="1">
+        <span class="kicker">1. Get your online HVAC system replacement quote</span>
+        <h2>I'm looking <em>to replace my</em></h2>
+        <div class="quote-tiles quote-tiles-3">
+          <button type="button" class="qtile" data-q="system" data-v="hvac" data-label="Heating &amp; Cooling System">
+            <i class="ph ph-house-line" aria-hidden="true"></i>
+            <strong>Heating &amp; Cooling System</strong>
+            <span>Replace entire HVAC system</span>
+          </button>
+          <button type="button" class="qtile" data-q="system" data-v="heat" data-label="Heating System">
+            <i class="ph ph-flame" aria-hidden="true"></i>
+            <strong>Heating System</strong>
+            <span>Install or replace heating system only</span>
+          </button>
+          <button type="button" class="qtile" data-q="system" data-v="ac" data-label="A/C System">
+            <i class="ph ph-snowflake" aria-hidden="true"></i>
+            <strong>A/C System</strong>
+            <span>Install or replace your A/C system</span>
+          </button>
         </div>
       </div>
 
-      <div data-step="2" hidden>
-        <span class="kicker">Step 2 of 2 · The scope</span>
-        <h2>What are we <em>considering?</em></h2>
-        <div class="est-row">
+      <!-- STEP 2: Heat source -->
+      <div class="quote-step" data-qstep="2" hidden>
+        <span class="kicker">Step 2 · Select heat source</span>
+        <h2>What type of <em>heat source</em> will you use?</h2>
+        <div class="quote-tiles quote-tiles-3">
+          <button type="button" class="qtile" data-q="heat" data-v="gas" data-label="Natural Gas">
+            <i class="ph ph-fire" aria-hidden="true"></i>
+            <strong>Natural Gas</strong>
+            <span>Connected to a utility gas line</span>
+          </button>
+          <button type="button" class="qtile" data-q="heat" data-v="electric" data-label="Electric">
+            <i class="ph ph-lightning" aria-hidden="true"></i>
+            <strong>Electric</strong>
+            <span>Electric heat pump or resistance heating</span>
+          </button>
+          <button type="button" class="qtile" data-q="heat" data-v="dual" data-label="Dual Fuel">
+            <i class="ph ph-thermometer" aria-hidden="true"></i>
+            <strong>Dual Fuel</strong>
+            <span>Heat pump cooling with gas furnace heating</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- STEP 3: Indoor unit location -->
+      <div class="quote-step" data-qstep="3" hidden>
+        <span class="kicker">Step 3 · Indoor unit location</span>
+        <h2>Where will the <em>indoor unit</em> be installed?</h2>
+        <div class="quote-tiles quote-tiles-5">
+          <button type="button" class="qtile" data-q="loc" data-v="attic" data-label="Attic">
+            <i class="ph ph-house" aria-hidden="true"></i>
+            <strong>Attic</strong>
+            <span>Indoor unit in the attic space</span>
+          </button>
+          <button type="button" class="qtile" data-q="loc" data-v="garage" data-label="Garage">
+            <i class="ph ph-garage" aria-hidden="true"></i>
+            <strong>Garage</strong>
+            <span>Indoor unit in the garage area</span>
+          </button>
+          <button type="button" class="qtile" data-q="loc" data-v="closet" data-label="Closet">
+            <i class="ph ph-door" aria-hidden="true"></i>
+            <strong>Closet</strong>
+            <span>Indoor unit in a closet</span>
+          </button>
+          <button type="button" class="qtile" data-q="loc" data-v="basement" data-label="Basement">
+            <i class="ph ph-stairs" aria-hidden="true"></i>
+            <strong>Basement</strong>
+            <span>Indoor unit in the basement</span>
+          </button>
+          <button type="button" class="qtile" data-q="loc" data-v="crawl" data-label="Crawl Space">
+            <i class="ph ph-tree-structure" aria-hidden="true"></i>
+            <strong>Crawl Space</strong>
+            <span>Indoor unit in the crawl space</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- STEP 4: Square footage / tonnage -->
+      <div class="quote-step" data-qstep="4" hidden>
+        <span class="kicker">Step 4 · Square footage</span>
+        <h2>What is the <em>square footage</em> of your home?</h2>
+        <div class="quote-tiles quote-tiles-5">
+          <button type="button" class="qtile qtile-tonnage" data-q="size" data-v="2" data-label="600 – 1,200 sq. ft (2 Ton)">
+            <strong>600 – 1,200 sq. ft</strong>
+            <span class="tonnage">2 Ton</span>
+          </button>
+          <button type="button" class="qtile qtile-tonnage" data-q="size" data-v="2.5" data-label="1,200 – 1,800 sq. ft (2.5 Ton)">
+            <strong>1,200 – 1,800 sq. ft</strong>
+            <span class="tonnage">2.5 Ton</span>
+          </button>
+          <button type="button" class="qtile qtile-tonnage" data-q="size" data-v="3" data-label="1,800 – 2,600 sq. ft (3 Ton)">
+            <strong>1,800 – 2,600 sq. ft</strong>
+            <span class="tonnage">3 Ton</span>
+          </button>
+          <button type="button" class="qtile qtile-tonnage" data-q="size" data-v="4" data-label="2,600 – 3,200 sq. ft (4 Ton)">
+            <strong>2,600 – 3,200 sq. ft</strong>
+            <span class="tonnage">4 Ton</span>
+          </button>
+          <button type="button" class="qtile qtile-tonnage" data-q="size" data-v="5" data-label="3,200 – 4,500 sq. ft (5 Ton)">
+            <strong>3,200 – 4,500 sq. ft</strong>
+            <span class="tonnage">5 Ton</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- STEP 5: Units -->
+      <div class="quote-step" data-qstep="5" hidden>
+        <span class="kicker">Step 5 · Number of units</span>
+        <h2>How many <em>units</em> need to be replaced?</h2>
+        <div class="quote-tiles quote-tiles-num">
+          <button type="button" class="qtile qtile-num" data-q="units" data-v="1" data-label="1 unit"><strong>1</strong></button>
+          <button type="button" class="qtile qtile-num" data-q="units" data-v="2" data-label="2 units"><strong>2</strong></button>
+          <button type="button" class="qtile qtile-num" data-q="units" data-v="3" data-label="3 units"><strong>3</strong></button>
+          <button type="button" class="qtile qtile-num" data-q="units" data-v="4" data-label="4 units"><strong>4</strong></button>
+          <button type="button" class="qtile qtile-num" data-q="units" data-v="5" data-label="5 units"><strong>5</strong></button>
+        </div>
+      </div>
+
+      <!-- STEP 6: Contact info -->
+      <div class="quote-step" data-qstep="6" hidden>
+        <span class="kicker">Step 6 · Almost there!</span>
+        <h2>Tell us <em>about yourself</em></h2>
+        <p class="sub">We'll use this information to prepare your personalized quote.</p>
+
+        <div class="est-row full">
           <div class="est-field">
-            <label>Service</label>
-            <select name="job" required>
-              <option value="">Select a service</option>
-              <option value="ductless">Ductless mini-split</option>
-              <option value="hvac">Complete HVAC system</option>
-              <option value="furnace">Furnace install / replace</option>
-              <option value="ac">AC install / replace</option>
-              <option value="fireplace">Fireplace install / service</option>
-              <option value="gasline">Natural gas line work</option>
-              <option value="repair">Service / repair / diagnostic</option>
-              <option value="maintenance">Seasonal maintenance</option>
-            </select>
-          </div>
-          <div class="est-field">
-            <label>Home size</label>
-            <select name="size">
-              <option value="small">Small (&lt; 1,400 sqft)</option>
-              <option value="medium" selected>Medium (1,400–2,600 sqft)</option>
-              <option value="large">Large (2,600+ sqft)</option>
-            </select>
+            <label>Full Name</label>
+            <input name="fullname" required placeholder="First &amp; last name" autocomplete="name" />
           </div>
         </div>
         <div class="est-row">
           <div class="est-field">
-            <label>Timing</label>
-            <select name="urgency">
-              <option value="flexible" selected>Flexible / planning ahead</option>
-              <option value="thisweek">This week</option>
-              <option value="emergency">Emergency</option>
-            </select>
+            <label>Email Address</label>
+            <input name="email" type="email" required placeholder="you@example.com" autocomplete="email" />
           </div>
           <div class="est-field">
-            <label>Interests</label>
-            <select name="interest">
-              <option value="standard">Standard efficiency tier</option>
-              <option value="high">High-efficiency / rebate-eligible</option>
-              <option value="premium">Premium / variable-speed</option>
-            </select>
+            <label>Phone Number</label>
+            <input name="phone" type="tel" required placeholder="(509) 555-1234" autocomplete="tel" />
           </div>
         </div>
         <div class="est-row full">
-          <div class="est-field"><label>Notes (optional)</label><textarea name="notes" rows="3" placeholder="Home age, current system condition, specific rooms, anything that helps us narrow the range."></textarea></div>
+          <div class="est-field">
+            <label>Address</label>
+            <input name="address" required placeholder="Street, City, State, ZIP" autocomplete="street-address" />
+          </div>
         </div>
+
+        <div class="quote-summary" id="quoteSummary" aria-label="Your selections so far"></div>
+
+        <p class="sms-consent">
+          By submitting this form and signing up for texts, you consent to receive text messages from American Air Heating &amp; Cooling at the number provided, including messages sent by an auto dialer. Consent is not a condition of purchase. Msg &amp; data rates may apply. Msg frequency varies. Unsubscribe at any time by replying STOP or clicking the unsubscribe link (where available), and no further messages will be sent. Reply HELP for help. See <a href="#">Privacy Policy</a> &amp; <a href="#">Terms</a>.
+        </p>
+
         <div class="est-actions">
-          <button type="submit" class="btn btn-wine">Calculate range <span class="arrow">→</span></button>
-          <button type="button" id="estBack" class="btn">← Back</button>
+          <button type="submit" class="btn btn-terra">Get My Quote <span class="arrow">→</span></button>
         </div>
       </div>
 
-      <div data-step="result" hidden style="text-align: center;">
-        <span class="kicker">Your ballpark</span>
+      <!-- RESULT -->
+      <div class="quote-step" data-qstep="result" hidden style="text-align: center;">
+        <span class="kicker">Your personalized quote</span>
         <h2>Here's the <em>range.</em></h2>
         <div class="est-range"></div>
         <p class="est-summary"></p>
-        <p class="est-disclaimer">Range only · final pricing confirmed by Dan at complimentary in-home consultation</p>
+        <p class="est-disclaimer">Range only · Dan will confirm final pricing at your complimentary in-home consultation</p>
         <div class="est-actions" style="justify-content: center; margin-top: 1.6rem;">
           <a href="tel:+15095251339" class="btn btn-terra">Call to schedule <span class="arrow">→</span></a>
           <a href="contact.html" class="btn">Email us instead</a>
         </div>
       </div>
+
+      <div class="quote-back" hidden>
+        <button type="button" id="quoteBack" class="quote-back-btn"><i class="ph ph-arrow-left" aria-hidden="true"></i> Back</button>
+      </div>
+
     </form>
 
     <div class="philosophy reveal" style="margin-top: 3rem;">
-      <div class="phil-item"><div class="n">I</div><h4>Range methodology</h4><p>Recent install data across the Walla Walla Valley, adjusted for your home size, efficiency tier, and urgency.</p></div>
+      <div class="phil-item"><div class="n">I</div><h4>Range methodology</h4><p>Recent install data across the Walla Walla Valley, adjusted for system type, tonnage, heat source, and unit count.</p></div>
       <div class="phil-item"><div class="n">II</div><h4>Rebates &amp; incentives</h4><p>At the consultation, Dan will itemize every applicable rebate and federal tax credit — and handle the paperwork.</p></div>
     </div>
   </div>

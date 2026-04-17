@@ -448,6 +448,227 @@ input, textarea, select { font: inherit; color: inherit; }
 .est-summary { text-align: center; color: var(--ink-soft); max-width: 52ch; margin: 0.6rem auto 0; font-size: 0.98rem; line-height: 1.5; }
 .est-disclaimer { text-align: center; font-size: 0.78rem; letter-spacing: 0.08em; color: var(--mute); margin-top: 1.4rem; padding-top: 1rem; border-top: 1px solid var(--line); }
 
+/* Quote tool (mirrors wallawallaair.com/instant-quote) */
+.quote-host {
+  max-width: 880px;
+  margin-inline: auto;
+  background: white;
+  border: 1px solid var(--line);
+  border-radius: 22px;
+  padding: clamp(1.6rem, 3vw, 2.6rem);
+  box-shadow: 0 18px 40px -22px rgba(0,0,0,0.18);
+  position: relative;
+}
+.quote-host .kicker {
+  font-weight: 700; font-size: 0.74rem; letter-spacing: 0.18em;
+  color: var(--red); text-transform: uppercase;
+  display: block; margin-bottom: 0.5rem;
+}
+.quote-host h2 {
+  font-family: var(--ff-display); font-weight: 800;
+  font-size: clamp(1.6rem, 3.2vw, 2.4rem);
+  line-height: 1.1; letter-spacing: -0.02em;
+  color: var(--ink); margin-bottom: 0.4rem;
+}
+.quote-host h2 em { color: var(--blue); font-style: normal; }
+.quote-host .sub { color: var(--ink-soft); font-size: 1rem; margin-bottom: 1.2rem; }
+
+/* Progress bar */
+.quote-progress {
+  position: relative;
+  height: 6px;
+  background: var(--paper-2);
+  border-radius: 999px;
+  margin-bottom: 1.8rem;
+  overflow: visible;
+}
+.quote-progress-bar {
+  height: 100%;
+  width: 16.66%;
+  background: linear-gradient(90deg, var(--red), var(--blue));
+  border-radius: 999px;
+  transition: width 0.4s var(--ease-out);
+}
+.quote-progress-label {
+  position: absolute;
+  right: 0;
+  top: -22px;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--mute);
+}
+.quote-progress-label strong { color: var(--ink); font-weight: 800; }
+
+/* Tile grids */
+.quote-tiles { display: grid; gap: 0.85rem; margin-top: 1.4rem; }
+.quote-tiles-3 { grid-template-columns: repeat(3, 1fr); }
+.quote-tiles-5 { grid-template-columns: repeat(5, 1fr); }
+.quote-tiles-num { grid-template-columns: repeat(5, 1fr); }
+@media (max-width: 800px) {
+  .quote-tiles-5 { grid-template-columns: repeat(3, 1fr); }
+}
+@media (max-width: 600px) {
+  .quote-tiles-3 { grid-template-columns: 1fr; }
+  .quote-tiles-5 { grid-template-columns: 1fr 1fr; }
+  .quote-tiles-num { grid-template-columns: repeat(5, 1fr); gap: 0.5rem; }
+}
+
+.qtile {
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: flex-start;
+  text-align: center; gap: 0.45rem;
+  padding: 1.3rem 0.85rem 1.1rem;
+  background: white;
+  border: 1.5px solid var(--line);
+  border-radius: 14px;
+  cursor: pointer;
+  font-family: inherit;
+  color: var(--ink);
+  transition: border-color var(--t-hover) var(--ease-out),
+              transform var(--t-press) var(--ease-out),
+              box-shadow var(--t-hover) var(--ease-out),
+              background var(--t-hover) var(--ease-out);
+}
+.qtile i {
+  font-size: 1.9rem;
+  color: var(--blue);
+  line-height: 1;
+  transition: color var(--t-hover) var(--ease-out), transform var(--t-hover) var(--ease-out);
+}
+.qtile strong {
+  font-family: var(--ff-display);
+  font-weight: 700;
+  font-size: 0.95rem;
+  letter-spacing: -0.005em;
+  color: var(--ink);
+  line-height: 1.2;
+}
+.qtile span {
+  font-size: 0.78rem;
+  color: var(--ink-soft);
+  line-height: 1.4;
+}
+.qtile:hover {
+  border-color: var(--blue);
+  background: rgba(43, 86, 114, 0.03);
+  box-shadow: 0 6px 16px -8px rgba(43, 86, 114, 0.18);
+}
+.qtile:hover i { transform: translateY(-2px); }
+.qtile:active { transform: scale(0.98); }
+.qtile.is-selected {
+  border-color: var(--red);
+  background: rgba(226, 15, 37, 0.04);
+  box-shadow: 0 8px 18px -6px rgba(226, 15, 37, 0.22);
+}
+.qtile.is-selected i { color: var(--red); }
+
+/* Tonnage tile variant */
+.qtile-tonnage strong {
+  font-size: 0.86rem;
+  font-weight: 600;
+  color: var(--ink-soft);
+  text-transform: none;
+  letter-spacing: 0;
+}
+.qtile-tonnage .tonnage {
+  display: block;
+  font-family: var(--ff-display);
+  font-weight: 800;
+  font-size: 1.55rem;
+  color: var(--blue);
+  letter-spacing: -0.02em;
+  line-height: 1;
+  margin-top: 0.15rem;
+}
+.qtile-tonnage.is-selected .tonnage { color: var(--red); }
+.qtile-tonnage.is-selected strong { color: var(--ink); }
+
+/* Number tile variant */
+.qtile-num { padding: 1.5rem 0.4rem; }
+.qtile-num strong {
+  font-family: var(--ff-display);
+  font-size: 2rem;
+  font-weight: 800;
+  color: var(--blue);
+  letter-spacing: -0.03em;
+  line-height: 1;
+}
+.qtile-num.is-selected strong { color: var(--red); }
+
+/* SMS consent */
+.sms-consent {
+  font-size: 0.74rem;
+  color: var(--ink-soft);
+  line-height: 1.55;
+  margin: 1.2rem 0 1.4rem;
+  padding: 1rem 1.1rem;
+  background: var(--paper);
+  border-radius: 10px;
+  border-left: 3px solid var(--red);
+}
+.sms-consent a { color: var(--blue); text-decoration: underline; font-weight: 600; }
+.sms-consent a:hover { color: var(--blue-deep); }
+
+/* Quote summary on contact step */
+.quote-summary {
+  margin-top: 1.4rem;
+  padding: 1rem 1.2rem;
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  display: grid;
+  gap: 0.5rem;
+}
+.qsum-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  font-size: 0.86rem;
+  border-bottom: 1px dashed var(--line);
+  padding-bottom: 0.4rem;
+}
+.qsum-row:last-child { border-bottom: 0; padding-bottom: 0; }
+.qsum-k {
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--mute);
+  font-size: 0.72rem;
+}
+.qsum-v {
+  font-weight: 700;
+  color: var(--ink);
+}
+
+/* Back button */
+.quote-back {
+  margin-top: 1.6rem;
+  padding-top: 1.2rem;
+  border-top: 1px solid var(--line);
+}
+.quote-back-btn {
+  background: none;
+  border: none;
+  color: var(--ink-soft);
+  font-family: inherit;
+  font-size: 0.86rem;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 0.4rem 0.7rem;
+  border-radius: 8px;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  transition: color var(--t-hover) var(--ease-out), background var(--t-hover) var(--ease-out);
+}
+.quote-back-btn:hover {
+  color: var(--ink);
+  background: var(--paper-2);
+}
+.quote-back-btn i { font-size: 1rem; }
+
 /* Gallery --------------------------------------------- */
 .gallery { column-count: 3; column-gap: 1rem; }
 @media (max-width: 900px) { .gallery { column-count: 2; } }
