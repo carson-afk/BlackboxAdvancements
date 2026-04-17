@@ -21,12 +21,13 @@ const updateProgress = () => {
 window.addEventListener('scroll', updateProgress, { passive: true });
 updateProgress();
 
-// Dates
-const today = new Date();
+// Dates — proposal date is the day of the sales call (tomorrow), expires 7 days after
 const fmt = (d) => d.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
-const expiry = new Date(today);
+const proposalDate = new Date();
+proposalDate.setDate(proposalDate.getDate() + 1);
+const expiry = new Date(proposalDate);
 expiry.setDate(expiry.getDate() + 7);
 const proposalEl = document.getElementById('proposalDate');
 const expiryEl = document.getElementById('expiryDate');
-if (proposalEl) proposalEl.textContent = fmt(today);
+if (proposalEl) proposalEl.textContent = fmt(proposalDate);
 if (expiryEl) expiryEl.textContent = fmt(expiry);
