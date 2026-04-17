@@ -1566,3 +1566,217 @@ a.info:active { transform: translateY(-1px) scale(0.995); transition-duration: v
 .fin-calc .fin-result .r-lbl { font-size: 0.82rem; text-transform: uppercase; letter-spacing: 0.12em; opacity: 0.8; font-weight: 700; }
 .fin-calc .fin-result .r-val { font-family: var(--ff-display); font-weight: 800; font-size: 2.6rem; letter-spacing: -0.02em; margin: 0.3rem 0; }
 .fin-calc .fin-result .r-meta { font-size: 0.85rem; opacity: 0.8; }
+
+/* ========================================================================
+   GLOBAL MOBILE OPTIMIZATION — runs after all earlier rules so it wins
+   ======================================================================== */
+
+/* Prevent any element from triggering horizontal scroll on small phones */
+html, body { max-width: 100%; overflow-x: hidden; }
+img, svg, video, iframe { max-width: 100%; height: auto; }
+
+/* Tablet & small-laptop (≤ 960px) */
+@media (max-width: 960px) {
+  /* Every inline-grid wrap on service/area pages collapses to one column */
+  .section > .wrap[style*="grid-template-columns"],
+  section .wrap[style*="grid-template-columns"] {
+    grid-template-columns: 1fr !important;
+    gap: 2rem !important;
+  }
+  /* Image that was stacked below text should not force big aspect */
+  .section .hero-img[style*="aspect-ratio"] { aspect-ratio: 16/11 !important; }
+
+  /* Service page two-column about-style grids */
+  .section .wrap > .reveal[style*="order: 2"] { order: 0 !important; }
+  .section .wrap > .hero-img[style*="order: 1"] { order: 1 !important; }
+
+  /* Financing page two-up → one column */
+  .fin-calc { max-width: 100%; }
+}
+
+/* Phone (≤ 640px) */
+@media (max-width: 640px) {
+  /* Tighter container padding */
+  .wrap, .container { width: min(calc(100% - 1.5rem), var(--container, 1200px)); }
+
+  /* Hero: tighter, stack everything */
+  .hero { padding: 2rem 0 2.5rem; }
+  .hero h1 { font-size: clamp(2rem, 9vw, 2.6rem); margin-bottom: 0.9rem; }
+  .hero-sub { font-size: 1rem; margin-bottom: 1.2rem; }
+  .hero-cta { gap: 0.6rem; margin-bottom: 1.4rem; }
+  .hero-cta .btn { width: 100%; justify-content: center; padding: 0.95rem 1.1rem; }
+
+  /* Page hero on interior pages */
+  .page-hero { padding: 2rem 0 1.5rem; }
+  .page-hero h1 { font-size: clamp(1.9rem, 8vw, 2.4rem); }
+
+  /* Hero rating pill (homepage) scales down */
+  .hero-rating { width: 100%; flex-wrap: wrap; justify-content: flex-start; gap: 0.5rem; padding: 0.55rem 0.75rem; }
+  .hero-rating .hr-stars { font-size: 0.95rem; }
+  .hero-rating .hr-copy { flex: 1; min-width: 0; }
+  .hero-rating .hr-copy strong { font-size: 0.82rem; }
+  .hero-rating .hr-copy small { font-size: 0.66rem; }
+  .hero-rating .hr-g { width: 22px; height: 22px; }
+
+  /* Principles list */
+  .principles .item { grid-template-columns: 1fr; gap: 0.2rem; padding: 0.5rem 0; }
+  .principles .k { font-size: 0.68rem; padding-top: 0; }
+
+  /* Sections padding */
+  .section { padding: 2.5rem 0; }
+  .section-head h2, section h2 { font-size: clamp(1.7rem, 7vw, 2.2rem) !important; }
+
+  /* Buttons full-width in CTAs and hero on phones */
+  .cta-side, .cta .cta-side { flex-direction: column; align-items: stretch; gap: 0.5rem; }
+  .cta-side .btn, .cta .btn { width: 100%; justify-content: center; }
+  .cta p { font-size: 1rem; }
+
+  /* Mobile menu — sit below reviews-bar + nav combo (~100px) */
+  .mobile-menu.open { inset: 96px 0 0 0; padding: 1.1rem; }
+  .mobile-menu a { padding: 0.95rem 1rem; font-size: 1rem; }
+
+  /* Nav — tighter padding on phone */
+  .nav { padding: 0.7rem 1rem; }
+  .mobile-toggle { padding: 0.5rem 0.85rem; font-size: 0.85rem; }
+
+  /* Reviews bar tightening */
+  .reviews-bar .wrap { padding: 0.45rem 0.75rem; }
+
+  /* Services cards / feature grids stack */
+  .svc-layout, .svc-grid, .svc-detail-grid, .extras-grid { grid-template-columns: 1fr !important; gap: 0.9rem !important; }
+  .svc { padding: 1.3rem; }
+
+  /* Metrics 2x2 instead of 4 across */
+  .metrics { grid-template-columns: 1fr 1fr !important; }
+  .metric { border-right: 0 !important; border-bottom: 1px solid var(--line); padding: 1rem 0.6rem; }
+  .metric:nth-child(odd) { border-right: 1px solid var(--line) !important; }
+  .metric:last-child { border-bottom: 0; }
+
+  /* Quotes / testimonials grid — one column */
+  .quotes, .t-grid { grid-template-columns: 1fr !important; }
+
+  /* Forms — single column, full-width inputs */
+  .est-row, .est-row.full { grid-template-columns: 1fr !important; gap: 0.8rem !important; }
+  .est-host { padding: 1.3rem; }
+  .est-host input, .est-host textarea, .est-host select {
+    width: 100%; font-size: 16px; /* prevents iOS zoom */
+    padding: 0.85rem 1rem;
+  }
+  .est-actions { flex-direction: column; align-items: stretch; gap: 0.55rem; }
+  .est-actions .btn { width: 100%; justify-content: center; }
+
+  /* Quote tool tile grids — keep usable */
+  .quote-tiles-3 { grid-template-columns: 1fr; }
+  .quote-tiles-5 { grid-template-columns: 1fr 1fr; }
+  .quote-tiles-num { grid-template-columns: repeat(5, 1fr); gap: 0.35rem; }
+  .qtile { padding: 1rem 0.5rem 0.85rem; }
+  .qtile i { font-size: 1.6rem; }
+  .qtile-num strong { font-size: 1.4rem; }
+
+  /* Gallery stays single column with generous spacing */
+  .gallery { column-count: 1 !important; column-gap: 0; }
+  .gallery figure { margin-bottom: 0.8rem; }
+
+  /* Showcase carousel — smaller tiles */
+  .showcase { padding: 0.8rem 0 1.8rem; }
+  .showcase-track figure { width: 78vw !important; max-width: 340px; }
+  .showcase-track figure img { aspect-ratio: 4/3; object-fit: cover; }
+
+  /* Testimonials grid/hero */
+  .t-hero { padding: 2rem 0 1.5rem; }
+  .t-hero .wrap { grid-template-columns: 1fr !important; gap: 1.3rem !important; }
+  .t-hero h1 { font-size: clamp(1.9rem, 8vw, 2.4rem) !important; }
+  .t-big .num { font-size: 3rem; }
+  .t-stat-card { padding: 1.4rem; }
+  .t-stat-meta { gap: 0.8rem; }
+  .t-stat-meta div strong { font-size: 0.95rem; }
+  .t-stat-meta div span { font-size: 0.74rem; }
+  .t-card { padding: 1.1rem; }
+  .t-load { flex-direction: column; text-align: center; gap: 0.4rem; }
+
+  /* Protection plans stack */
+  .plans-grid { grid-template-columns: 1fr !important; gap: 1rem !important; }
+  .plan { padding: 1.4rem; }
+  .plan.featured::before { left: 1rem; }
+
+  /* Financing calculator */
+  .fin-calc { padding: 1.3rem; border-radius: 16px; }
+  .fin-calc .fin-result .r-val { font-size: 2.1rem; }
+
+  /* FAQ accordion */
+  .faq-item summary { padding: 0.9rem 1rem; font-size: 0.95rem; }
+  .faq-item .faq-body { padding: 0 1rem 1rem; font-size: 0.92rem; }
+
+  /* Philosophy items */
+  .philosophy { grid-template-columns: 1fr !important; gap: 0.8rem !important; }
+
+  /* Financing banner on homepage */
+  .financing-banner .fin-grid { grid-template-columns: 1fr !important; gap: 1.5rem !important; padding: 1.3rem !important; }
+  .fin-card { padding: 1.2rem; }
+  .fin-bullets { font-size: 0.95rem; }
+  .fin-actions { flex-direction: column; align-items: stretch; gap: 0.5rem; }
+  .fin-actions .btn { width: 100%; justify-content: center; }
+
+  /* Map embed */
+  .map-embed iframe, iframe[title*="map" i] { height: 320px !important; }
+
+  /* Footer — centered, comfortable tap targets */
+  .foot { padding: 2.5rem 0 1.2rem; }
+  .foot-grid { text-align: center; justify-items: center; gap: 1.6rem; }
+  .foot .brand { justify-content: center; }
+  .foot-desc { margin: 0 auto; max-width: 40ch; }
+  .foot ul { justify-content: center; }
+  .foot-bottom { flex-direction: column; gap: 0.4rem; text-align: center; font-size: 0.78rem; }
+
+  /* Inline 2-column info layouts in plans/about — already handled, but also for safety */
+  .contact-grid { gap: 1.3rem !important; }
+
+  /* Stagger delay zero on phone to avoid slow reveal when scrolling quickly */
+  .stagger.is-in > * { transition-delay: 0s !important; }
+}
+
+/* Very small phones (≤ 380px) */
+@media (max-width: 380px) {
+  .hero h1 { font-size: 1.85rem; }
+  .page-hero h1 { font-size: 1.7rem; }
+  .section-head h2, section h2 { font-size: 1.55rem !important; }
+  .hero-rating .g-mark, .reviews-bar .g-mark { display: none; }
+  .hero-rating .hr-copy small { display: none; }
+  .btn { padding: 0.8rem 1rem; font-size: 0.92rem; }
+  .wrap, .container { width: calc(100% - 1rem); }
+  .nav { padding: 0.6rem 0.75rem; }
+  .mobile-toggle { padding: 0.45rem 0.7rem; }
+
+  /* Metrics single column on tiny phones */
+  .metrics { grid-template-columns: 1fr !important; }
+  .metric { border-right: 0 !important; }
+}
+
+/* Large phones / phablets (641–820px) — hero image side-by-side ok but CTAs still stretch */
+@media (min-width: 641px) and (max-width: 820px) {
+  .hero-cta .btn { padding: 0.95rem 1.2rem; }
+}
+
+/* iOS tap-zoom prevention for form inputs */
+input:not([type="range"]):not([type="checkbox"]):not([type="radio"]),
+select, textarea {
+  font-size: max(16px, 1em);
+}
+
+/* Ensure standalone tap targets meet 44x44pt guideline on touch devices */
+@media (hover: none) and (pointer: coarse) {
+  .btn, .nav-cta, .mobile-toggle, .faq-item summary,
+  .mobile-menu a, .nav-dd-menu a, .nav-links a,
+  .info, .accept-card, button[type="submit"] {
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+  }
+  .btn, .mobile-menu a, button[type="submit"] { justify-content: center; }
+  /* But inline text anchors inside prose should NOT get inflated */
+  p a, li a, small a, .t-card-body a, .faq-body a, .foot-bottom a { min-height: 0; display: inline; }
+}
+
+/* Accordions / details keyboard-friendly on mobile */
+details > summary { cursor: pointer; -webkit-tap-highlight-color: rgba(0,0,0,0.04); }
+
