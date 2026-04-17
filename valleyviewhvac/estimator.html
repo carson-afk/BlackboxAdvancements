@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<base href="/valleyviewhvac/" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Instant Estimate — Valley View HVAC</title>
+<meta name="description" content="60-second ballpark estimate for AC installation, furnace replacement, heat pumps, ductless mini-splits, and HVAC repair across Salem and the mid-Willamette." />
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+<header class="nav">
+  <a href="index.html" class="nav-brand"><span class="mark">VV</span><span class="tm">Valley View HVAC<small>CCB #243211</small></span></a>
+  <nav class="nav-links">
+    <a href="index.html">Home</a><a href="services.html">Services</a><a href="estimator.html" class="active">Get Estimate</a><a href="gallery.html">Work</a><a href="about.html">About</a><a href="contact.html">Contact</a>
+  </nav>
+  <a href="tel:+19717126763" class="nav-cta">(971) 712-6763</a>
+  <button class="mobile-toggle" aria-label="Menu">Menu</button>
+</header>
+<div class="mobile-menu">
+  <a href="index.html">Home</a><a href="services.html">Services</a><a href="estimator.html">Get Estimate</a><a href="gallery.html">Work</a><a href="about.html">About</a><a href="contact.html">Contact</a>
+</div>
+
+<section class="page-hero">
+  <div class="wrap">
+    <span class="pill"><span class="dot"></span>60-second ballpark</span>
+    <h1>Instant HVAC estimate,<br/><span class="blue">no strings.</span></h1>
+    <p>Tell us the job, the scale, and your ZIP. You'll get a real pricing range based on Valley View's own install data — and we'll apply any eligible community discount before you see the number.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap">
+    <form id="estForm" class="est-host" novalidate>
+      <div data-step="1">
+        <span class="kicker">● Step 1 of 2 · Contact</span>
+        <h2>Who are we quoting?</h2>
+        <p class="sub">No spam, no sales funnel. Your info only gets used if you ask us to follow up.</p>
+        <div class="est-row">
+          <div class="est-field"><label>Name</label><input name="name" required placeholder="Alex Johnson" /></div>
+          <div class="est-field"><label>Phone</label><input name="phone" type="tel" required placeholder="971-555-1234" /></div>
+        </div>
+        <div class="est-row">
+          <div class="est-field"><label>Email</label><input name="email" type="email" required placeholder="you@example.com" /></div>
+          <div class="est-field"><label>ZIP</label><input name="zip" inputmode="numeric" maxlength="5" placeholder="97301" /></div>
+        </div>
+        <div class="est-actions">
+          <button type="button" id="estGo" class="btn btn-primary">Continue <span class="arrow">→</span></button>
+          <a href="tel:+19717126763" class="btn">Or call (971) 712-6763</a>
+        </div>
+      </div>
+
+      <div data-step="2" hidden>
+        <span class="kicker">● Step 2 of 2 · The job</span>
+        <h2>What's on your mind?</h2>
+        <div class="est-row">
+          <div class="est-field">
+            <label>Service type</label>
+            <select name="job" required>
+              <option value="">Choose one</option>
+              <option value="ac-install">AC install / replace</option>
+              <option value="furnace">Furnace install / replace</option>
+              <option value="heat-pump">Heat pump install</option>
+              <option value="ductless">Ductless mini-split</option>
+              <option value="repair">System repair</option>
+              <option value="maintenance">Tune-up / maintenance</option>
+              <option value="duct">Duct cleaning / sealing</option>
+              <option value="iaq">Indoor air quality</option>
+            </select>
+          </div>
+          <div class="est-field">
+            <label>Home / space size</label>
+            <select name="size">
+              <option value="small">Small (&lt; 1,200 sqft)</option>
+              <option value="medium" selected>Medium (1,200–2,200 sqft)</option>
+              <option value="large">Large (2,200–3,500 sqft)</option>
+              <option value="xlarge">Extra large (3,500+ sqft)</option>
+            </select>
+          </div>
+        </div>
+        <div class="est-row">
+          <div class="est-field">
+            <label>Property type</label>
+            <select name="property">
+              <option value="residential" selected>Residential</option>
+              <option value="commercial">Commercial</option>
+            </select>
+          </div>
+          <div class="est-field">
+            <label>Eligible for 10% discount?</label>
+            <select name="discount">
+              <option value="none">No</option>
+              <option value="senior">Senior (65+)</option>
+              <option value="veteran">Veteran</option>
+              <option value="educator">Educator</option>
+              <option value="firstresponder">First responder</option>
+            </select>
+          </div>
+        </div>
+        <div class="est-row full">
+          <div class="est-field"><label>Anything else? (optional)</label><textarea name="notes" rows="3" placeholder="Age of current system, known issues, brand preferences — anything that helps narrow the range."></textarea></div>
+        </div>
+        <div class="est-actions">
+          <button type="submit" class="btn btn-primary">Calculate estimate <span class="arrow">→</span></button>
+          <button type="button" id="estBack" class="btn">← Back</button>
+        </div>
+      </div>
+
+      <div data-step="result" hidden style="text-align:center;">
+        <span class="kicker">● Your estimate</span>
+        <h2>Here's your ballpark:</h2>
+        <div class="est-range"></div>
+        <p class="est-summary"></p>
+        <p class="est-disclaimer">Range only · final price locked at free in-home walk-through · 10-yr equipment / 2-yr workmanship warranty on every install</p>
+        <div class="est-actions" style="justify-content:center; margin-top:1.4rem;">
+          <a href="tel:+19717126763" class="btn btn-orange">Call to schedule <span class="arrow">→</span></a>
+          <a href="contact.html" class="btn">Or email us</a>
+        </div>
+      </div>
+    </form>
+
+    <div class="feature-grid stagger" style="margin-top:3rem;">
+      <div class="feature"><div class="ico">💰</div><h3>Rebate handling included</h3><p>Energy Trust of Oregon rebates, federal IRA tax credits, utility incentives — we file the paperwork so you don't have to.</p></div>
+      <div class="feature"><div class="ico">🧮</div><h3>Right-sized, not oversized</h3><p>Manual-J load calculation before we quote. No "bigger is better" fiction — properly sized systems last longer and cost less to run.</p></div>
+      <div class="feature"><div class="ico">🛡️</div><h3>Warranty-backed</h3><p>Every install: 10-year equipment and 2-year workmanship. Honest warranties with no fine-print exclusions to catch you.</p></div>
+    </div>
+  </div>
+</section>
+
+<footer class="foot">
+  <div class="wrap foot-grid">
+    <div><div class="brand"><span class="mark">VV</span><span class="tm">Valley View HVAC</span></div><p style="color:rgba(255,255,255,0.7); max-width:30ch;">Dependable HVAC for Salem.</p></div>
+    <div><h5>Services</h5><ul><li><a href="services.html">AC Install</a></li><li><a href="services.html">Heat Pumps</a></li></ul></div>
+    <div><h5>Service Area</h5><ul><li>Salem · Keizer · Albany</li></ul></div>
+    <div><h5>Contact</h5><ul><li><a href="tel:+19717126763">(971) 712-6763</a></li><li><a href="mailto:vvhvac.nw@gmail.com">vvhvac.nw@gmail.com</a></li></ul></div>
+  </div>
+  <div class="wrap foot-bottom"><span>© <span id="year"></span> Valley View HVAC · CCB #243211</span><span>Built by <a href="https://blackboxadvancements.com">Blackbox Advancements</a></span></div>
+</footer>
+
+<script src="animations.js" defer></script>
+<script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+</body>
+</html>

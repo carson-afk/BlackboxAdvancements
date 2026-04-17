@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<base href="/valleyviewhvac/" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Contact — Valley View HVAC</title>
+<meta name="description" content="Contact Valley View HVAC: (971) 712-6763 · vvhvac.nw@gmail.com. Serving Salem, Albany, Dallas, McMinnville, Molalla, Stayton, Woodburn, Keizer, Independence." />
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+<header class="nav">
+  <a href="index.html" class="nav-brand"><span class="mark">VV</span><span class="tm">Valley View HVAC<small>CCB #243211</small></span></a>
+  <nav class="nav-links">
+    <a href="index.html">Home</a><a href="services.html">Services</a><a href="estimator.html">Get Estimate</a><a href="gallery.html">Work</a><a href="about.html">About</a><a href="contact.html" class="active">Contact</a>
+  </nav>
+  <a href="tel:+19717126763" class="nav-cta">(971) 712-6763</a>
+  <button class="mobile-toggle" aria-label="Menu">Menu</button>
+</header>
+<div class="mobile-menu">
+  <a href="index.html">Home</a><a href="services.html">Services</a><a href="estimator.html">Get Estimate</a><a href="gallery.html">Work</a><a href="about.html">About</a><a href="contact.html">Contact</a>
+</div>
+
+<section class="page-hero">
+  <div class="wrap">
+    <span class="pill"><span class="dot"></span>Contact</span>
+    <h1>Get in touch,<br/><span class="blue">we're easy to reach.</span></h1>
+    <p>A real person answers the phone during business hours. Email and the form below work great for quotes, scheduled installs, and non-emergency questions.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap contact-grid">
+    <form class="est-host" data-demo>
+      <span class="kicker">● Send a message</span>
+      <h2>Tell us what you need.</h2>
+      <p class="sub">Non-emergency requests, project scoping, rebate questions — anything. We reply within one business day.</p>
+      <div class="est-row">
+        <div class="est-field"><label>Name</label><input name="name" required placeholder="Carson Smith" /></div>
+        <div class="est-field"><label>Phone</label><input name="phone" type="tel" required placeholder="971-555-1234" /></div>
+      </div>
+      <div class="est-row">
+        <div class="est-field"><label>Email</label><input name="email" type="email" placeholder="you@example.com" /></div>
+        <div class="est-field"><label>ZIP</label><input name="zip" inputmode="numeric" maxlength="5" placeholder="97301" /></div>
+      </div>
+      <div class="est-row full">
+        <div class="est-field"><label>What's going on?</label><textarea name="message" rows="5" required placeholder="Furnace quit, AC struggling, planning a heat pump retrofit, scoping a commercial project — whatever it is."></textarea></div>
+      </div>
+      <div class="est-actions">
+        <button type="submit" class="btn btn-primary">Send message <span class="arrow">→</span></button>
+        <a href="tel:+19717126763" class="btn">Or call (971) 712-6763</a>
+      </div>
+      <p class="demo-confirm est-disclaimer" style="opacity:0; transition:opacity 0.4s; margin-top:1rem;"></p>
+    </form>
+
+    <aside>
+      <a href="tel:+19717126763" class="info"><div class="ico">📞</div><div><div class="k">Phone</div><div class="v">(971) 712-6763</div></div></a>
+      <a href="mailto:vvhvac.nw@gmail.com" class="info"><div class="ico">✉️</div><div><div class="k">Email</div><div class="v">vvhvac.nw@gmail.com</div></div></a>
+      <div class="info"><div class="ico">📍</div><div><div class="k">Based in</div><div class="v">Salem, OR · mid-Willamette service area</div></div></div>
+      <div class="info"><div class="ico">🕐</div><div><div class="k">Hours</div><div class="v">Mon–Sat 7am–7pm
+Sun: emergency only</div></div></div>
+      <div class="info"><div class="ico">🛡️</div><div><div class="k">Licensed</div><div class="v">OR CCB #243211 · EPA-2 · Insured</div></div></div>
+    </aside>
+  </div>
+</section>
+
+<section class="section" style="padding-top:0;">
+  <div class="wrap">
+    <div class="map-embed reveal">
+      <iframe loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Service area map"
+        src="https://www.google.com/maps?q=Salem,OR&output=embed"></iframe>
+    </div>
+  </div>
+</section>
+
+<footer class="foot">
+  <div class="wrap foot-grid">
+    <div><div class="brand"><span class="mark">VV</span><span class="tm">Valley View HVAC</span></div><p style="color:rgba(255,255,255,0.7); max-width:30ch;">Dependable HVAC for Salem &amp; the mid-Willamette.</p></div>
+    <div><h5>Services</h5><ul><li><a href="services.html">AC Install</a></li><li><a href="services.html">Heat Pumps</a></li></ul></div>
+    <div><h5>Service Area</h5><ul><li>Salem · Keizer · Albany</li></ul></div>
+    <div><h5>Contact</h5><ul><li><a href="tel:+19717126763">(971) 712-6763</a></li><li><a href="mailto:vvhvac.nw@gmail.com">vvhvac.nw@gmail.com</a></li></ul></div>
+  </div>
+  <div class="wrap foot-bottom"><span>© <span id="year"></span> Valley View HVAC · CCB #243211</span><span>Built by <a href="https://blackboxadvancements.com">Blackbox Advancements</a></span></div>
+</footer>
+
+<script src="animations.js" defer></script>
+<script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+</body>
+</html>
