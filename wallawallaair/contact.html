@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<base href="/wallawallaair/" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Contact — Walla Walla Air</title>
+<meta name="description" content="Contact Walla Walla Air: (509) 525-1339 · dan@wallawallaair.com. Walla Walla · College Place · Milton-Freewater · Dayton." />
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Lora:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+<header class="nav">
+  <a href="index.html" class="nav-brand"><span class="mark">W</span><span><span class="tm">Walla Walla Air</span><small>est. walla walla valley</small></span></a>
+  <nav class="nav-links">
+    <a href="index.html">Home</a><a href="services.html">Services</a><a href="estimator.html">Estimate</a><a href="gallery.html">Portfolio</a><a href="about.html">About</a><a href="contact.html" class="active">Contact</a>
+  </nav>
+  <a href="tel:+15095251339" class="nav-cta">(509) 525-1339</a>
+  <button class="mobile-toggle" aria-label="Menu">Menu</button>
+</header>
+<div class="mobile-menu">
+  <a href="index.html">Home</a><a href="services.html">Services</a><a href="estimator.html">Estimate</a><a href="gallery.html">Portfolio</a><a href="about.html">About</a><a href="contact.html">Contact</a>
+</div>
+
+<section class="page-hero">
+  <div class="wrap">
+    <span class="eyebrow">Contact</span>
+    <h1>Reach us <em>directly.</em></h1>
+    <p>Every inquiry comes to Dan personally. Phone is fastest during business hours; the form or email work well for scoping, scheduled work, and non-urgent questions.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap contact-grid">
+    <form class="est-host" data-demo>
+      <span class="kicker">Send a message</span>
+      <h2>How can we <em>help?</em></h2>
+      <p class="sub">For scoping, scheduled work, or non-urgent questions. Emergencies: please call.</p>
+      <div class="est-row">
+        <div class="est-field"><label>Name</label><input name="name" required placeholder="Carson Smith" /></div>
+        <div class="est-field"><label>Phone</label><input name="phone" type="tel" required placeholder="509-555-1234" /></div>
+      </div>
+      <div class="est-row">
+        <div class="est-field"><label>Email</label><input name="email" type="email" placeholder="you@example.com" /></div>
+        <div class="est-field"><label>ZIP</label><input name="zip" inputmode="numeric" maxlength="5" placeholder="99362" /></div>
+      </div>
+      <div class="est-row full">
+        <div class="est-field"><label>What's going on?</label><textarea name="message" rows="5" required placeholder="Furnace making noise, planning a ductless retrofit, scoping a tasting-room climate system — whatever it is."></textarea></div>
+      </div>
+      <div class="est-actions">
+        <button type="submit" class="btn btn-wine">Send message <span class="arrow">→</span></button>
+        <a href="tel:+15095251339" class="btn">Or call (509) 525-1339</a>
+      </div>
+      <p class="demo-confirm est-disclaimer" style="opacity:0; transition:opacity 0.4s; margin-top:1rem;"></p>
+    </form>
+
+    <aside>
+      <a href="tel:+15095251339" class="info"><div class="k">Phone</div><div class="v">(509) 525-1339</div></a>
+      <a href="mailto:dan@wallawallaair.com" class="info"><div class="k">Dan (owner)</div><div class="v">dan@wallawallaair.com</div></a>
+      <a href="mailto:office@wallawallaair.com" class="info"><div class="k">Office</div><div class="v">office@wallawallaair.com</div></a>
+      <div class="info"><div class="k">Based in</div><div class="v">Walla Walla, WA
+Serving the Valley</div></div>
+      <div class="info"><div class="k">Hours</div><div class="v">Mon–Sat 7am–6pm
+Emergency response for existing customers</div></div>
+    </aside>
+  </div>
+</section>
+
+<section class="section" style="padding-top: 0;">
+  <div class="wrap">
+    <div class="map-embed reveal">
+      <iframe loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Service area map"
+        src="https://www.google.com/maps?q=Walla+Walla,WA&output=embed"></iframe>
+    </div>
+  </div>
+</section>
+
+<footer class="foot">
+  <div class="wrap foot-grid">
+    <div><div class="brand"><span class="mark">W</span><span class="tm">Walla Walla Air</span></div><p class="foot-desc">Owner-led HVAC practice for the Valley.</p></div>
+    <div><h5>Services</h5><ul><li><a href="services.html">Ductless</a></li><li><a href="services.html">HVAC install</a></li></ul></div>
+    <div><h5>Service area</h5><ul><li>Walla Walla · College Place</li><li>Milton-Freewater · Dayton</li></ul></div>
+    <div><h5>Contact</h5><ul><li><a href="tel:+15095251339">(509) 525-1339</a></li><li><a href="mailto:dan@wallawallaair.com">dan@wallawallaair.com</a></li></ul></div>
+  </div>
+  <div class="wrap foot-bottom"><span>© <span id="year"></span> Walla Walla Air</span><span>Built by <a href="https://blackboxadvancements.com">Blackbox Advancements</a></span></div>
+</footer>
+
+<script src="animations.js" defer></script>
+<script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+</body>
+</html>

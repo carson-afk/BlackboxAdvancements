@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<base href="/wallawallaair/" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Request an Estimate — Walla Walla Air</title>
+<meta name="description" content="Request an HVAC estimate from Walla Walla Air. Ductless, furnace, AC, fireplace, or gas line pricing range for the Walla Walla Valley." />
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Lora:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+<header class="nav">
+  <a href="index.html" class="nav-brand"><span class="mark">W</span><span><span class="tm">Walla Walla Air</span><small>est. walla walla valley</small></span></a>
+  <nav class="nav-links">
+    <a href="index.html">Home</a><a href="services.html">Services</a><a href="estimator.html" class="active">Estimate</a><a href="gallery.html">Portfolio</a><a href="about.html">About</a><a href="contact.html">Contact</a>
+  </nav>
+  <a href="tel:+15095251339" class="nav-cta">(509) 525-1339</a>
+  <button class="mobile-toggle" aria-label="Menu">Menu</button>
+</header>
+<div class="mobile-menu">
+  <a href="index.html">Home</a><a href="services.html">Services</a><a href="estimator.html">Estimate</a><a href="gallery.html">Portfolio</a><a href="about.html">About</a><a href="contact.html">Contact</a>
+</div>
+
+<section class="page-hero">
+  <div class="wrap">
+    <span class="eyebrow">Request an estimate</span>
+    <h1>Honest numbers,<br/><em>no pressure.</em></h1>
+    <p>Describe the scope in a few fields — we'll respond with a ballpark range grounded in recent Valley project data, and schedule Dan's complimentary in-home consultation if you'd like to go further.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap">
+    <form id="estForm" class="est-host" novalidate>
+      <div data-step="1">
+        <span class="kicker">Step 1 of 2 · Introduction</span>
+        <h2>Let's be <em>introduced.</em></h2>
+        <p class="sub">Four fields. No spam, no sales intermediaries — your information comes to Dan directly.</p>
+        <div class="est-row">
+          <div class="est-field"><label>Name</label><input name="name" required placeholder="e.g. Alex Johnson" /></div>
+          <div class="est-field"><label>Phone</label><input name="phone" type="tel" required placeholder="509-555-1234" /></div>
+        </div>
+        <div class="est-row">
+          <div class="est-field"><label>Email</label><input name="email" type="email" required placeholder="you@example.com" /></div>
+          <div class="est-field"><label>ZIP code</label><input name="zip" inputmode="numeric" maxlength="5" placeholder="99362" /></div>
+        </div>
+        <div class="est-actions">
+          <button type="button" id="estGo" class="btn btn-wine">Continue <span class="arrow">→</span></button>
+          <a href="tel:+15095251339" class="btn">Or call (509) 525-1339</a>
+        </div>
+      </div>
+
+      <div data-step="2" hidden>
+        <span class="kicker">Step 2 of 2 · The scope</span>
+        <h2>What are we <em>considering?</em></h2>
+        <div class="est-row">
+          <div class="est-field">
+            <label>Service</label>
+            <select name="job" required>
+              <option value="">Select a service</option>
+              <option value="ductless">Ductless mini-split</option>
+              <option value="hvac">Complete HVAC system</option>
+              <option value="furnace">Furnace install / replace</option>
+              <option value="ac">AC install / replace</option>
+              <option value="fireplace">Fireplace install / service</option>
+              <option value="gasline">Natural gas line work</option>
+              <option value="repair">Service / repair / diagnostic</option>
+              <option value="maintenance">Seasonal maintenance</option>
+            </select>
+          </div>
+          <div class="est-field">
+            <label>Home size</label>
+            <select name="size">
+              <option value="small">Small (&lt; 1,400 sqft)</option>
+              <option value="medium" selected>Medium (1,400–2,600 sqft)</option>
+              <option value="large">Large (2,600+ sqft)</option>
+            </select>
+          </div>
+        </div>
+        <div class="est-row">
+          <div class="est-field">
+            <label>Timing</label>
+            <select name="urgency">
+              <option value="flexible" selected>Flexible / planning ahead</option>
+              <option value="thisweek">This week</option>
+              <option value="emergency">Emergency</option>
+            </select>
+          </div>
+          <div class="est-field">
+            <label>Interests</label>
+            <select name="interest">
+              <option value="standard">Standard efficiency tier</option>
+              <option value="high">High-efficiency / rebate-eligible</option>
+              <option value="premium">Premium / variable-speed</option>
+            </select>
+          </div>
+        </div>
+        <div class="est-row full">
+          <div class="est-field"><label>Notes (optional)</label><textarea name="notes" rows="3" placeholder="Home age, current system condition, specific rooms, anything that helps us narrow the range."></textarea></div>
+        </div>
+        <div class="est-actions">
+          <button type="submit" class="btn btn-wine">Calculate range <span class="arrow">→</span></button>
+          <button type="button" id="estBack" class="btn">← Back</button>
+        </div>
+      </div>
+
+      <div data-step="result" hidden style="text-align: center;">
+        <span class="kicker">Your ballpark</span>
+        <h2>Here's the <em>range.</em></h2>
+        <div class="est-range"></div>
+        <p class="est-summary"></p>
+        <p class="est-disclaimer">Range only · final pricing confirmed by Dan at complimentary in-home consultation</p>
+        <div class="est-actions" style="justify-content: center; margin-top: 1.6rem;">
+          <a href="tel:+15095251339" class="btn btn-terra">Call to schedule <span class="arrow">→</span></a>
+          <a href="contact.html" class="btn">Email us instead</a>
+        </div>
+      </div>
+    </form>
+
+    <div class="philosophy reveal" style="margin-top: 3rem;">
+      <div class="phil-item"><div class="n">I</div><h4>Range methodology</h4><p>Recent install data across the Walla Walla Valley, adjusted for your home size, efficiency tier, and urgency.</p></div>
+      <div class="phil-item"><div class="n">II</div><h4>Rebates &amp; incentives</h4><p>At the consultation, Dan will itemize every applicable rebate and federal tax credit — and handle the paperwork.</p></div>
+    </div>
+  </div>
+</section>
+
+<footer class="foot">
+  <div class="wrap foot-grid">
+    <div><div class="brand"><span class="mark">W</span><span class="tm">Walla Walla Air</span></div><p class="foot-desc">Owner-led HVAC practice.</p></div>
+    <div><h5>Services</h5><ul><li><a href="services.html">Ductless</a></li><li><a href="services.html">HVAC install</a></li></ul></div>
+    <div><h5>Service area</h5><ul><li>Walla Walla · College Place</li></ul></div>
+    <div><h5>Contact</h5><ul><li><a href="tel:+15095251339">(509) 525-1339</a></li><li><a href="mailto:dan@wallawallaair.com">dan@wallawallaair.com</a></li></ul></div>
+  </div>
+  <div class="wrap foot-bottom"><span>© <span id="year"></span> Walla Walla Air</span><span>Built by <a href="https://blackboxadvancements.com">Blackbox Advancements</a></span></div>
+</footer>
+
+<script src="animations.js" defer></script>
+<script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+</body>
+</html>
