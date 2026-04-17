@@ -205,21 +205,31 @@ input, textarea, select { font: inherit; color: inherit; }
   position: absolute; z-index: 2;
   background: var(--white);
   border-radius: 18px;
-  padding: 1rem 1.2rem;
+  padding: 0.95rem 1.15rem;
   box-shadow: var(--shadow-lg);
-  min-width: 170px;
+  min-width: 200px;
+  max-width: 260px;
+  white-space: nowrap;   /* keep short values on one line; <br/> still breaks */
 }
-.hero-card .tile .k { font-size: 0.75rem; color: var(--mute); font-weight: 500; margin-bottom: 0.2rem; }
-.hero-card .tile .v { font-family: var(--ff-display); font-weight: 700; font-size: 1.4rem; color: var(--ink); line-height: 1.1; }
+.hero-card .tile .k { font-size: 0.74rem; color: var(--mute); font-weight: 500; margin-bottom: 0.25rem; letter-spacing: 0.02em; }
+.hero-card .tile .v { font-family: var(--ff-display); font-weight: 700; font-size: 1.35rem; color: var(--ink); line-height: 1.15; }
 .hero-card .tile .v em { color: var(--orange); font-style: normal; }
-.hero-card .tile.t1 { top: 1.5rem; right: -1.5rem; animation: floatY 5s ease-in-out infinite; }
-.hero-card .tile.t2 { bottom: 25%; left: -1.5rem; animation: floatY 6s ease-in-out infinite 0.6s; }
-.hero-card .tile.t3 { bottom: 1.5rem; right: 1.5rem; animation: floatY 4.5s ease-in-out infinite 1.2s; }
+.hero-card .tile.t1 { top: 1.5rem; right: 1rem; animation: floatY 5s ease-in-out infinite; }
+.hero-card .tile.t2 { bottom: 28%; left: 1rem; animation: floatY 6s ease-in-out infinite 0.6s; }
+.hero-card .tile.t3 { bottom: 1.5rem; right: 1rem; animation: floatY 4.5s ease-in-out infinite 1.2s; }
 @keyframes floatY { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
+
+/* Extra breathing room on large desktops where the card is wider */
+@media (min-width: 1200px) {
+  .hero-card .tile.t1 { right: -1.25rem; }
+  .hero-card .tile.t2 { left: -1.25rem; }
+  .hero-card .tile { min-width: 210px; }
+}
 
 @media (max-width: 900px) {
   .hero .wrap { grid-template-columns: 1fr; }
   .hero-card { aspect-ratio: 16/11; }
+  .hero-card .tile { min-width: 180px; }
   .hero-card .tile.t1 { right: 1rem; top: 1rem; }
   .hero-card .tile.t2 { left: 1rem; bottom: 30%; }
 }
