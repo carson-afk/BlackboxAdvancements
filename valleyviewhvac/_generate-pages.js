@@ -398,10 +398,16 @@ const CITIES = [
 
 /* ----- Shared chrome ----- */
 function discountBanner() {
-  return `<div class="discount-banner">
+  return `<div class="discount-banner" role="region" aria-label="Community discount">
   <div class="wrap">
-    <div class="msg"><strong>10% off</strong> for seniors, veterans, educators, and first responders.</div>
-    <div class="tags"><span>Seniors</span><span>Veterans</span><span>Educators</span><span>First Responders</span></div>
+    <span class="db-badge"><span class="db-pct">10%</span><span class="db-off">OFF</span></span>
+    <p class="db-msg"><strong>Thank you</strong> to those who serve our community.</p>
+    <ul class="db-groups">
+      <li data-short="Sr."><i class="ph ph-user-circle" aria-hidden="true"></i><span>Seniors</span></li>
+      <li data-short="Vet"><i class="ph ph-medal" aria-hidden="true"></i><span>Veterans</span></li>
+      <li data-short="Edu"><i class="ph ph-chalkboard-teacher" aria-hidden="true"></i><span>Educators</span></li>
+      <li data-short="1st"><i class="ph ph-first-aid-kit" aria-hidden="true"></i><span>First Responders</span></li>
+    </ul>
   </div>
 </div>`;
 }

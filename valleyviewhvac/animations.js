@@ -28,6 +28,8 @@
     toggle.addEventListener('click', () => set(!menu.classList.contains('open')));
     scrim.addEventListener('click', () => set(false));
     document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && menu.classList.contains('open')) set(false); });
+    // Close (X) button inside the drawer
+    menu.querySelectorAll('.mm-close').forEach((btn) => btn.addEventListener('click', (e) => { e.preventDefault(); set(false); }));
     // Close on link navigation (not on group toggles)
     menu.querySelectorAll('a[href]').forEach((a) => a.addEventListener('click', () => set(false)));
     // Group toggles (Residential, Commercial, About)
