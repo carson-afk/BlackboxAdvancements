@@ -23,16 +23,19 @@
     menu.querySelectorAll('a').forEach((a) => a.addEventListener('click', () => set(false)));
   }
 
-  /* Infinite photo carousel duplication */
+  /* Infinite photo carousel duplication — guard against double-init */
   document.querySelectorAll('.photo-track').forEach((track) => {
+    if (track.parentElement && track.parentElement.dataset.duped === '1') return;
     const clone = track.cloneNode(true);
     clone.setAttribute('aria-hidden', 'true');
-    track.parentNode.appendChild(clone);
     const wrap = document.createElement('div');
-    wrap.style.cssText = 'display:flex; gap:1.2rem; width:max-content; animation:slideLeft 55s linear infinite;';
+    wrap.dataset.duped = '1';
+    wrap.style.cssText = 'display:flex; gap:1.8rem; width:max-content; animation:slideLeft 55s linear infinite;';
     track.parentNode.insertBefore(wrap, track);
-    wrap.appendChild(track); wrap.appendChild(clone);
-    track.style.animation = 'none'; clone.style.animation = 'none';
+    wrap.appendChild(track);
+    wrap.appendChild(clone);
+    track.style.animation = 'none';
+    clone.style.animation = 'none';
   });
   document.querySelectorAll('.word-ticker .track').forEach((track) => {
     const clone = track.cloneNode(true);
