@@ -1285,7 +1285,7 @@ a.info:active { transform: translateY(-1px) scale(0.995); transition-duration: v
 :focus-visible { outline: 2px solid var(--blue); outline-offset: 2px; border-radius: 6px; transition: outline-offset var(--t-press) var(--ease-out); }
 
 /* ========================================================================
-   REVIEWS BAR — sitewide "300+ 5-star reviews" strip above the nav
+   REVIEWS BAR — sitewide "500+ 5-star reviews" strip above the nav
    ======================================================================== */
 .reviews-bar {
   background: linear-gradient(180deg, #fffdf5 0%, #fdf7e3 100%);
