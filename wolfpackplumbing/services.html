@@ -4,8 +4,9 @@
 <meta charset="UTF-8" />
 <base href="/wolfpackplumbing/" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Services — Wolf Pack Plumbing</title>
-<meta name="description" content="Drain cleaning, hydro-jetting, water heater install/repair, pipe replacement, leak detection, emergency plumbing, remodels, and property management maintenance. Salem OR." />
+<title>Services — Wolf Pack Plumbing · Salem OR</title>
+<meta name="description" content="Drain cleaning, hydro-jetting, water heater install/repair, pipe replacement, leak detection, emergency plumbing, remodels, and property management maintenance. Licensed Salem OR plumber. CCB #244621." />
+<link rel="icon" href="images/logo.png" type="image/png" />
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="styles.css" />
@@ -13,16 +14,46 @@
 <body>
 
 <header class="nav">
-  <a href="index.html" class="nav-brand"><span class="mark">▲</span><span class="tm">WOLF PACK<small>plumbing · salem or</small></span></a>
+  <a href="index.html" class="nav-brand">
+    <span class="logo-mark"><img src="images/logo.png" alt="Wolf Pack Plumbing logo" /></span>
+    <span class="tm">WOLF PACK<small>plumbing · salem or</small></span>
+  </a>
   <nav class="nav-links">
-    <a href="index.html">Home</a><a href="services.html" class="active">Services</a><a href="estimator.html">Estimator</a><a href="gallery.html">Projects</a><a href="areas.html">Areas</a><a href="about.html">About</a><a href="contact.html">Contact</a>
+    <a href="index.html">Home</a>
+    <a href="services.html" class="active">Services</a>
+    <a href="estimator.html">Estimator</a>
+    <a href="gallery.html">Projects</a>
+    <div class="nav-dropdown">
+      <a href="areas.html">Areas <span class="caret">▾</span></a>
+      <div class="menu">
+        <a href="salem.html"><span class="city">Salem</span><span class="county">Marion · 97301</span></a>
+        <a href="keizer.html"><span class="city">Keizer</span><span class="county">Marion · 97303</span></a>
+        <a href="woodburn.html"><span class="city">Woodburn</span><span class="county">Marion · 97071</span></a>
+        <a href="silverton.html"><span class="city">Silverton</span><span class="county">Marion · 97381</span></a>
+        <a href="stayton.html"><span class="city">Stayton</span><span class="county">Marion · 97383</span></a>
+        <a href="turner.html"><span class="city">Turner</span><span class="county">Marion · 97392</span></a>
+        <a href="monmouth.html"><span class="city">Monmouth</span><span class="county">Polk · 97361</span></a>
+        <a href="dallas.html"><span class="city">Dallas</span><span class="county">Polk · 97338</span></a>
+        <a href="independence.html"><span class="city">Independence</span><span class="county">Polk · 97351</span></a>
+        <a href="mount-angel.html"><span class="city">Mt. Angel</span><span class="county">Marion · 97362</span></a>
+        <a href="areas.html" class="more"><span>All coverage areas</span><span>→</span></a>
+      </div>
+    </div>
+    <a href="about.html">About</a>
+    <a href="faq.html">FAQ</a>
+    <a href="contact.html">Contact</a>
   </nav>
   <span class="nav-meta">24/7 dispatch</span>
   <a href="tel:+15038782523" class="nav-cta">(503) 878-2523 <span>→</span></a>
   <button class="mobile-toggle" aria-label="Menu">/ menu</button>
 </header>
 <div class="mobile-menu">
-  <a href="index.html">Home</a><a href="services.html">Services</a><a href="estimator.html">Estimator</a><a href="gallery.html">Projects</a><a href="areas.html">Areas</a><a href="about.html">About</a><a href="contact.html">Contact</a>
+  <a href="index.html">Home</a><a href="services.html">Services</a><a href="estimator.html">Estimator</a><a href="gallery.html">Projects</a>
+  <details class="m-group"><summary>Areas <span class="caret">▾</span></summary><div class="m-sub">
+    <a href="salem.html">Salem</a><a href="keizer.html">Keizer</a><a href="woodburn.html">Woodburn</a><a href="silverton.html">Silverton</a><a href="stayton.html">Stayton</a><a href="turner.html">Turner</a><a href="monmouth.html">Monmouth</a><a href="dallas.html">Dallas</a><a href="independence.html">Independence</a><a href="mount-angel.html">Mt. Angel</a><a href="areas.html">All areas →</a>
+  </div></details>
+  <a href="about.html">About</a><a href="faq.html">FAQ</a><a href="contact.html">Contact</a>
+  <a href="tel:+15038782523" class="btn btn-primary" style="margin-top:1.5rem;">(503) 878-2523</a>
 </div>
 
 <main>
@@ -30,67 +61,88 @@
   <div class="wrap">
     <span class="eye">FULL SERVICE LIST</span>
     <h1>EVERY PLUMBING CALL —<br/><span class="red">ONE CREW.</span></h1>
-    <p>From drain cleaning to emergency mainline breaks, Wolf Pack runs every job flat-rate, permitted when required, and backed by a 6-year install warranty.</p>
+    <p>From drain cleaning to emergency mainline breaks, Wolf Pack runs every job flat-rate, permitted when required, and backed by a 6-year install warranty. No upsell, no mystery pricing — just the fix.</p>
   </div>
 </section>
 
 <section class="section">
   <div class="wrap">
     <div class="feature-grid stagger">
-      <div class="feature">
+      <div class="feature" id="drain">
+        <div class="photo-plate"><img src="images/camera-inspection.png" alt="Sewer camera inspection on a main line" loading="lazy" /></div>
         <span class="ico">// 01 DRAIN</span>
         <h3>Drain Cleaning &amp; Hydro-Jet</h3>
-        <p>Kitchen, bath, laundry, floor drains, main line. Every mainline call gets a camera inspection included.</p>
-        <ul><li>Snake + auger</li><li>High-pressure hydro-jet</li><li>Camera inspection included</li><li>30-day no-clog guarantee</li></ul>
+        <p>Kitchen, bath, laundry, floor drains, main line. Every mainline call gets a camera inspection included — so we actually see what's in the pipe.</p>
+        <ul><li>Snake + auger clearing</li><li>High-pressure hydro-jet</li><li>Camera inspection included</li><li>30-day no-clog guarantee</li></ul>
       </div>
-      <div class="feature">
+      <div class="feature" id="heater">
+        <div class="photo-plate"><img src="images/water-heater-1.png" alt="Water heater tank install" loading="lazy" /></div>
         <span class="ico">// 02 WATER HEATER</span>
         <h3>Water Heater Install + Repair</h3>
-        <p>Tank, tankless, hybrid. Code-compliant venting, drain pan, seismic strap. 6-year warranty on every install.</p>
+        <p>Tank, tankless, hybrid. Code-compliant venting, drain pan, seismic strap. 6-year warranty on every install — parts and labor.</p>
         <ul><li>Rheem, Bradford White, Rinnai, Navien</li><li>Gas, electric, heat-pump</li><li>Same-day diagnosis</li><li>Old unit haul-away</li></ul>
       </div>
-      <div class="feature">
+      <div class="feature" id="pipe">
+        <div class="photo-plate"><img src="images/underground-pipe.png" alt="Underground pipe replacement" loading="lazy" /></div>
         <span class="ico">// 03 PIPE</span>
         <h3>Pipe Replacement &amp; Locate</h3>
-        <p>Partial repipe, service line pulls, leak locate with acoustic + tracer. Trenchless on qualifying runs.</p>
-        <ul><li>Copper · PEX · HDPE</li><li>Trenchless pull</li><li>Pre-locate utility coordination</li><li>Permit pull included</li></ul>
+        <p>Partial repipe, service line pulls, leak locate with acoustic + tracer. Trenchless on qualifying runs — we skip the trench where we can.</p>
+        <ul><li>Copper · PEX · HDPE</li><li>Trenchless pull</li><li>Utility pre-locate coordination</li><li>Permit pull included</li></ul>
       </div>
-      <div class="feature">
+      <div class="feature" id="leak">
+        <div class="photo-plate"><img src="images/under-sink-plumbing.png" alt="Under-sink leak diagnosis" loading="lazy" /></div>
         <span class="ico">// 04 LEAK</span>
         <h3>Leak Detection</h3>
-        <p>Find it first, fix it clean. Acoustic, thermal, and pressure testing — no exploratory drywall demo.</p>
+        <p>Find it first, fix it clean. Acoustic, thermal, and pressure testing — no exploratory drywall demolition on our watch.</p>
         <ul><li>Acoustic + thermal imaging</li><li>Slab leak locate</li><li>Pressure testing</li><li>Minimal-damage repair</li></ul>
       </div>
-      <div class="feature">
+      <div class="feature" id="fixtures">
+        <div class="photo-plate"><img src="images/faucet.png" alt="Bathroom faucet install" loading="lazy" /></div>
         <span class="ico">// 05 FIXTURES</span>
         <h3>Fixture Install + Repair</h3>
-        <p>Faucet leaks, running toilets, disposals, angle stops, shower valves. Install what you buy, flat-rate.</p>
-        <ul><li>Faucet &amp; shower valves</li><li>Toilet set / rebuild</li><li>Disposal install</li><li>Ice-maker &amp; DW lines</li></ul>
+        <p>Faucet leaks, running toilets, disposals, angle stops, shower valves. Brand-agnostic — install what you buy, flat-rate.</p>
+        <ul><li>Faucet &amp; shower valves</li><li>Toilet set / rebuild</li><li>Disposal install</li><li>Ice-maker &amp; dishwasher lines</li></ul>
       </div>
-      <div class="feature">
+      <div class="feature" id="emergency">
+        <div class="photo-plate"><img src="images/toilet-mechanics.png" alt="Emergency toilet rebuild" loading="lazy" /></div>
         <span class="ico">// 06 EMERGENCY</span>
         <h3>Emergency Plumbing</h3>
-        <p>24/7 dispatch. Burst pipes, back-ups, failing shut-offs. We answer — nights, weekends, holidays.</p>
+        <p>24/7 dispatch. Burst pipes, back-ups, failing shut-offs. We answer — nights, weekends, holidays, 2am on Christmas Eve.</p>
         <ul><li>~35 min avg dispatch</li><li>Main shut-off coaching by phone</li><li>Same-night stabilization</li><li>Flat-rate on arrival</li></ul>
       </div>
       <div class="feature">
+        <div class="photo-plate"><img src="images/finished-sink.png" alt="Finished kitchen sink install" loading="lazy" /></div>
         <span class="ico">// 07 REMODEL</span>
         <h3>Kitchen / Bath Remodel Plumbing</h3>
-        <p>Rough-in and finish plumbing coordinated with your GC or ours. Permitted, inspected, on schedule.</p>
+        <p>Rough-in and finish plumbing, coordinated with your GC or ours. Permitted, inspected, on schedule. Including tub-to-shower conversions.</p>
         <ul><li>Full rough-in packages</li><li>Vanity / shower valve relocate</li><li>Tub-to-shower conversion</li><li>GC coordination</li></ul>
       </div>
       <div class="feature">
+        <div class="photo-plate"><img src="images/shower-1.png" alt="Shower valve rough-in" loading="lazy" /></div>
         <span class="ico">// 08 PROPERTY</span>
         <h3>Property Management Support</h3>
-        <p>Rental turnover, scheduled maintenance, emergency escalation — direct line for PMs and landlords.</p>
+        <p>Rental turnover, scheduled maintenance, emergency escalation — direct line for PMs and landlords. Portfolio-friendly billing.</p>
         <ul><li>Turn-over checks</li><li>Scheduled PM packages</li><li>Portfolio invoicing</li><li>Tenant-friendly scheduling</li></ul>
       </div>
       <div class="feature">
-        <span class="ico">// 09 COMMERCIAL</span>
-        <h3>Light Commercial</h3>
-        <p>Restaurants, retail, offices. Sewer ejectors, RPZ backflow, grease traps, on-demand maintenance.</p>
-        <ul><li>Backflow assembly + cert</li><li>Grease trap service</li><li>ADA retrofit plumbing</li><li>Off-hours scheduling</li></ul>
+        <div class="photo-plate"><img src="images/water-filter.png" alt="Whole-home water filter install" loading="lazy" /></div>
+        <span class="ico">// 09 WATER QUALITY</span>
+        <h3>Water Filtration &amp; Quality</h3>
+        <p>Whole-home filters, softeners, under-sink RO, and iron/sulfur treatment — sized to your supply and tested after install.</p>
+        <ul><li>Whole-home filtration</li><li>Water softeners</li><li>Under-sink RO systems</li><li>Well-pump &amp; pressure-tank service</li></ul>
       </div>
+    </div>
+  </div>
+</section>
+
+<!-- FINANCING CALLOUT -->
+<section class="section" style="padding:3rem 0;">
+  <div class="wrap">
+    <div class="guarantee reveal">
+      <div class="g"><span class="n">/ OPTION 1</span><h4>FLAT-RATE</h4><p>Price before work. No hourly surprises.</p></div>
+      <div class="g"><span class="n">/ OPTION 2</span><h4>WISETACK FINANCING</h4><p>Pay over time, soft credit check, instant approval.</p></div>
+      <div class="g"><span class="n">/ OPTION 3</span><h4>6-YR WARRANTY</h4><p>Install covered end-to-end. Parts + labor.</p></div>
+      <div class="g"><span class="n">/ OPTION 4</span><h4>NO-CLOG / 30-DAY</h4><p>Drain backs up within 30 days? We come back free.</p></div>
     </div>
   </div>
 </section>
@@ -99,9 +151,9 @@
 <section class="cta">
   <div class="wrap">
     <h2>NOT SURE<br/>WHICH SERVICE?</h2>
-    <p>Describe the problem. We'll tell you what it is, roughly what it'll cost, and whether it's urgent or not. No obligation.</p>
+    <p>Describe the problem. We'll tell you what it is, roughly what it'll cost, and whether it's urgent or not. No obligation, no sales call, no spam.</p>
     <div class="hero-cta">
-      <a href="estimator.html" class="btn">RUN ESTIMATOR <span class="arrow">→</span></a>
+      <a href="estimator.html" class="btn btn-primary">RUN ESTIMATOR <span class="arrow">→</span></a>
       <a href="tel:+15038782523" class="btn">(503) 878-2523 <span class="arrow">→</span></a>
     </div>
   </div>
@@ -109,15 +161,16 @@
 
 <footer class="foot">
   <div class="wrap foot-grid">
-    <div><div class="brand"><span class="mark">▲</span><span class="tm">WOLF PACK</span></div><p style="max-width:30ch;">Straight-shooting plumbers for Salem, Keizer, Woodburn and the mid-Willamette.</p></div>
-    <div><h5>/ services</h5><ul><li><a href="services.html">Drain cleaning</a></li><li><a href="services.html">Water heaters</a></li><li><a href="services.html">Leak detection</a></li><li><a href="services.html">Pipe replacement</a></li></ul></div>
-    <div><h5>/ service area</h5><ul><li>Salem · Keizer · Woodburn</li><li>Silverton · Stayton · Turner</li></ul></div>
-    <div><h5>/ contact</h5><ul><li><a href="tel:+15038782523">(503) 878-2523</a></li><li><a href="mailto:joe@wolfpackplumbingservices.com">joe@wolfpack<wbr/>plumbingservices.com</a></li></ul></div>
+    <div><div class="brand"><span class="logo-mark"><img src="images/logo.png" alt="" /></span><span class="tm">WOLF PACK</span></div><p style="max-width:32ch;">Straight-shooting plumbers for Salem, Keizer, Woodburn and the mid-Willamette. OR CCB #244621.</p></div>
+    <div><h5>/ services</h5><ul><li><a href="services.html#drain">Drain cleaning</a></li><li><a href="services.html#heater">Water heaters</a></li><li><a href="services.html#leak">Leak detection</a></li><li><a href="services.html#pipe">Pipe replacement</a></li></ul></div>
+    <div><h5>/ service area</h5><ul><li><a href="salem.html">Salem</a> · <a href="keizer.html">Keizer</a></li><li><a href="woodburn.html">Woodburn</a> · <a href="silverton.html">Silverton</a></li><li><a href="areas.html">All coverage →</a></li></ul></div>
+    <div><h5>/ contact</h5><ul><li><a href="tel:+15038782523">(503) 878-2523</a></li><li><a href="mailto:joe@wolfpackplumbingservices.com">joe@wolfpack<wbr/>plumbingservices.com</a></li><li><a href="faq.html">FAQ</a></li></ul></div>
   </div>
-  <div class="wrap foot-bottom"><span>© <span id="year"></span> Wolf Pack Plumbing · Licensed · Bonded · Insured</span><span>Built by <a href="https://blackboxadvancements.com">Blackbox Advancements</a></span></div>
+  <div class="wrap foot-bottom"><span>© <span id="year"></span> Wolf Pack Plumbing · OR CCB #244621</span><span>Built by <a href="https://blackboxadvancements.com">Blackbox Advancements</a></span></div>
 </footer>
 
+<div class="sticky-cta"><a href="tel:+15038782523">☎ (503) 878-2523</a><a href="estimator.html">Run Estimator →</a></div>
+
 <script src="animations.js" defer></script>
-<script>document.getElementById('year').textContent = new Date().getFullYear();</script>
 </body>
 </html>

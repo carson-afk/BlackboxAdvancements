@@ -5,23 +5,55 @@
 <base href="/wolfpackplumbing/" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Contact — Wolf Pack Plumbing</title>
-<meta name="description" content="Reach Wolf Pack Plumbing. Phone (503) 878-2523 24/7. Email joe@wolfpackplumbingservices.com. Salem, Keizer, Woodburn + mid-Willamette." />
+<meta name="description" content="Reach Wolf Pack Plumbing. Phone (503) 878-2523 24/7. Email joe@wolfpackplumbingservices.com. Serving Salem, Keizer, Woodburn + mid-Willamette. Ask about our new-customer discount." />
+<link rel="icon" href="images/logo.png" type="image/png" />
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
+
 <header class="nav">
-  <a href="index.html" class="nav-brand"><span class="mark">▲</span><span class="tm">WOLF PACK<small>plumbing · salem or</small></span></a>
+  <a href="index.html" class="nav-brand">
+    <span class="logo-mark"><img src="images/logo.png" alt="Wolf Pack Plumbing logo" /></span>
+    <span class="tm">WOLF PACK<small>plumbing · salem or</small></span>
+  </a>
   <nav class="nav-links">
-    <a href="index.html">Home</a><a href="services.html">Services</a><a href="estimator.html">Estimator</a><a href="gallery.html">Projects</a><a href="areas.html">Areas</a><a href="about.html">About</a><a href="contact.html" class="active">Contact</a>
+    <a href="index.html">Home</a>
+    <a href="services.html">Services</a>
+    <a href="estimator.html">Estimator</a>
+    <a href="gallery.html">Projects</a>
+    <div class="nav-dropdown">
+      <a href="areas.html">Areas <span class="caret">▾</span></a>
+      <div class="menu">
+        <a href="salem.html"><span class="city">Salem</span><span class="county">Marion · 97301</span></a>
+        <a href="keizer.html"><span class="city">Keizer</span><span class="county">Marion · 97303</span></a>
+        <a href="woodburn.html"><span class="city">Woodburn</span><span class="county">Marion · 97071</span></a>
+        <a href="silverton.html"><span class="city">Silverton</span><span class="county">Marion · 97381</span></a>
+        <a href="stayton.html"><span class="city">Stayton</span><span class="county">Marion · 97383</span></a>
+        <a href="turner.html"><span class="city">Turner</span><span class="county">Marion · 97392</span></a>
+        <a href="monmouth.html"><span class="city">Monmouth</span><span class="county">Polk · 97361</span></a>
+        <a href="dallas.html"><span class="city">Dallas</span><span class="county">Polk · 97338</span></a>
+        <a href="independence.html"><span class="city">Independence</span><span class="county">Polk · 97351</span></a>
+        <a href="mount-angel.html"><span class="city">Mt. Angel</span><span class="county">Marion · 97362</span></a>
+        <a href="areas.html" class="more"><span>All coverage areas</span><span>→</span></a>
+      </div>
+    </div>
+    <a href="about.html">About</a>
+    <a href="faq.html">FAQ</a>
+    <a href="contact.html" class="active">Contact</a>
   </nav>
   <span class="nav-meta">24/7 dispatch</span>
   <a href="tel:+15038782523" class="nav-cta">(503) 878-2523 <span>→</span></a>
   <button class="mobile-toggle" aria-label="Menu">/ menu</button>
 </header>
 <div class="mobile-menu">
-  <a href="index.html">Home</a><a href="services.html">Services</a><a href="estimator.html">Estimator</a><a href="gallery.html">Projects</a><a href="areas.html">Areas</a><a href="about.html">About</a><a href="contact.html">Contact</a>
+  <a href="index.html">Home</a><a href="services.html">Services</a><a href="estimator.html">Estimator</a><a href="gallery.html">Projects</a>
+  <details class="m-group"><summary>Areas <span class="caret">▾</span></summary><div class="m-sub">
+    <a href="salem.html">Salem</a><a href="keizer.html">Keizer</a><a href="woodburn.html">Woodburn</a><a href="silverton.html">Silverton</a><a href="stayton.html">Stayton</a><a href="turner.html">Turner</a><a href="monmouth.html">Monmouth</a><a href="dallas.html">Dallas</a><a href="independence.html">Independence</a><a href="mount-angel.html">Mt. Angel</a><a href="areas.html">All areas →</a>
+  </div></details>
+  <a href="about.html">About</a><a href="faq.html">FAQ</a><a href="contact.html">Contact</a>
+  <a href="tel:+15038782523" class="btn btn-primary" style="margin-top:1.5rem;">(503) 878-2523</a>
 </div>
 
 <main>
@@ -29,7 +61,7 @@
   <div class="wrap">
     <span class="eye">DISPATCH / TRANSMIT</span>
     <h1>CALL. TEXT. EMAIL.<br/><span class="red">WE ANSWER.</span></h1>
-    <p>Phone is fastest — dispatch is live 24/7. For scheduled work and remodels, the form below lands in Joe's inbox and gets replied to within a business day.</p>
+    <p>Phone is fastest — dispatch is live 24/7. For scheduled work, remodels, and property-management accounts, the form below lands in Joe's inbox and gets replied to within one business day.</p>
   </div>
 </section>
 
@@ -37,9 +69,9 @@
   <div class="wrap contact-grid">
     <form class="est-host" data-demo>
       <h2>SEND A MESSAGE</h2>
-      <p class="sub">For quotes, scheduled work, or anything non-emergency. Emergencies: call the line.</p>
+      <p class="sub">For quotes, scheduled work, or anything non-emergency. Emergencies: call the line — it's 24/7.</p>
       <div class="est-row">
-        <div class="est-field"><label>Name</label><input name="name" required placeholder="Carson Smith" /></div>
+        <div class="est-field"><label>Name</label><input name="name" required placeholder="Alex Johnson" /></div>
         <div class="est-field"><label>Phone</label><input name="phone" type="tel" required placeholder="503-555-1234" /></div>
       </div>
       <div class="est-row">
@@ -62,6 +94,9 @@
       <div class="info"><div class="ico">◉</div><div><div class="k">base of ops</div><div class="v">Salem, OR · mid-Willamette</div></div></div>
       <div class="info"><div class="ico">◷</div><div><div class="k">hours</div><div class="v">Mon–Fri 7am–6pm (office)
 Emergency dispatch 24/7</div></div></div>
+      <div class="info"><div class="ico">◆</div><div><div class="k">new customer?</div><div class="v">Ask about our discount when you call.</div></div></div>
+      <div class="info"><div class="ico">✓</div><div><div class="k">licensing</div><div class="v">OR CCB #244621
+Licensed · Bonded · Insured</div></div></div>
     </aside>
   </div>
 </section>
@@ -69,7 +104,7 @@ Emergency dispatch 24/7</div></div></div>
 <section class="section" style="padding-top:0;">
   <div class="wrap">
     <div class="map-embed reveal">
-      <iframe loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Service area map"
+      <iframe loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Wolf Pack service area map"
         src="https://www.google.com/maps?q=Salem,OR&output=embed"></iframe>
     </div>
   </div>
@@ -78,15 +113,16 @@ Emergency dispatch 24/7</div></div></div>
 
 <footer class="foot">
   <div class="wrap foot-grid">
-    <div><div class="brand"><span class="mark">▲</span><span class="tm">WOLF PACK</span></div><p style="max-width:30ch;">Straight-shooting plumbers for Salem &amp; the mid-Willamette.</p></div>
-    <div><h5>/ services</h5><ul><li><a href="services.html">Drain cleaning</a></li><li><a href="services.html">Water heaters</a></li><li><a href="services.html">Leak detection</a></li></ul></div>
-    <div><h5>/ service area</h5><ul><li>Salem · Keizer · Woodburn</li><li>Silverton · Stayton</li></ul></div>
-    <div><h5>/ contact</h5><ul><li><a href="tel:+15038782523">(503) 878-2523</a></li><li><a href="mailto:joe@wolfpackplumbingservices.com">joe@wolfpack<wbr/>plumbingservices.com</a></li></ul></div>
+    <div><div class="brand"><span class="logo-mark"><img src="images/logo.png" alt="" /></span><span class="tm">WOLF PACK</span></div><p style="max-width:32ch;">Straight-shooting plumbers for Salem &amp; the mid-Willamette. OR CCB #244621.</p></div>
+    <div><h5>/ services</h5><ul><li><a href="services.html#drain">Drain cleaning</a></li><li><a href="services.html#heater">Water heaters</a></li><li><a href="services.html#leak">Leak detection</a></li></ul></div>
+    <div><h5>/ service area</h5><ul><li><a href="salem.html">Salem</a> · <a href="keizer.html">Keizer</a></li><li><a href="woodburn.html">Woodburn</a> · <a href="silverton.html">Silverton</a></li><li><a href="areas.html">All coverage →</a></li></ul></div>
+    <div><h5>/ contact</h5><ul><li><a href="tel:+15038782523">(503) 878-2523</a></li><li><a href="mailto:joe@wolfpackplumbingservices.com">joe@wolfpack<wbr/>plumbingservices.com</a></li><li><a href="faq.html">FAQ</a></li></ul></div>
   </div>
-  <div class="wrap foot-bottom"><span>© <span id="year"></span> Wolf Pack Plumbing</span><span>Built by <a href="https://blackboxadvancements.com">Blackbox Advancements</a></span></div>
+  <div class="wrap foot-bottom"><span>© <span id="year"></span> Wolf Pack Plumbing · OR CCB #244621</span><span>Built by <a href="https://blackboxadvancements.com">Blackbox Advancements</a></span></div>
 </footer>
 
+<div class="sticky-cta"><a href="tel:+15038782523">☎ (503) 878-2523</a><a href="estimator.html">Run Estimator →</a></div>
+
 <script src="animations.js" defer></script>
-<script>document.getElementById('year').textContent = new Date().getFullYear();</script>
 </body>
 </html>
