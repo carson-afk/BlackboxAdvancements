@@ -20,7 +20,21 @@
   </a>
   <nav class="nav-links">
     <a href="index.html">Home</a>
-    <a href="services.html" class="active">Services</a>
+    <div class="nav-dropdown active" data-services>
+      <a href="services.html">Services <span class="caret">▾</span></a>
+      <div class="menu">
+        <a href="drain-cleaning.html"><span class="city">Drain Cleaning</span><span class="county">Snake · Jet · Camera</span></a>
+        <a href="water-heater.html"><span class="city">Water Heater</span><span class="county">Tank · Tankless · Heat-Pump</span></a>
+        <a href="pipe-replacement.html"><span class="city">Pipe Replacement</span><span class="county">Repipe · Locate · Trenchless</span></a>
+        <a href="leak-detection.html"><span class="city">Leak Detection</span><span class="county">Acoustic · Thermal · Slab</span></a>
+        <a href="fixtures.html"><span class="city">Fixtures</span><span class="county">Faucet · Toilet · Disposal</span></a>
+        <a href="emergency-plumbing.html"><span class="city">Emergency</span><span class="county">24/7 · ~35 min Dispatch</span></a>
+        <a href="remodel.html"><span class="city">Remodel</span><span class="county">Kitchen · Bath · Shower</span></a>
+        <a href="property-management.html"><span class="city">Property Mgmt</span><span class="county">Rentals · Turnover · PMs</span></a>
+        <a href="water-filtration.html"><span class="city">Water Filtration</span><span class="county">Filters · Softeners · RO</span></a>
+        <a href="services.html" class="more"><span>All services</span><span>→</span></a>
+      </div>
+    </div>
     <a href="estimator.html">Estimator</a>
     <a href="gallery.html">Projects</a>
     <div class="nav-dropdown">
@@ -48,7 +62,7 @@
   <button class="mobile-toggle" aria-label="Menu">/ menu</button>
 </header>
 <div class="mobile-menu">
-  <a href="index.html">Home</a><a href="services.html">Services</a><a href="estimator.html">Estimator</a><a href="gallery.html">Projects</a>
+  <a href="index.html">Home</a><details class="m-group" data-services open><summary>Services <span class="caret">▾</span></summary><div class="m-sub"><a href="drain-cleaning.html">Drain Cleaning</a><a href="water-heater.html">Water Heater</a><a href="pipe-replacement.html">Pipe Replacement</a><a href="leak-detection.html">Leak Detection</a><a href="fixtures.html">Fixtures</a><a href="emergency-plumbing.html">Emergency</a><a href="remodel.html">Remodel</a><a href="property-management.html">Property Mgmt</a><a href="water-filtration.html">Water Filtration</a><a href="services.html">All services →</a></div></details><a href="estimator.html">Estimator</a><a href="gallery.html">Projects</a>
   <details class="m-group"><summary>Areas <span class="caret">▾</span></summary><div class="m-sub">
     <a href="salem.html">Salem</a><a href="keizer.html">Keizer</a><a href="woodburn.html">Woodburn</a><a href="silverton.html">Silverton</a><a href="stayton.html">Stayton</a><a href="turner.html">Turner</a><a href="monmouth.html">Monmouth</a><a href="dallas.html">Dallas</a><a href="independence.html">Independence</a><a href="mount-angel.html">Mt. Angel</a><a href="areas.html">All areas →</a>
   </div></details>
@@ -68,70 +82,61 @@
 <section class="section">
   <div class="wrap">
     <div class="feature-grid stagger">
-      <div class="feature" id="drain">
+      <a class="feature feature-link" id="drain" href="drain-cleaning.html">
         <div class="photo-plate"><img src="images/camera-inspection.png" alt="Sewer camera inspection on a main line" loading="lazy" /></div>
         <span class="ico">// 01 DRAIN</span>
         <h3>Drain Cleaning &amp; Hydro-Jet</h3>
         <p>Kitchen, bath, laundry, floor drains, main line. Every mainline call gets a camera inspection included — so we actually see what's in the pipe.</p>
         <ul><li>Snake + auger clearing</li><li>High-pressure hydro-jet</li><li>Camera inspection included</li><li>30-day no-clog guarantee</li></ul>
-      </div>
-      <div class="feature" id="heater">
+      </a><a class="feature feature-link" id="heater" href="water-heater.html">
         <div class="photo-plate"><img src="images/water-heater-1.png" alt="Water heater tank install" loading="lazy" /></div>
         <span class="ico">// 02 WATER HEATER</span>
         <h3>Water Heater Install + Repair</h3>
         <p>Tank, tankless, hybrid. Code-compliant venting, drain pan, seismic strap. 6-year warranty on every install — parts and labor.</p>
         <ul><li>Rheem, Bradford White, Rinnai, Navien</li><li>Gas, electric, heat-pump</li><li>Same-day diagnosis</li><li>Old unit haul-away</li></ul>
-      </div>
-      <div class="feature" id="pipe">
+      </a><a class="feature feature-link" id="pipe" href="pipe-replacement.html">
         <div class="photo-plate"><img src="images/underground-pipe.png" alt="Underground pipe replacement" loading="lazy" /></div>
         <span class="ico">// 03 PIPE</span>
         <h3>Pipe Replacement &amp; Locate</h3>
         <p>Partial repipe, service line pulls, leak locate with acoustic + tracer. Trenchless on qualifying runs — we skip the trench where we can.</p>
         <ul><li>Copper · PEX · HDPE</li><li>Trenchless pull</li><li>Utility pre-locate coordination</li><li>Permit pull included</li></ul>
-      </div>
-      <div class="feature" id="leak">
+      </a><a class="feature feature-link" id="leak" href="leak-detection.html">
         <div class="photo-plate"><img src="images/under-sink-plumbing.png" alt="Under-sink leak diagnosis" loading="lazy" /></div>
         <span class="ico">// 04 LEAK</span>
         <h3>Leak Detection</h3>
         <p>Find it first, fix it clean. Acoustic, thermal, and pressure testing — no exploratory drywall demolition on our watch.</p>
         <ul><li>Acoustic + thermal imaging</li><li>Slab leak locate</li><li>Pressure testing</li><li>Minimal-damage repair</li></ul>
-      </div>
-      <div class="feature" id="fixtures">
+      </a><a class="feature feature-link" id="fixtures" href="fixtures.html">
         <div class="photo-plate"><img src="images/faucet.png" alt="Bathroom faucet install" loading="lazy" /></div>
         <span class="ico">// 05 FIXTURES</span>
         <h3>Fixture Install + Repair</h3>
         <p>Faucet leaks, running toilets, disposals, angle stops, shower valves. Brand-agnostic — install what you buy, flat-rate.</p>
         <ul><li>Faucet &amp; shower valves</li><li>Toilet set / rebuild</li><li>Disposal install</li><li>Ice-maker &amp; dishwasher lines</li></ul>
-      </div>
-      <div class="feature" id="emergency">
+      </a><a class="feature feature-link" id="emergency" href="emergency-plumbing.html">
         <div class="photo-plate"><img src="images/toilet-mechanics.png" alt="Emergency toilet rebuild" loading="lazy" /></div>
         <span class="ico">// 06 EMERGENCY</span>
         <h3>Emergency Plumbing</h3>
         <p>24/7 dispatch. Burst pipes, back-ups, failing shut-offs. We answer — nights, weekends, holidays, 2am on Christmas Eve.</p>
         <ul><li>~35 min avg dispatch</li><li>Main shut-off coaching by phone</li><li>Same-night stabilization</li><li>Flat-rate on arrival</li></ul>
-      </div>
-      <div class="feature">
+      </a><a class="feature feature-link" id="remodel" href="remodel.html">
         <div class="photo-plate"><img src="images/finished-sink.png" alt="Finished kitchen sink install" loading="lazy" /></div>
         <span class="ico">// 07 REMODEL</span>
         <h3>Kitchen / Bath Remodel Plumbing</h3>
         <p>Rough-in and finish plumbing, coordinated with your GC or ours. Permitted, inspected, on schedule. Including tub-to-shower conversions.</p>
         <ul><li>Full rough-in packages</li><li>Vanity / shower valve relocate</li><li>Tub-to-shower conversion</li><li>GC coordination</li></ul>
-      </div>
-      <div class="feature">
+      </a><a class="feature feature-link" id="property" href="property-management.html">
         <div class="photo-plate"><img src="images/shower-1.png" alt="Shower valve rough-in" loading="lazy" /></div>
         <span class="ico">// 08 PROPERTY</span>
         <h3>Property Management Support</h3>
         <p>Rental turnover, scheduled maintenance, emergency escalation — direct line for PMs and landlords. Portfolio-friendly billing.</p>
         <ul><li>Turn-over checks</li><li>Scheduled PM packages</li><li>Portfolio invoicing</li><li>Tenant-friendly scheduling</li></ul>
-      </div>
-      <div class="feature">
+      </a><a class="feature feature-link" id="water-quality" href="water-filtration.html">
         <div class="photo-plate"><img src="images/water-filter.png" alt="Whole-home water filter install" loading="lazy" /></div>
         <span class="ico">// 09 WATER QUALITY</span>
         <h3>Water Filtration &amp; Quality</h3>
         <p>Whole-home filters, softeners, under-sink RO, and iron/sulfur treatment — sized to your supply and tested after install.</p>
         <ul><li>Whole-home filtration</li><li>Water softeners</li><li>Under-sink RO systems</li><li>Well-pump &amp; pressure-tank service</li></ul>
-      </div>
-    </div>
+      </a></div>
   </div>
 </section>
 
