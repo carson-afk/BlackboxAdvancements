@@ -143,8 +143,8 @@ export function initSplashFX(canvas) {
           // Depth-driven "flow" band — only dots near the current slice light up
           float flow = 1.0 - smoothstep(0.0, 0.02, abs(depthSample.r - uProgress));
 
-          // Purple-violet glow tint (replaces the red vec3(10,0,0) from the original)
-          vec3 maskColor = vec3(6.0, 1.6, 10.0) * dotMask * flow;
+          // Purple-violet glow tint (toned down so it doesn't compete with the headline text)
+          vec3 maskColor = vec3(3.5, 1.0, 6.0) * dotMask * flow;
 
           vec3 merged = blendScreen(base.rgb, maskColor);
 
