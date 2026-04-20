@@ -21,6 +21,7 @@
   <!-- ============== SPLASH / ENTRY GATE ============== -->
   <div class="splash" data-splash>
     <canvas class="splash-canvas" data-splash-canvas></canvas>
+    <canvas class="splash-webgl" data-splash-webgl></canvas>
     <div class="splash-mesh" aria-hidden="true"></div>
     <div class="splash-grid" aria-hidden="true"></div>
     <div class="splash-noise" aria-hidden="true"></div>
@@ -775,5 +776,32 @@
     </div>
   </footer>
   <script src="script.js"></script>
+
+  <!-- Splash WebGL FX (ported from 21st.dev hero-futuristic) -->
+  <script type="importmap">
+  {
+    "imports": {
+      "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
+      "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/"
+    }
+  }
+  </script>
+  <script type="module">
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const canvas = document.querySelector('[data-splash-webgl]');
+    const canvas2D = document.querySelector('[data-splash-canvas]');
+    if (canvas && !reduce) {
+      try {
+        const { initSplashFX } = await import('./assets/splash-fx.js');
+        const fx = initSplashFX(canvas);
+        if (fx) {
+          document.body.classList.add('splash-fx-on');
+          if (canvas2D) canvas2D.style.display = 'none';
+        }
+      } catch (err) {
+        console.warn('Splash WebGL FX failed, falling back to 2D particles.', err);
+      }
+    }
+  </script>
 </body>
 </html>
