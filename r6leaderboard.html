@@ -39,7 +39,7 @@
       <div class="r6-grid-bg"></div>
       <div class="r6-scanline"></div>
       <div class="container r6-hero-inner">
-        <span class="r6-eyebrow"><span class="dot-live"></span> LIVE &middot; Y11S2 &middot; OPERATION TIDAL TORRENT</span>
+        <span class="r6-eyebrow"><span class="dot-live" id="liveDot"></span><span id="liveLabel"> LIVE &middot; Y11S2 &middot; OPERATION TIDAL TORRENT</span></span>
         <h1 class="r6-title">R6 SIEGE <span class="r6-title-accent">RANKED</span> LEADERBOARD</h1>
         <p class="r6-sub">Top Champions across PC, PlayStation, and Xbox. RP, KD, win rate, headshot %. Look up any player by name.</p>
         <div class="r6-stats">
@@ -104,6 +104,7 @@
             <div class="r6-search-wrap">
               <input id="boardSearch" type="text" placeholder="Search player&hellip;" />
             </div>
+            <button id="refreshBtn" class="r6-chip refresh-chip" title="Refresh now">&#8635; Refresh</button>
           </div>
         </div>
 

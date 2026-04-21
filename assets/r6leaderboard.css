@@ -295,3 +295,7 @@
 }
 .r6-cta-card h2 { margin: 0 0 0.4rem; font-size: clamp(1.4rem, 2.4vw, 1.9rem); letter-spacing: -0.02em; }
 .r6-cta-card p { margin: 0; color: var(--muted); max-width: 640px; }
+
+.dot-live.offline { background: #ff3054; box-shadow: 0 0 0 4px rgba(255,48,84,0.25); animation: none; }
+.refresh-chip { display: inline-flex; align-items: center; gap: 0.35rem; }
+.refresh-chip:hover { color: var(--r6-orange); }
